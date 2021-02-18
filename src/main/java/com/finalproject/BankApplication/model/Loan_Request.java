@@ -1,4 +1,19 @@
 package com.finalproject.BankApplication.model;
 
-public class Loan_Request {
+import lombok.Data;
+
+import javax.persistence.*;
+import java.util.Date;
+
+@Entity
+@Data
+@Table(name="loan_requests")
+public class Loan_Request extends Transaction {
+    //also Loan_Request should have reason
+    private Date start_date;
+    private Date due_date;
+    private int pay_day;
+
+    @Enumerated
+    private Status status;
 }
