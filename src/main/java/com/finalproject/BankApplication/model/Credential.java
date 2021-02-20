@@ -1,23 +1,13 @@
 package com.finalproject.BankApplication.model;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 import java.util.Date;
 
 @Entity
-/*@SequenceGenerator(
-        name="ID_SEQ_GEN", //시퀀스 제너레이터 이름
-        sequenceName="ID_SEQ", //시퀀스 이름
-        initialValue=1, //시작값
-        allocationSize=1 //메모리를 통해 할당할 범위 사이즈
-)*/
-
-
-
-
 @Table
 public class Credential {
    /* @Id
@@ -51,6 +41,14 @@ public class Credential {
             nullable = false
     )
     private Date createDate;
+
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(
+            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+            nullable = false
+    )
+    private Date updateDate;
 
     @Enumerated(EnumType.STRING)
     @Column
@@ -98,5 +96,13 @@ public class Credential {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
     }
 }
