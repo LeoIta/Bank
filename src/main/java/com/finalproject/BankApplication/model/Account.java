@@ -11,6 +11,7 @@ import java.util.Set;
 @Table
 public class Account extends BaseEntity{
 
+    @Column
     private String account_number;
 
     @ManyToOne

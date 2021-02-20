@@ -9,7 +9,10 @@ import javax.persistence.*;
 @Table
 public class Credential extends BaseEntity{
 
+    @Column
     private String bankId;
+
+    @Column
     private String password;
 
     @OneToOne(targetEntity = Account.class)

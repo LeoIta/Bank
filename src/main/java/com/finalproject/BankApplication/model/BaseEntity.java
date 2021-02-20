@@ -5,7 +5,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 
 @Data
@@ -24,7 +24,9 @@ abstract class BaseEntity implements Serializable {
             updatable = false,
             nullable = false
     )
-    Date created_at;
+    //local date time implementation
+    //timestamp -> something better
+    LocalDateTime created_at;
 
 
     @UpdateTimestamp
@@ -34,5 +36,5 @@ abstract class BaseEntity implements Serializable {
             updatable = false,
             nullable = false
     )
-    Date modified_at;
+    LocalDateTime modified_at;
 }
