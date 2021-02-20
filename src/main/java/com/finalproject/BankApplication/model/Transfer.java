@@ -12,6 +12,6 @@ public class Transfer extends TransactionBase {
     private String recipient_bank_account;
     private String recipient_name;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Status status;
 }

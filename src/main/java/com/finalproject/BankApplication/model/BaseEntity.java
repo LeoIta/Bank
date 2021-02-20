@@ -18,10 +18,21 @@ abstract class BaseEntity implements Serializable {
     private int id;
 
     @CreationTimestamp
-    @Column(insertable=false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(
+            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
+            updatable = false,
+            nullable = false
+    )
     Date created_at;
 
+
     @UpdateTimestamp
-    @Column(insertable=false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(
+            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+            updatable = false,
+            nullable = false
+    )
     Date modified_at;
 }
