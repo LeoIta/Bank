@@ -1,12 +1,18 @@
 package com.finalproject.BankApplication.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
-@Entity
 @Data
-@Table
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
 public class Credential extends BaseEntity{
 
     @Column
@@ -20,4 +26,8 @@ public class Credential extends BaseEntity{
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "bank_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 }
