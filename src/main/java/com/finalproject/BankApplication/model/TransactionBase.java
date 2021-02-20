@@ -8,7 +8,7 @@ import javax.persistence.MappedSuperclass;
 
 @Data
 @MappedSuperclass
-public class Transaction extends BaseEntity{
+abstract class TransactionBase extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name="account_id")

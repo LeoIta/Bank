@@ -32,8 +32,6 @@ public class Account extends BaseEntity{
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
     private Set<Income> incomes = new HashSet<>();
 
-    //private Date created_at; we'll use private LocalDateTime created_at; from BaseEntity
-
     @Enumerated
     private Status account_status;
 

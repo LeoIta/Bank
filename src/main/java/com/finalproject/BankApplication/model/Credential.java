@@ -15,6 +15,6 @@ public class Credential extends BaseEntity{
     @OneToOne(targetEntity = Account.class)
     private Account account;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Role role;
 }

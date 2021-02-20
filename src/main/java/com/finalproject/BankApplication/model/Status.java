@@ -1,14 +1,14 @@
 package com.finalproject.BankApplication.model;
 
 public enum Status {
-    opened,
-    submitted,
-    pending,
-    approved,
-    rejected,
-    blocked,
-    confirmed,
-    aborted,
-    success,
-    failed,
+    OPENED,
+    SUBMITTED,
+    PENDING,
+    APPROVED,
+    REJECTED,
+    BLOCKED,
+    CONFIRMED,
+    ABORTED,
+    SUCCESS,
+    FAILED,
 }
