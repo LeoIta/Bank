@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Entity
 @Data
-@Table(name="address")
+@Table
 public class Address extends BaseEntity{
 
     private String country;

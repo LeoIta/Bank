@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name="transfers")
+@Table
 public class Transfer extends TransactionBase {
 
     private String recipient_bank_account;

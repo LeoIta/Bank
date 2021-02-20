@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Data
-@Table(name="accounts")
+@Table
 public class Account extends BaseEntity{
 
     private String account_number;

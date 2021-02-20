@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name="credentials")
+@Table
 public class Credential extends BaseEntity{
 
     private String bankId;

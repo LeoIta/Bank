@@ -10,7 +10,7 @@ import java.util.Date;
 
 @Entity
 @Data
-@Table(name="clients")
+@Table
 public class Client extends BaseEntity{
 
     private String first_name;
