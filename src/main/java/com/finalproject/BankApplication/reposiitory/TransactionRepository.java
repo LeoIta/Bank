@@ -1,4 +1,4 @@
 package com.finalproject.BankApplication.reposiitory;
 
-public interface TransferRepository {
+public interface TransactionRepository {
 }
