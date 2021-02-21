@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
-<div th:replace="fragments/navhome :: navhome"/>
+<div th:replace="fragments/navLogged :: navclient"/>
 <body th:style="'background-image: url(' + @{/images/background.png} + ');
                 background-repeat: no-repeat;
                 background-size: cover;
@@ -15,25 +15,23 @@
                 padding-top:10px;
                 padding-bottom:10px'">
         <form method="POST">
-            <h4>LOGIN</h4>
+            <h4>REQUEST A LOAN</h4>
             <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" name="username" class="form-control" id="username" required>
+                    <label for="start_date">Start Date</label>
+                    <input type="date" name="start_date" class="form-control" id="start_date" required>
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" name="password" class="form-control" id="password" required>
+                    <label for="due_date">Due Date</label>
+                    <input type="date" name="due_date" class="form-control" id="due_date" required>
+            </div>
+            <div class="form-group">
+                <label for="pay_day">Pay day</label>
+                <input type="number" name="pay_day" class="form-control" id="pay_day" min="1" max="28" required>
             </div>
             <br>
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-primary">Submit your request</button>
 
         </form>
-        <hr>
-        <div class="text-center">
-            New customer? <a th:href="@{/LKMBank/openAccount}">Create account</a>
-            <a th:href="@{/LKMBank/testuser/account}">after login</a>
-        </div>
     </div>
 </div>
 </body>
-</html>
