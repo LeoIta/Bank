@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All transactions</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+<h2>List of transactions</h2>
+
+<table>
+    <tr>
+        <th>id</th>
+        <th>created_at</th>
+        <th>modified_at</th>
+        <th>amount</th>
+        <th>reason</th>
+        <th>recipient_account</th>
+        <th>recipient_name</th>
+        <th>sender_account</th>
+        <th>sender_name</th>
+        <th>status</th>
+    </tr>
+
+    <#list transactions as transaction>
+    <tr>
+        <td>${transaction.id}</td>
+        <td>${transaction.created_at}</td>
+        <td>${transaction.modified_at}</td>
+        <td>${transaction.amount}</td>
+        <td>${transaction.reason}</td>
+        <td>${transaction.recipient_account}</td>
+        <td>${transaction.recipient_name}</td>
+        <td>${transaction.sender_account}</td>
+        <td>${transaction.sender_name}</td>
+        <td>${transaction.status}</td>
+    </tr>
+</#list>
+</table>
+</body>
+</html>
