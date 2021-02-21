@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
-<div th:replace="fragments/navhome :: navhome"/>
+<div th:replace="fragments/navLogged :: navclient"/>
 <body th:style="'background-image: url(' + @{/images/background.png} + ');
                 background-repeat: no-repeat;
                 background-size: cover;
@@ -26,7 +26,7 @@
             </div>
             <div class="form-group">
                 <label for="date_of_birth">Birthday</label>
-                <input type="date" name="date_of_birth" class="form-control" id="date_of_birth" required value="12-29-1983">
+                <input type="date" name="date_of_birth" class="form-control" id="date_of_birth" required value="11-17-1966">
             </div>
             <div class="form-group">
                 <label for="annual_income">Annual income</label>
@@ -40,7 +40,7 @@
             </div>
             <div class="form-group">
                 <label for="city">City</label>
-                <input type="text" name="city" class="form-control" id="city" required value="LA">
+                <input type="text" name="city" class="form-control" id="city" required value="Los Angeles">
             </div>
             <div class="form-group">
                 <label for="postcode">Postal Code</label>
@@ -52,8 +52,9 @@
             </div>
 <br>
             <button type="submit" class="btn btn-primary">Confirm your change</button>
+            <a type="button" th:href="@{/LKMBank/testuser/account/data/view}" class="btn btn-primary">Cancel</a>
         </form>
-        <a th:href="@{/LKMBank/testuser/account}">after login</a>
+        <a th:href="@{/LKMBank/testuser/account/data/view}">after confirmation</a>
     </div>
 </div>
 </body>
