@@ -38,7 +38,7 @@ public class CredentialController {
     @PostMapping(value="/signup")
     public ModelAndView createNewCredential(@Validated Credential credential, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
-        Credential credentialExists = credentialService.findByBankId(credential.getBankId());
+        Credential credentialExists = credentialService.findCredentialbyId(credential.getBankId());
         if(credentialExists != null){
             bindingResult
                     .rejectValue("bankId","error.credential","The id is already in use.");
@@ -57,7 +57,7 @@ public class CredentialController {
     public ModelAndView dashboard() {
         ModelAndView modelAndView = new ModelAndView();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Credential credential = credentialService.findByBankId(authentication.getName());
+        Credential credential = credentialService.findCredentialbyId(authentication.getName());
         modelAndView.addObject("bankId", "Welcome" + credential.getBankId());
         modelAndView.addObject("adminMsg", "This page is for bank officials only.");
         modelAndView.setViewName("admin/dashboard");

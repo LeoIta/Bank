@@ -8,12 +8,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.*;
 
-//conflicts with the baseEntity design
+
 @Service
 public class MyCredentialDetailService implements UserDetailsService {
 
@@ -22,7 +23,7 @@ public class MyCredentialDetailService implements UserDetailsService {
 
     @Override
     @Transactional
-    public UserDetails loadCredentialById(String bankId){
+    public UserDetails loadUserByUsername(String bankId){
         Credential credential = credentialService.findCredentialbyId(bankId);
         List<GrantedAuthority> authorities = getCredentialRole(credential.getRoles());
         return buildCredentialForAuthentication(credential,authorities);
@@ -32,14 +33,16 @@ public class MyCredentialDetailService implements UserDetailsService {
     private List<GrantedAuthority> getCredentialRole(Set<Role> credentialRoles) {
         Set<GrantedAuthority> roles = new HashSet<>();
         for (Role role : credentialRoles){
-            roles.add(new SimpleGrantedAuthority(role.getRoles()));
+            roles.add(new SimpleGrantedAuthority(role.getRole()));
         }
         return new ArrayList<>(roles);
     }
 
     private UserDetails buildCredentialForAuthentication(Credential credential, List<GrantedAuthority> authorities) {
-        return new org.springframework.security.core.userdetails.User(credential.getBankId(), credential.getPassword(),
-                authorities);
+        return new org.springframework.security.core.userdetails.User(
+                credential.getBankId(), credential.getPassword(), authorities
+        );
 
     }
+
 }
