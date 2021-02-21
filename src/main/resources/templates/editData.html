@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"/>
+<div th:replace="fragments/navhome :: navhome"/>
+<body th:style="'background-image: url(' + @{/images/background.png} + ');
+                background-repeat: no-repeat;
+                background-size: cover;
+                height=100%'">
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5" th:style="'border-color: rgba(224, 228, 228, 0.801);
+                border-style: solid;
+                border-radius: 10px;
+                border-width: 1px;
+                padding-top:10px;
+                padding-bottom:10px'">
+        <form method="POST">
+            <h4>EDIT YOUR DATA</h4>
+            <div class="form-group">
+                <label for="first_name">First name</label>
+                <input type="text" name="first_name" class="form-control" id="first_name" required value="John">
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last name</label>
+                <input type="text" name="last_name" class="form-control" id="last_name" required value="Geller">
+            </div>
+            <div class="form-group">
+                <label for="date_of_birth">Birthday</label>
+                <input type="date" name="date_of_birth" class="form-control" id="date_of_birth" required value="12-29-1983">
+            </div>
+            <div class="form-group">
+                <label for="annual_income">Annual income</label>
+                <input type="number" name="annual_income" class="form-control" id="annual_income" required value=10000>
+            </div>
+            <hr>
+            <h6>Address</h6>
+            <div class="form-group">
+                <label for="country">Country</label>
+                <input type="text" name="country" class="form-control" id="country" required value="California">
+            </div>
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" name="city" class="form-control" id="city" required value="LA">
+            </div>
+            <div class="form-group">
+                <label for="postcode">Postal Code</label>
+                <input type="tel" name="postcode" class="form-control" id="postcode" required value="01-234">
+            </div>
+            <div class="form-group">
+                <label for="street">Street</label>
+                <input type="text" name="street" class="form-control" id="street" required value="WallStreet 14">
+            </div>
+<br>
+            <button type="submit" class="btn btn-primary">Confirm your change</button>
+        </form>
+        <a th:href="@{/LKMBank/testuser/account}">after login</a>
+    </div>
+</div>
+</body>
