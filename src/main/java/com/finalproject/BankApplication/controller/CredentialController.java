@@ -3,13 +3,16 @@ package com.finalproject.BankApplication.controller;
 import com.finalproject.BankApplication.model.Credential;
 import com.finalproject.BankApplication.service.CredentialService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -18,14 +21,14 @@ public class CredentialController {
     @Autowired
     private CredentialService credentialService;
 
-    @GetMapping(value={"/","/login"})
+    @RequestMapping(value={"/","/login"}, method = RequestMethod.GET)
     public ModelAndView login(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login");
         return modelAndView;
     }
 
-    @GetMapping(value="/signup")
+    @RequestMapping(value="/signup", method = RequestMethod.GET)
     public ModelAndView signUp(){
         ModelAndView modelAndView = new ModelAndView();
         Credential credential = new Credential();
@@ -35,7 +38,7 @@ public class CredentialController {
 
     }
 
-    @PostMapping(value="/signup")
+    @RequestMapping(value="/signup", method = RequestMethod.POST)
     public ModelAndView createNewCredential(@Validated Credential credential, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         Credential credentialExists = credentialService.findCredentialbyId(credential.getBankId());
@@ -53,7 +56,7 @@ public class CredentialController {
         return modelAndView;
     }
 
-    @GetMapping(value="/admin/dashboard")
+    @RequestMapping(value="/admin/dashboard", method = RequestMethod.GET)
     public ModelAndView dashboard() {
         ModelAndView modelAndView = new ModelAndView();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -63,5 +66,7 @@ public class CredentialController {
         modelAndView.setViewName("admin/dashboard");
         return modelAndView;
     }
+
+
 
 }

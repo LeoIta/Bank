@@ -2,9 +2,14 @@ package com.finalproject.BankApplication.model;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.domain.Auditable;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -18,26 +23,11 @@ abstract class BaseEntity implements Serializable {
     @Column(insertable=false)
     private int id;
 
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(
-            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
-            updatable = false,
-            nullable = false
-    )
-    //local date time implementation
-    //timestamp -> something better
-    LocalDateTime created_at;
+    //created_at, modified at with LocalDateTime should be implemented.
 
 
-    @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(
-            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
-            updatable = false,
-            nullable = false
-    )
-    LocalDateTime modified_at;
+
+
 
 
 }

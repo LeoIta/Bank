@@ -25,12 +25,10 @@ public class Credential extends BaseEntity{
     @OneToOne(targetEntity = Account.class)
     private Account account;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    /*@Enumerated(EnumType.STRING)
+    private Role role;*/
 
     @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(
-            name = "role", joinColumns = @JoinColumn(name = "bank_id"
-    ), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 }
