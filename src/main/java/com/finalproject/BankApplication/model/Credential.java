@@ -14,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table
-public class Credential extends BaseEntity{
+public class Credential extends BaseEntity {
 
     @Column
     private String bankId;

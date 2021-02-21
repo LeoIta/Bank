@@ -32,7 +32,7 @@ public class CredentialController {
     public ModelAndView signUp(){
         ModelAndView modelAndView = new ModelAndView();
         Credential credential = new Credential();
-        modelAndView.addObject("bankId", credential);
+        modelAndView.addObject("credential", credential);
         modelAndView.setViewName("signup");
         return modelAndView;
 

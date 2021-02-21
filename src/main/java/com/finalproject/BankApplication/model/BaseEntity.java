@@ -21,7 +21,7 @@ abstract class BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     @Column(insertable=false)
-    private int id;
+    private Integer id;
 
     //created_at, modified at with LocalDateTime should be implemented.
 
