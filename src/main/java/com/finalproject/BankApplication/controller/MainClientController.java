@@ -37,7 +37,12 @@ public class MainClientController {
 
     @GetMapping("/{bankId}/account")
     public String dashboard(@RequestParam("bankId") String bankId){
-        return "mainDashboard";
+        return "maindashboard";
+    }
+
+    @GetMapping("/testuser/account")
+    public String dashboard(){
+        return "maindashboard";
     }
 
     @GetMapping("/{bankId}/account/data/view")
@@ -65,7 +70,7 @@ public class MainClientController {
         return "balance";
     }
 
-    @GetMapping("/loan/")
+    @GetMapping("/loan")
     public String askLoanExternal(){
         return "loan";
     }
@@ -83,6 +88,26 @@ public class MainClientController {
     @GetMapping("/{bankId}/account/loan")
     public String LoanInternal(@RequestParam("bankId") String bankId){
         return "loan";
+    }
+
+    @GetMapping("/testuser/account/loan")
+    public String getLoanInternal(){
+        return "loggedLoan";
+    }
+
+    @GetMapping("/testuser/account/data/view")
+    public String getdata(){
+        return "data";
+    }
+
+    @PostMapping("/testuser/account/data/change")
+    public String updatedata(){
+        return "editData";
+    }
+
+    @GetMapping("/testuser/account/data/change")
+    public String editdata(){
+        return "editData";
     }
 
 }

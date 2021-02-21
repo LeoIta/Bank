@@ -1,12 +1,78 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
-<div th:replace="fragments/nav :: navhome"/>
+<div th:replace="fragments/navhome :: navhome"/>
 <body th:style="'background-image: url(' + @{/images/background.png} + ');
                 background-repeat: no-repeat;
                 background-size: cover;
                 height=100%'">
 
-Loan Form to complete
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5" th:style="'border-color: rgba(224, 228, 228, 0.801);
+                border-style: solid;
+                border-radius: 10px;
+                border-width: 1px;
+                padding-top:10px;
+                padding-bottom:10px'">
+        <form method="POST">
+            <h4>REQUEST A LOAN</h4>
+            <div class="form-group">
+                <label for="first_name">First name</label>
+                <input type="text" name="first_name" class="form-control" id="first_name" required>
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last name</label>
+                <input type="text" name="last_name" class="form-control" id="last_name" required>
+            </div>
+            <div class="form-group">
+                <label for="date_of_birth">Birthday</label>
+                <input type="date" name="date_of_birth" class="form-control" id="date_of_birth" required>
+            </div>
+
+            <div class="form-group">
+                <label for="annual_income">Annual income</label>
+                <input type="number" name="annual_income" class="form-control" id="annual_income" min="0" required>
+            </div>
+            <hr>
+            <h6>Address</h6>
+            <div class="form-group">
+                <label for="country">Country</label>
+                <input type="text" name="country" class="form-control" id="country" required>
+            </div>
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" name="city" class="form-control" id="city" required>
+            </div>
+            <div class="form-group">
+                <label for="postcode">Postal Code</label>
+                <input type="tel" name="postcode" class="form-control" id="postcode" required>
+            </div>
+            <div class="form-group">
+                <label for="street">Street</label>
+                <input type="text" name="street" class="form-control" id="street" required>
+            </div>
+            <hr>
+            <h6>Loan details</h6>
+            <div class="form-group">
+                    <label for="start_date">Start Date</label>
+                    <input type="date" name="start_date" class="form-control" id="start_date" required>
+            </div>
+            <div class="form-group">
+                    <label for="due_date">Due Date</label>
+                    <input type="date" name="due_date" class="form-control" id="due_date" required>
+            </div>
+            <div class="form-group">
+                <label for="pay_day">Pay day</label>
+                <input type="number" name="pay_day" class="form-control" id="pay_day" min="1" max="28" required>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Submit your request</button>
+
+        </form>
+        <hr>
+        <div class="text-center">
+            Do you already have an account? <a th:href="@{/LKMBank/login}">Login here</a>
+        </div>
+    </div>
+</div>
 </body>
-</html>
