@@ -29,6 +29,8 @@ public class Credential extends BaseEntity{
     private Role role;
 
     @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "bank_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(
+            name = "role", joinColumns = @JoinColumn(name = "bank_id"
+    ), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 }
