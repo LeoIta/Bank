@@ -1,4 +1,4 @@
 package com.finalproject.BankApplication.service;
 
-public class CredentialService {
+public class AssessmentService {
 }

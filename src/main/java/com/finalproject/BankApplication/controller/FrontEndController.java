@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @RequestMapping("LKMBank")
 @Controller
-public class MainClientController {
+public class FrontEndController {
 
     @GetMapping()
     public String home(){
@@ -39,6 +39,17 @@ public class MainClientController {
     public String dashboard(@RequestParam("bankId") String bankId){
         return "maindashboard";
     }
+
+    @GetMapping("/bank/{tellerId}/account")
+    public String tellerDashboard(@RequestParam("tellerId") String bankId){
+        return "tellerDashboard";
+    }
+
+    @GetMapping("/bank/teller/account")
+    public String tellDashboard(){
+        return "Assessment";
+    }
+
 
     @GetMapping("/testuser/account")
     public String dashboard(){
