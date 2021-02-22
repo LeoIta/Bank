@@ -13,9 +13,10 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table
-public class Account extends BaseEntity{
+public class Account extends TimeEntity{
 
-    private String account_number;
+    @Column(name="account_number")
+    private String accountNumber;
 
     public Account(Customer customer, long balance) {
         this.customer = customer;

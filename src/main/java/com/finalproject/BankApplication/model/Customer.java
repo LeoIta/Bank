@@ -19,7 +19,6 @@ public class Customer extends PersonEntity{
     @OneToOne(targetEntity = Account.class)
     private Account account;
 
-
     private Date dateOfBirth;
     private String annualIncome;
     @ManyToOne

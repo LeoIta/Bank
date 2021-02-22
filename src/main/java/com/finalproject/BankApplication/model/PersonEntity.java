@@ -13,12 +13,8 @@ import javax.persistence.*;
     @NoArgsConstructor
     @AllArgsConstructor
     @Table
-    public abstract class PersonEntity{
+    public abstract class PersonEntity extends BaseEntity{
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY )
-        @Column(insertable=false)
-        private int id;
 
         private String bankId;
         private String password;
