@@ -1,4 +1,4 @@
 package com.finalproject.BankApplication.controller;
 
-public class CredentialController {
+public class CustomerController {
 }

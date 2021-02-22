@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"/>
+<div th:replace="fragments/navLogged :: navClient"/>
+<body th:style="'background-image: url(' + @{/images/background.png} + ');
+                background-repeat: no-repeat;
+                background-size: cover;
+                height=100%'">
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-3" th:style="'border-color: rgba(224, 228, 228, 0.801);
+                border-style: solid;
+                border-radius: 10px;
+                border-width: 1px;
+                padding-top:10px;
+                padding-bottom:10px'">
+        <form method="POST">
+            <h4>MAKE TRANSFER</h4>
+            <br>
+            <div class="card-text">
+                <h5><b>Current balance: </b>10000</h5>
+                <br></div>
+            <div class="form-group">
+                <label for="sender_account">Sender account</label>
+                <input type="text" name="sender_account" class="form-control" id="sender_account"
+                       value="32 4787 4781 4737 3728 7392 5353" required>
+            </div>
+            <div class="form-group">
+                <label for="sender_name">Sender name</label>
+                <input type="text" name="sender_name" class="form-control" id="sender_name"
+                       value="John Geller" required>
+            </div>
+<hr>
+            <div class="form-group">
+                <label for="recipient_account">Recipient account</label>
+                <input type="text" name="recipient_account" class="form-control" id="recipient_account" required>
+            </div>
+            <div class="form-group">
+                <label for="recipient_name">Recipient name</label>
+                <input type="text" name="recipient_name" class="form-control" id="recipient_name" required>
+            </div>
+    <hr>
+            <div class="form-group">
+                <label for="amount">Amount</label>
+                <input type="number" name="amount" class="form-control" id="amount" min="0" required>
+            </div>
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" name="title" class="form-control" id="title" required>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Confirm transfer</button>
+            <a type="button" th:href="@{/LKMBank/testuser/account}" class="btn btn-primary">Cancel</a>
+        </form>
+        <hr>
+    </div>
+</div>
+
+</body>
+</html>

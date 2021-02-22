@@ -1,23 +1,24 @@
 package com.finalproject.BankApplication.model;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table
-public class Transaction extends BaseEntity{
+public class Transaction extends TimeEntity{
 
-    private String recipient_account;
-    private String recipient_name;
-    private String sender_account;
-    private String sender_name;
+    private String recipientAccount;
+    private String recipientName;
+    private String senderAccount;
+    private String senderName;
 
     private long amount;
     private String reason;
 
-    @Enumerated(EnumType.STRING)
-    private Status status;
 
 }

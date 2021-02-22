@@ -15,7 +15,7 @@
                 padding-top:10px;
                 padding-bottom:10px'">
         <form method="POST">
-            <h4>REQUEST A LOAN</h4>
+            <h4>OPEN NEW ACCOUNT</h4>
             <div class="form-group">
                 <label for="first_name">First name</label>
                 <input type="text" name="first_name" class="form-control" id="first_name" required>
@@ -25,13 +25,20 @@
                 <input type="text" name="last_name" class="form-control" id="last_name" required>
             </div>
             <div class="form-group">
+                <label for="mail">Email</label>
+                <input type="email" name="mail" class="form-control" id="mail" required>
+            </div>
+            <div class="form-group">
                 <label for="date_of_birth">Birthday</label>
                 <input type="date" name="date_of_birth" class="form-control" id="date_of_birth" required>
             </div>
-
             <div class="form-group">
                 <label for="annual_income">Annual income</label>
                 <input type="number" name="annual_income" class="form-control" id="annual_income" min="0" required>
+            </div>
+            <div class="form-group">
+                <label for="first_deposit">First deposit</label>
+                <input type="number" name="first_deposit" class="form-control" id="first_deposit" min="50" required>
             </div>
             <hr>
             <h6>Address</h6>
@@ -51,27 +58,8 @@
                 <label for="street">Street</label>
                 <input type="text" name="street" class="form-control" id="street" required>
             </div>
-            <hr>
-            <h6>Loan details</h6>
-            <div class="form-group">
-                    <label for="start_date">Start Date</label>
-                    <input type="date" name="start_date" class="form-control" id="start_date" min="2021-03-01" required>
-            </div>
-            <div class="form-group">
-                    <label for="due_date">Due Date</label>
-                    <input type="date" name="due_date" class="form-control" id="due_date" min="2021-04-01"required>
-            </div>
-            <div class="form-group">
-                <label for="pay_day">Pay day</label>
-                <input type="number" name="pay_day" class="form-control" id="pay_day" min="1" max="28" required>
-            </div>
-            <div class="form-group">
-                <label for="reason">Reason</label>
-                <input type="text" name="reason" class="form-control" id="reason" required>
-            </div>
-            <br>
+<br>
             <button type="submit" class="btn btn-primary">Submit your request</button>
-
         </form>
         <hr>
         <div class="text-center">
