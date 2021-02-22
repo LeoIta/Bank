@@ -16,9 +16,12 @@ public class Loan extends BaseEntity{
     @OneToOne(targetEntity = Account.class)
     private Account account;
 
-    private Date start_date;
-    private Date due_date;
-    private int pay_day;
+    @Column(name = "start_date" )
+    private Date startDate;
+    @Column(name = "due_date" )
+    private Date dueDate;
+    @Column(name = "pay_day" )
+    private int payDay;
 
     @Enumerated(EnumType.STRING)
     private Status status;

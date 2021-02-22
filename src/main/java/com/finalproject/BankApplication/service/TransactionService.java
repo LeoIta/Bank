@@ -20,38 +20,50 @@ public class TransactionService {
         return (List<Transaction>) transactionRepository.findAll();
     }
 
-    public List<Transaction> getTransactionBySender(String bankId){
+
+    // optimum method
+    /*public List<Transaction> getTransactionsByReceiver(String bankId){
         List<Transaction> transactions = new ArrayList<>();
         System.out.println("Sender");
-        for (Transaction transaction :  transactionRepository.findAll()){
-            if (transaction.getSender_account().equals(bankId)){
-                transactions.add(transaction);
-            }
-        }
+        transactions = transactionRepository.findByRecipient_Account(bankId);
+        return  transactions;
+    }*/
+
+    /*public List<Transaction> getTransactionsBySender(String bankId){
+        List<Transaction> transactions = new ArrayList<>();
+        System.out.println("Sender");
+        transactions = transactionRepository.findBySender_account(bankId);
+        return  transactions;
+    }*/
+
+    public List<Transaction> getTransactionsByAmount(long amount){
+        List<Transaction> transactions = new ArrayList<>();
+        System.out.println("Sender");
+        //transactions = transactionRepository.findByAmount(amount);
+        transactionRepository.findByAmount(amount).forEach(transactions::add);
         return  transactions;
     }
 
-    public List<Transaction> getTransactionByRecipient(String account_number){
+    //outcome
+    public List<Transaction> getTransactionsBySender(String account_number){
         List<Transaction> transactions = new ArrayList<>();
-        System.out.println("recipient");
-        for (Transaction transaction :  transactionRepository.findAll()){
-            if (transaction.getRecipient_account().equals(account_number)){
-                transactions.add(transaction);
-            }
-        }
+        System.out.println("Sender");
+        transactions = transactionRepository.findBySenderAccount(account_number);
         return  transactions;
-        //transactions =  transactionRepository.findTransactionByRecipient_account(account_number);
-
-        //return transactions;
+    }
+    //INCOME
+    public List<Transaction> getTransactionsByRecipient(String account_number){
+        List<Transaction> transactions = new ArrayList<>();
+        transactions =  transactionRepository.findByRecipientAccount(account_number);
+        return transactions;
     }
 
 
     public List<Transaction> getAllUserTransactions(String account_number){
         List<Transaction> allTransactions = new ArrayList<>();
-
         System.out.println("Sent and received");
         for (Transaction transaction :  transactionRepository.findAll()){
-            if (transaction.getRecipient_account().equals(account_number) || transaction.getSender_account().equals(account_number) ){
+            if (transaction.getRecipientAccount().equals(account_number) || transaction.getSenderAccount().equals(account_number) ){
                 allTransactions.add(transaction);
             }
         }

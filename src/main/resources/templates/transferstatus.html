@@ -4,13 +4,20 @@
 <div th:replace="fragments/navhome :: navhome"/>
 <body th:style="'background-image: url(' + @{/images/background.png} + ');'">
 
+<h1>Information about your transaction </h1>
+    <p th:text="'Your transaction of '+ ${transaction.amount} +'$ to ' + ${transaction.recipientName}+ ' was ' + ${transaction.status}" />
 
-<h2>Transactions  pages </h2>
+    <a href="/transfer">Make another transfer</a>
+
+
+</form>
+
+
+
 
 <p>
-    <a th:href="@{/transfer}">make a transfer</a>
+    <a th:href="@{/transaction}">go back to transaction page</a>
 </p>
-
 
 <p>
     <a th:href="@{/transactions}">Show All transactions</a>

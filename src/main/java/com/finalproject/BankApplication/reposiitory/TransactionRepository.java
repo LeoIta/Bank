@@ -11,7 +11,9 @@ import java.util.List;
 public interface TransactionRepository extends CrudRepository<Transaction,Integer> {
 
 
-   //public List<Transaction> findTransactionByRecipient_account(String account_number);
+   public List<Transaction> findByRecipientAccount(String recipient_account);
+   public List<Transaction> findBySenderAccount(String sender_account);
+   public List<Transaction> findByAmount(long amount);
 
 
 }
