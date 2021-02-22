@@ -1,43 +1,28 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>All transactions</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"/>
+<div th:replace="fragments/navhome :: navhome"/>
+<body th:style="'background-image: url(' + @{/images/background.png} + ');'">
 
-<body>
 
-<h2>List of transactions</h2>
+<h2>Transactions  pages </h2>
 
-<table>
-    <tr>
-        <th>id</th>
-        <th>created_at</th>
-        <th>modified_at</th>
-        <th>amount</th>
-        <th>reason</th>
-        <th>recipient_account</th>
-        <th>recipient_name</th>
-        <th>sender_account</th>
-        <th>sender_name</th>
-        <th>status</th>
-    </tr>
+<p>
+    <a th:href="@{/transfer}">make a transfer</a>
+</p>
 
-    <#list transactions as transaction>
-    <tr>
-        <td>${transaction.id}</td>
-        <td>${transaction.created_at}</td>
-        <td>${transaction.modified_at}</td>
-        <td>${transaction.amount}</td>
-        <td>${transaction.reason}</td>
-        <td>${transaction.recipient_account}</td>
-        <td>${transaction.recipient_name}</td>
-        <td>${transaction.sender_account}</td>
-        <td>${transaction.sender_name}</td>
-        <td>${transaction.status}</td>
-    </tr>
-</#list>
-</table>
+
+<p>
+    <a th:href="@{/transactions}">Show All transactions</a>
+</p>
+
+<p>
+    <a th:href="@{/transactions/bysender}">Show transactions By sender 6666 </a>
+</p>
+
+<p>
+    <a th:href="@{/transactions/byrecipient}">Show transactions By recipient 12345 </a>
+</p>
+
 </body>
 </html>
