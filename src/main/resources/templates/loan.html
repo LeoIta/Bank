@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
-<div th:replace="fragments/navhome :: navhome"/>
+<div th:replace="fragments/navHome :: navHome"/>
 <body th:style="'background-image: url(' + @{/images/background.png} + ');
                 background-repeat: no-repeat;
                 background-size: cover;
@@ -55,15 +55,19 @@
             <h6>Loan details</h6>
             <div class="form-group">
                     <label for="start_date">Start Date</label>
-                    <input type="date" name="start_date" class="form-control" id="start_date" required>
+                    <input type="date" name="start_date" class="form-control" id="start_date" min="2021-03-01" required>
             </div>
             <div class="form-group">
                     <label for="due_date">Due Date</label>
-                    <input type="date" name="due_date" class="form-control" id="due_date" required>
+                    <input type="date" name="due_date" class="form-control" id="due_date" min="2021-04-01"required>
             </div>
             <div class="form-group">
                 <label for="pay_day">Pay day</label>
                 <input type="number" name="pay_day" class="form-control" id="pay_day" min="1" max="28" required>
+            </div>
+            <div class="form-group">
+                <label for="reason">Reason</label>
+                <input type="text" name="reason" class="form-control" id="reason" required>
             </div>
             <br>
             <button type="submit" class="btn btn-primary">Submit your request</button>

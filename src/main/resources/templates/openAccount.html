@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
-<div th:replace="fragments/navhome :: navhome"/>
+<div th:replace="fragments/navHome :: navHome"/>
 <body th:style="'background-image: url(' + @{/images/background.png} + ');
                 background-repeat: no-repeat;
                 background-size: cover;
@@ -25,12 +25,20 @@
                 <input type="text" name="last_name" class="form-control" id="last_name" required>
             </div>
             <div class="form-group">
+                <label for="mail">Email</label>
+                <input type="email" name="mail" class="form-control" id="mail" required>
+            </div>
+            <div class="form-group">
                 <label for="date_of_birth">Birthday</label>
                 <input type="date" name="date_of_birth" class="form-control" id="date_of_birth" required>
             </div>
             <div class="form-group">
                 <label for="annual_income">Annual income</label>
-                <input type="number" name="annual_income" class="form-control" id="annual_income" required>
+                <input type="number" name="annual_income" class="form-control" id="annual_income" min="0" required>
+            </div>
+            <div class="form-group">
+                <label for="first_deposit">First deposit</label>
+                <input type="number" name="first_deposit" class="form-control" id="first_deposit" min="50" required>
             </div>
             <hr>
             <h6>Address</h6>

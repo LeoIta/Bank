@@ -1,47 +1,76 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:c="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
-<div th:replace="fragments/navhome :: navhome"/>
-<body th:style="'background-image: url(' + @{/images/background.png} + ');'">
-<h1 align="center">Here are the transactions let see</h1>
+<div th:replace="fragments/navLogged :: navClient"/>
+<body th:style="'background-image: url(' + @{/images/background.png} + ');
+                background-repeat: no-repeat;
+                background-size: cover;
+                height=100%'">
+<br><h3 align="center">Transaction details</h3><br>
+<div align="center" th:style="'margin: auto;
+  width: 60%;
+  border: 3px solid rgba(224, 228, 228, 0.801);
+  padding: 10px;rgba(224, 228, 228, 0.801);'">
 
-
-<div class="myc">
-    <table class="table table-dark">
-        <thead>
+    <table class="table table-secondary table-bordered mt-5 align-middle">
+        <head>
         <tr>
-            <th>id</th>
-            <th>created_at</th>
-            <th>modified_at</th>
-            <th>amount</th>
-            <th>reason</th>
-            <th>recipient_account</th>
-            <th>recipient_name</th>
-            <th>sender_account</th>
-            <th>sender_name</th>
-            <th>status</th>
+            <th rowspan="2">balance</th>
+            <th rowspan="2">amount</th>
+            <th rowspan="2">date</th>
+            <th rowspan="2">title</th>
+            <th colspan="2" style="vertical-align : middle;text-align:center;">recipient</th>
+            <th colspan="2" style="vertical-align : middle;text-align:center;">sender</th>
         </tr>
-        </thead>
-        <tbody>
-        <th:block th:each="transaction :  ${transactions}">
-            <tr>
-                <td>  <p th:text="${transaction.id}" /> </td>
-                <td>  <p th:text="${transaction.created_at}" /> </td>
-                <td>  <p th:text="${transaction.modified_at}"/> </td>
-                <td>  <p th:text="${transaction.amount}" /> </td>
-                <td>  <p th:text="${transaction.reason}" /> </td>
-                <td>  <p th:text="${transaction.recipientAccount}"/> </td>
-                <td>  <p th:text="${transaction.recipientName}" /> </td>
-                <td>  <p th:text="${transaction.senderAccount}" /> </td>
-                <td>  <p th:text="${transaction.senderName}"/> </td>
-                <td>  <p th:text="${transaction.status}"/> </td>
-            </tr>
+        <tr>
+            <th>account</th>
+            <th>name</th>
+            <th>account</th>
+            <th>name</th>
+        </tr>
+        </head>
 
-        </th:block>
+        <tr>
+            <td> 10000 </td>
+            <td> 10000 </td>
+            <td> 01-11-2020 10:20:30</td>
+            <td> Opening account</td>
+            <td>32 4787 4781 4737 3728 7392 5353</td>
+            <td> John Geller </td>
+            <td>32 7049 6037 5949 4912 0459 8181</td>
+            <td> LKM Bank </td>
+        </tr>
+        <tr>
+            <td> 8800 </td>
+            <td> -1200 </td>
+            <td> 02-22-2021 11:10:30</td>
+            <td> ThinkPad Lenovo </td>
+            <td>14 2969 2963 2919 1900 5174 3535</td>
+            <td> Amazon </td>
+            <td>32 4787 4781 4737 3728 7392 5353</td>
+            <td> John Geller </td>
+        </tr>
+        <tr>
+            <td> 15300 </td>
+            <td> 6500 </td>
+            <td> 02-21-2021 09:35:42</td>
+            <td> Salary </td>
+            <td>32 4787 4781 4737 3728 7392 5353</td>
+            <td> John Geller </td>
+            <td>28 5938 5926 5838 3801 0348 7070</td>
+            <td> Microsoft </td>
+        </tr>
+        <tr>
+            <td> 14800 </td>
+            <td> -500 </td>
+            <td> 02-22-2021 09:00:00</td>
+            <td> Loan monthly payment </td>
+            <td>32 7049 6037 5949 4912 0459 8181</td>
+            <td> LKM Bank </td>
+            <td>32 4787 4781 4737 3728 7392 5353</td>
+            <td> John Geller </td>
+        </tr>
     </table>
 </div>
-
-<a align="center" href ="/transaction"/> go back
-
 </body>
 </html>

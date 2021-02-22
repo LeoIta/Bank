@@ -110,4 +110,18 @@ public class MainClientController {
         return "editData";
     }
 
+    @GetMapping("/testuser/account/maketransfer")
+    public String makeTransfer(){
+        return "transfers";
+    }
+
+    @GetMapping("/testuser/account/transactions")
+    public String checkHistory(){
+        return "transactions";
+    }
+
+    @GetMapping("/testuser/account/loandetails")
+    public String checkLoan(){
+        return "loandetails";
+    }
 }
