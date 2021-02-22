@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
-<div th:replace="fragments/navLogged :: navclient"/>
+<div th:replace="fragments/navLogged :: navClient"/>
 <body th:style="'background-image: url(' + @{/images/background.png} + ');
                 background-repeat: no-repeat;
                 background-size: cover;
@@ -15,7 +15,7 @@
                 <p class="card-text">32 4787 4781 4737 3728 7392 5353</p>
                 <p class="card-text"><b>Balance:</b></p>
                 <p class="card-text">10000</p>
-                <a th:href="@{/LKMBank/testuser/transactions}" class="btn btn-primary">Show details</a>
+                <a th:href="@{/LKMBank/testuser/account/transactions}" class="btn btn-primary">Show details</a>
                 <a th:href="@{/LKMBank/testuser/account/maketransfer}" class="btn btn-primary">Make transaction</a>
             </div></div>
     <br><br>
