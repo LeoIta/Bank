@@ -14,7 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table
-public class Loan extends BaseEntity{
+public class Loan extends TimeEntity{
     private long amount;
     private String reason;
 
@@ -28,10 +28,11 @@ public class Loan extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private FormStatus loanStatus;
 
+    @OneToOne
     private Assessment assessment;
 
     public Loan(long amount, String reason, Account account, Date startDate,
-                Date due_date, int payDay) {
+                Date dueDate, int payDay) {
         this.amount = amount;
         this.reason = reason;
         this.account = account;

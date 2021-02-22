@@ -15,7 +15,7 @@ import static com.finalproject.BankApplication.model.AssessmentStatus.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table
-public class Assessment extends BaseEntity{
+public class Assessment extends TimeEntity{
 
     @OneToOne
     private Account accountForm;
