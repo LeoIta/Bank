@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head th:replace="header :: header"/>
 <body>
 <div th:fragment="navhome">
@@ -21,8 +21,8 @@
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Request a loan</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" th:href="@{/LKMBank/login}">Our client</a></li>
-                        <li><a class="dropdown-item" th:href="@{/LKMBank/loan}">Not our client</a></li>
+                        <li><a class="dropdown-item" th:href="@{/login}">Our client</a></li>
+                        <li><a class="dropdown-item" th:href="@{/loan}">Not our client</a></li>
                     </ul>
                 </li>
             </ul>
@@ -31,11 +31,11 @@
 
             <ul class="navbar-nav" style="padding-right:50px">
 
-                <li><a class="btn btn-link" th:href="@{/LKMBank/openAccount}">
+                <li><a class="btn btn-link" th:href="@{/signup}">
                     <button type="button" class="btn btn-outline-warning" style="color:black">Open Account</button>
                 </a></li>
 
-                <li><a class="btn btn-link" th:href="@{/LKMBank/login}">
+                <li><a class="btn btn-link" th:href="@{/login}">
                     <button type="button" class="btn btn-outline-warning" style="color:black">Login</button>
                 </a></li>
             </ul>
