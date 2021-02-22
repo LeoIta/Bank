@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
-<div th:replace="fragments/navLogged :: navclient"/>
+<div th:replace="fragments/navLogged :: navClient"/>
 <body th:style="'background-image: url(' + @{/images/background.png} + ');
                 background-repeat: no-repeat;
                 background-size: cover;
@@ -13,17 +13,21 @@
   border: 3px solid rgba(224, 228, 228, 0.801);
   padding: 10px;rgba(224, 228, 228, 0.801);'">
 
-    <table class="table table-secondary mt-5 align-middle">
+    <table class="table table-secondary table-bordered mt-5 align-middle">
         <head>
             <tr>
-                <th>loan amount</th>
-                <th>amount</th>
-                <th>date</th>
-                <th>reason</th>
-                <th>recipient account</th>
-                <th>recipient name</th>
-                <th>sender account</th>
-                <th>sender name</th>
+                <th rowspan="2">remaining loan</th>
+                <th rowspan="2">amount</th>
+                <th rowspan="2">date</th>
+                <th rowspan="2">title</th>
+                <th colspan="2" style="vertical-align : middle;text-align:center;">recipient</th>
+                <th colspan="2" style="vertical-align : middle;text-align:center;">sender</th>
+            </tr>
+            <tr>
+                <th>account</th>
+                <th>name</th>
+                <th>account</th>
+                <th>name</th>
             </tr>
         </head>
         <tr>
