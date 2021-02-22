@@ -1,4 +1,4 @@
 package com.finalproject.BankApplication.service;
 
-public class ClientService {
+public class TellerService {
 }
