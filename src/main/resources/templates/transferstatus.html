@@ -1,31 +1,27 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
-<div th:replace="fragments/navhome :: navhome"/>
-<body th:style="'background-image: url(' + @{/images/background.png} + ');'">
+<div th:replace="fragments/navHome :: navHome"/>
+<body th:style="'background-image: url(' + @{/images/background.png} + ');
+                background-repeat: no-repeat;
+                background-size: cover;
+                height=100%'">
 
 <h1>Information about your transaction </h1>
-    <p th:text="'Your transaction of '+ ${transaction.amount} +'$ to ' + ${transaction.recipientName}+ ' was ' + ${transaction.status}" />
+   <p th:text="${validationMessage}" />
 
-    <a href="/transfer">Make another transfer</a>
-
-
-</form>
+   <a type="button" th:href="@{/LKMBank/testuser/account/maketransfer}" class="btn btn-primary">Make another transfer</a>
 
 
 
 
-<p>
-    <a th:href="@{/transaction}">go back to transaction page</a>
-</p>
+
 
 <p>
-    <a th:href="@{/transactions}">Show All transactions</a>
+    <a type="button" th:href="@{/LKMBank/testuser/account/transactions}" class="btn btn-primary">go back to transaction page</a>
 </p>
 
-<p>
-    <a th:href="@{/transactions/bysender}">Show transactions By sender 6666 </a>
-</p>
+
 
 <p>
     <a th:href="@{/transactions/byrecipient}">Show transactions By recipient 12345 </a>

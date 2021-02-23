@@ -21,21 +21,6 @@ public class TransactionService {
     }
 
 
-    // optimum method
-    /*public List<Transaction> getTransactionsByReceiver(String bankId){
-        List<Transaction> transactions = new ArrayList<>();
-        System.out.println("Sender");
-        transactions = transactionRepository.findByRecipient_Account(bankId);
-        return  transactions;
-    }*/
-
-    /*public List<Transaction> getTransactionsBySender(String bankId){
-        List<Transaction> transactions = new ArrayList<>();
-        System.out.println("Sender");
-        transactions = transactionRepository.findBySender_account(bankId);
-        return  transactions;
-    }*/
-
     public List<Transaction> getTransactionsByAmount(long amount){
         List<Transaction> transactions = new ArrayList<>();
         System.out.println("Sender");

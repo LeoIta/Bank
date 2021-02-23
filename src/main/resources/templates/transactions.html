@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
-<div th:replace="fragments/navLogged :: navClient"/>
+<div th:replace="fragments/navHome :: navHome"/>
 <body th:style="'background-image: url(' + @{/images/background.png} + ');
                 background-repeat: no-repeat;
                 background-size: cover;
@@ -71,6 +71,20 @@
             <td> John Geller </td>
         </tr>
     </table>
+
+
+    <a th:href="@{/LKMBank/testuser/account/transactions/all}" class="btn btn-primary" >Show All transactions (loan included)</a>
+
+    <a th:href="@{/LKMBank/testuser/account/transactions/received}" class="btn btn-primary">Show All received transfers </a>
+
+    <a th:href="@{/LKMBank/testuser/account/transactions/sent}" class="btn btn-primary">show all sent transfers</a>
+
+
+
 </div>
+<br>
+<br>
+<a th:href="@{/LKMBank/testuser/account}" class="btn btn-primary">return your account dashboard</a>
+
 </body>
 </html>

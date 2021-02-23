@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
-<div th:replace="fragments/navhome :: navhome"/>
-<body th:style="'background-image: url(' + @{/images/background.png} + ');'">
+<div th:replace="fragments/navHome :: navHome"/>
+<body th:style="'background-image: url(' + @{/images/background.png} + ');
+                background-repeat: no-repeat;
+                background-size: cover;
+                height=100%'">
 
 
 <h2>Transactions  pages </h2>

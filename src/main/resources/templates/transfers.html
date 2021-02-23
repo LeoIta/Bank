@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
-<div th:replace="fragments/navLogged :: navClient"/>
+<div th:replace="fragments/navHome :: navHome"/>
 <body th:style="'background-image: url(' + @{/images/background.png} + ');
                 background-repeat: no-repeat;
                 background-size: cover;
@@ -14,39 +14,40 @@
                 border-width: 1px;
                 padding-top:10px;
                 padding-bottom:10px'">
-        <form method="POST">
+        <form action="#" th:action="@{/LKMBank/testuser/account/maketransfers}" th:object="${transaction}" method="post">
             <h4>MAKE TRANSFER</h4>
             <br>
             <div class="card-text">
-                <h5><b>Current balance: </b>10000</h5>
+                <h5><b>Current balance: </b> <a th:text="${balance}" /></h5>
                 <br></div>
+            <h10><a> All fields with <a style="color:red"> (*) </a> are mandatory</a></h10>
             <div class="form-group">
                 <label for="sender_account">Sender account</label>
                 <input type="text" name="sender_account" class="form-control" id="sender_account"
-                       value="32 4787 4781 4737 3728 7392 5353" required>
+                       th:value= "${accountNumber}" required>
             </div>
             <div class="form-group">
+
                 <label for="sender_name">Sender name</label>
-                <input type="text" name="sender_name" class="form-control" id="sender_name"
-                       value="John Geller" required>
+                <input type="text" name="sender_name" class="form-control" id="sender_name" th:value="${customerName}" required>
             </div>
 <hr>
             <div class="form-group">
-                <label for="recipient_account">Recipient account</label>
-                <input type="text" name="recipient_account" class="form-control" id="recipient_account" required>
+                <label for="recipient_account">Recipient account <a style="color:red"> * </a></label>
+                <input type="text" th:field="*{recipientAccount}" name="recipient_account" class="form-control" id="recipient_account" required>
             </div>
             <div class="form-group">
-                <label for="recipient_name">Recipient name</label>
-                <input type="text" name="recipient_name" class="form-control" id="recipient_name" required>
+                <label for="recipient_name">Recipient name <a style="color:red"> * </a></label>
+                <input type="text" th:field="*{recipientName}"  name="recipient_name" class="form-control" id="recipient_name" required>
             </div>
     <hr>
             <div class="form-group">
-                <label for="amount">Amount</label>
-                <input type="number" name="amount" class="form-control" id="amount" min="0" required>
+                <label for="amount">Amount <a style="color:red"> * </a></label>
+                <input type="number" th:field="*{amount}" name="amount" class="form-control" id="amount" min="0" required>
             </div>
             <div class="form-group">
-                <label for="title">Title</label>
-                <input type="text" name="title" class="form-control" id="title" required>
+                <label for="title">Title <a style="color:red"> * </a> </label>
+                <input type="text" th:field="*{reason}" name="title" class="form-control" id="title" required>
             </div>
             <br>
             <button type="submit" class="btn btn-primary">Confirm transfer</button>
