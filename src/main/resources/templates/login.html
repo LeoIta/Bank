@@ -14,7 +14,7 @@
                 border-width: 1px;
                 padding-top:10px;
                 padding-bottom:10px'">
-        <form method="POST">
+        <form th:action="@{/home}" method="POST" th:object="${customer}">
             <h4>LOGIN</h4>
             <div class="form-group">
                 <label for="username">Username</label>
@@ -30,9 +30,7 @@
         </form>
         <hr>
         <div class="text-center">
-            New customer? <a th:href="@{/LKMBank/openAccount}">Create account</a>
-            <a th:href="@{/LKMBank/testuser/account}">after login</a>
-            <a th:href="@{/LKMBank/bank/teller}">after teller login</a>
+            New customer? <a th:href="@{/signup}">Create account</a>
         </div>
     </div>
 </div>

@@ -20,5 +20,4 @@ public class Transaction extends TimeEntity{
     private long amount;
     private String reason;
 
-
 }

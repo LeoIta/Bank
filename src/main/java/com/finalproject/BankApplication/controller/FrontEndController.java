@@ -10,20 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class FrontEndController {
 
-    @GetMapping()
-    public String home(){
-    return "home";
-    }
-
-    @GetMapping("/openAccount")
-    public String setAccount(){
-        return "openAccount";
-    }
-
-    @PostMapping("/openAccount")
-    public String getAccount(){
-        return "openAccount";
-    }
 
     @GetMapping("/login")
     public String showLogin(){

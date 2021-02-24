@@ -6,32 +6,63 @@
                 background-repeat: no-repeat;
                 background-size: cover;
                 height=100%'">
-<br><br>
-<div align="center" th:style="'margin: auto;rgba(224, 228, 228, 0.801);'">
-        <div class="card" th:style="'padding=20px;background-color:transparent;width:400px;'">
-            <div class="card-body">
-                <h5 class="card-title">Your Account</h5>
-                <p class="card-text"><b>Account number:</b></p>
-                <p class="card-text">32 4787 4781 4737 3728 7392 5353</p>
-                <p class="card-text"><b>Balance:</b></p>
-                <p class="card-text">10000</p>
-                <a th:href="@{/LKMBank/testuser/account/transactions}" class="btn btn-primary">Show details</a>
-                <a th:href="@{/LKMBank/testuser/account/maketransfer}" class="btn btn-primary">Make transaction</a>
-            </div></div>
-    <br><br>
-        <div class="card" th:style="'padding=20px;background-color: transparent;width:400px;'">
-            <div class="card-body">
-                    <h5 class="card-title">Loan</h5>
-                    <p class="card-text"><b>Loan amount: </b> 98500</p>
-                    <p class="card-text"><b>End date: </b>2050-12-22</p>
-                    <p class="card-text"><b>Monthly payment: </b>500</p>
-                    <p class="card-text"><b>Pay day: </b>22</p>
 
-                <a th:href="@{/LKMBank/testuser/account/loandetails}" class="btn btn-primary">Show details</a>
-            </div>
-        </div>
+<br>
+<br><h3 align="center">Pending Requests</h3><br>
+<div align="center" th:style="'margin: auto;
+  width: 60%;
+  border: 3px solid rgba(224, 228, 228, 0.801);
+  padding: 10px;rgba(224, 228, 228, 0.801);'">
+
+    <table class="table table-secondary table-bordered mt-5 align-middle">
+        <head>
+            <tr>
+                <th rowspan="2">remaining loan</th>
+                <th rowspan="2">amount</th>
+                <th rowspan="2">date</th>
+                <th rowspan="2">title</th>
+                <th colspan="2" style="vertical-align : middle;text-align:center;">recipient</th>
+                <th colspan="2" style="vertical-align : middle;text-align:center;">sender</th>
+            </tr>
+            <tr>
+                <th>account</th>
+                <th>name</th>
+                <th>account</th>
+                <th>name</th>
+            </tr>
+        </head>
+        <tr>
+            <td> 99500 </td>
+            <td> -500 </td>
+            <td> 12-22-2020 09:00:00</td>
+            <td> Loan monthly payment </td>
+            <td>32 7049 6037 5949 4912 0459 8181</td>
+            <td> LKM Bank </td>
+            <td>32 4787 4781 4737 3728 7392 5353</td>
+            <td> John Geller </td>
+        </tr>
+        <tr>
+            <td> 99000 </td>
+            <td> -500 </td>
+            <td> 01-22-2021 09:00:00</td>
+            <td> Loan monthly payment </td>
+            <td>32 7049 6037 5949 4912 0459 8181</td>
+            <td> LKM Bank </td>
+            <td>32 4787 4781 4737 3728 7392 5353</td>
+            <td> John Geller </td>
+        </tr>
+        <tr>
+            <td> 98500 </td>
+            <td> -500 </td>
+            <td> 02-22-2021 09:00:00</td>
+            <td> Loan monthly payment </td>
+            <td>32 7049 6037 5949 4912 0459 8181</td>
+            <td> LKM Bank </td>
+            <td>32 4787 4781 4737 3728 7392 5353</td>
+            <td> John Geller </td>
+        </tr>
+    </table>
 </div>
-
 
 </body>
 </html>

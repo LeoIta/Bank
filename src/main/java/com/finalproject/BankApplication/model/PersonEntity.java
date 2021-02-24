@@ -5,24 +5,38 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 import javax.persistence.*;
 
-    @MappedSuperclass
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Table
-    public abstract class PersonEntity extends BaseEntity{
+import java.util.Set;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@MappedSuperclass
+public abstract class PersonEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    private int id;
 
-        private String bankId;
-        private String password;
+    @Column(name = "EMAIL")
+    private String email;
 
-        @Enumerated(EnumType.STRING)
-        private Role role;
+    @Column(name = "PASSWORD")
+    private String password;
 
-        private String firstName;
-        private String lastName;
+    @Column(name = "USER_NAME")
+    private String userName;
 
+    @Column(name = "FIRST_NAME")
+    private String firstName;
+
+    @Column(name = "LAST_NAME")
+    private String lastName;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
+    private Set<Role> roles;
 }

@@ -1,4 +1,10 @@
 package com.finalproject.BankApplication.service;
 
-public class CustomerService {
+import com.finalproject.BankApplication.model.Customer;
+
+public interface CustomerService {
+    public Customer findUserByEmail(String email) ;
+    public Customer saveUser(Customer customer);
 }
+
+

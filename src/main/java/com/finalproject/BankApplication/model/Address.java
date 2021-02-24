@@ -1,5 +1,5 @@
 package com.finalproject.BankApplication.model;
-
+/*
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,12 +12,13 @@ import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table
+@Entity
 public class Address extends BaseEntity{
 
     private String country;
@@ -28,3 +29,5 @@ public class Address extends BaseEntity{
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "address")
     private List<Customer> customers = new ArrayList<>();
 }
+
+*/
