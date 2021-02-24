@@ -12,17 +12,16 @@ public interface AssessmentRepository extends JpaRepository<Assessment,Integer> 
     public Assessment findFirstByOrderByIdDesc();
     public Assessment findAssessmentByTrackingNumber(String TrackingNumber);
 
-    @Modifying(clearAutomatically = true)
+    @Modifying
     @Query("UPDATE Assessment a SET a.status = :status WHERE a.id = :id")
     int updateStatus(@Param("id") int id, @Param("status") String status);
 
-    @Modifying(clearAutomatically = true)
+    @Modifying
     @Query("UPDATE Assessment a SET a.type = :type WHERE a.id = :id")
     int updateType(@Param("id") int id, @Param("type") String type);
 
-    @Modifying(clearAutomatically = true)
-    @Query("UPDATE Assessment a SET a.trackingNumber = :trackingNumber WHERE a.id = :id")
-    int updateTrackingNumber(@Param("id") int id, @Param("trackingNumber") String trackingNumber);
-
+    @Modifying
+    @Query("UPDATE Assessment a SET a.tracking = :trackingNumber WHERE a.id = :id")
+    int updateTrackingNumber(@Param("id") int id, @Param("tracking") String trackingNumber);
 
 }
