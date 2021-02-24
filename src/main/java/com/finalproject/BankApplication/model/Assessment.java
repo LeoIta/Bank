@@ -1,11 +1,13 @@
 package com.finalproject.BankApplication.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
 
 import static com.finalproject.BankApplication.model.AssessmentStatus.*;
 
@@ -13,34 +15,47 @@ import static com.finalproject.BankApplication.model.AssessmentStatus.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table
 public class Assessment extends TimeEntity{
 
-    @OneToOne
-    private Account accountForm;
-    @OneToOne
-    private Loan loanForm;
+    private String firstName;
+    private String lastName;
+    private String email;
+
+//    @DateTimeFormat(pattern = "dd/MM/yyyy")
+//    private Date dateOfBirth;
+
+    private int annualIncome;
+    private int firstDeposit;
+    private String country;
+    private String city;
+    private String postcode;
+    private String street;
 
     @Enumerated(EnumType.STRING)
-    private Decision decision;
+    private AssessmentType type;
 
     @Enumerated(EnumType.STRING)
     private AssessmentStatus status;
 
-    public Assessment(Account form) {
-        if(!form.isSubmitted()){
-            throw new FormNotSubmittedException();
-        }
-        this.accountForm = form;
-        this.status = PENDING;
-    }
+    @Enumerated(EnumType.STRING)
+    private Decision decision;
 
-    public Assessment(Loan form) {
-        if(!form.isSubmitted()){
-            throw new FormNotSubmittedException();
-        }
-        this.loanForm = form;
+    public Assessment(String firstName, String lastName, String email,
+                      int annualIncome, int firstDeposit, String country, String city,
+                      String postcode, String street, AssessmentType type, AssessmentStatus status) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+//        this.dateOfBirth = dateOfBirth;
+        this.annualIncome = annualIncome;
+        this.firstDeposit = firstDeposit;
+        this.country = country;
+        this.city = city;
+        this.postcode = postcode;
+        this.street = street;
+        this.type = type;
+        this.status = status;
     }
 
     public void start(){

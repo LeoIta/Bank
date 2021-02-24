@@ -18,14 +18,7 @@ public class Account extends TimeEntity{
     @Column(name="account_number")
     private String accountNumber;
 
-    public Account(Customer customer, long balance) {
-        this.customer = customer;
-        this.balance = balance;
-        this.accountStatus = FormStatus.SUBMITTED;;
-    }
-
-    @ManyToOne
-    @JoinColumn(name="customer_id")
+    @OneToOne(targetEntity = Customer.class)
     private Customer customer;
 
     @Column()
@@ -34,13 +27,4 @@ public class Account extends TimeEntity{
     @OneToOne(targetEntity = Loan.class, cascade = CascadeType.ALL)
     private Loan loan;
 
-    @Enumerated(EnumType.STRING)
-    private FormStatus accountStatus;
-
-    public boolean isSubmitted() {
-        return accountStatus == FormStatus.SUBMITTED;
-    }
-
-    @OneToOne
-    private Assessment assessment;
 }
