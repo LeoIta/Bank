@@ -41,22 +41,6 @@ public class Assessment extends TimeEntity{
     @Enumerated(EnumType.STRING)
     private Decision decision;
 
-    public Assessment(String firstName, String lastName, String email,
-                      int annualIncome, int firstDeposit, String country, String city,
-                      String postcode, String street, AssessmentType type, AssessmentStatus status) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-//        this.dateOfBirth = dateOfBirth;
-        this.annualIncome = annualIncome;
-        this.firstDeposit = firstDeposit;
-        this.country = country;
-        this.city = city;
-        this.postcode = postcode;
-        this.street = street;
-        this.type = type;
-        this.status = status;
-    }
 
     public void start(){
         if (status==PENDING) {

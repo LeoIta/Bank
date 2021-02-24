@@ -35,7 +35,25 @@ public class AssessmentController {
         assessmentService.saveNew(assessment);
         int id = assessmentService.findLastId();
         String ref = "A" + (12346789 + id);
-        model.addAttribute("confirmation","Your account has been created with reference " + ref );
+        model.addAttribute("confirmation","Your account request has been submitted with reference " + ref );
+        return "SubmitApplicationConfirmation";
+    }
+
+    @GetMapping("/openLoan")
+    public String loanForm(Model model){
+        Assessment assessment = new Assessment();
+        model.addAttribute("assessment",assessment);
+        return "openLoan";
+    }
+
+    @PostMapping("/openLoan")
+    public String createLoanAssessment(@ModelAttribute Assessment assessment,Model model){
+        assessment.setType(AssessmentType.LOAN);
+        assessment.setStatus(AssessmentStatus.PENDING);
+        assessmentService.saveNew(assessment);
+        int id = assessmentService.findLastId();
+        String ref = "L" + (12346789 + id);
+        model.addAttribute("confirmation","Your loan request has been submitted with reference " + ref );
         return "SubmitApplicationConfirmation";
     }
 

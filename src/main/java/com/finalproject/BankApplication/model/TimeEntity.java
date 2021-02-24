@@ -11,7 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 
 @Getter
@@ -28,7 +28,7 @@ public abstract class TimeEntity extends BaseEntity {
             updatable = false,
             nullable = false
     )
-    Date createdAt;
+    LocalDateTime createdAt;
 
 
     @UpdateTimestamp
@@ -38,5 +38,5 @@ public abstract class TimeEntity extends BaseEntity {
             updatable = false,
             nullable = false
     )
-    Date modifiedAt;
+    LocalDateTime modifiedAt;
 }
