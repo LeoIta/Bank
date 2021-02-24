@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Getter
@@ -19,7 +18,7 @@ public class Customer extends PersonEntity{
     @OneToOne(targetEntity = Account.class)
     private Account account;
 
-    private Date dateOfBirth;
+//    private Date dateOfBirth;
     private String annualIncome;
     @ManyToOne
     @JoinColumn(name="address_id")

@@ -15,27 +15,12 @@ public class AssessmentService {
         assessmentRepository.save(assessment);
     }
 
-    public Assessment findLastAssessment(){
-        return assessmentRepository.findFirstByOrderByIdDesc();
-    }
-
     public int findLastId(){
         return assessmentRepository.findFirstByOrderByIdDesc().getId();
     }
 
-    public Assessment findTrackingNumber(String TrackingNumber){
-        return assessmentRepository.findAssessmentByTrackingNumber(TrackingNumber);
+    public Assessment findById(int Id){
+        return assessmentRepository.findById(Id).get();
     }
 
-    public void updateStatusById(int Id, String status){
-        assessmentRepository.updateStatus(Id, status);
-    }
-
-    public void updateTypeById(int Id, String type){
-        assessmentRepository.updateType(Id, type);
-    }
-
-    public void updateTrackingNumberById(int Id, String trackingNumber){
-        assessmentRepository.updateTrackingNumber(Id, trackingNumber);
-    }
 }

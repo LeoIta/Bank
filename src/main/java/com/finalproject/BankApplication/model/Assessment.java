@@ -4,8 +4,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
 
 import static com.finalproject.BankApplication.model.AssessmentStatus.*;
 
@@ -19,19 +21,19 @@ public class Assessment extends TimeEntity{
     private String firstName;
     private String lastName;
     private String email;
-    private Date dateOfBirth;
+
+//    @DateTimeFormat(pattern = "dd/MM/yyyy")
+//    private Date dateOfBirth;
+
     private int annualIncome;
     private int firstDeposit;
     private String country;
     private String city;
     private String postcode;
     private String street;
+
+    @Enumerated(EnumType.STRING)
     private AssessmentType type;
-
-    @OneToOne
-    private int tellerId;
-
-    private String trackingNumber;
 
     @Enumerated(EnumType.STRING)
     private AssessmentStatus status;

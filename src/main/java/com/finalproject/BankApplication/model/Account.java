@@ -18,8 +18,7 @@ public class Account extends TimeEntity{
     @Column(name="account_number")
     private String accountNumber;
 
-    @ManyToOne
-    @JoinColumn(name="customer_id")
+    @OneToOne(targetEntity = Customer.class)
     private Customer customer;
 
     @Column()

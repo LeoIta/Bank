@@ -15,12 +15,11 @@
                 padding-bottom:10px'">
         <div class="row justify-content-center mt-5">
             <div class="col-md-7 text-center">
-                <form th:action="@{/LKMBank/${assessment}}" th:object="${assessment}"  method="POST">
+                <form th:action="@{/LKMBank/checkStatusRequest}" th:object="${reference}"  method="POST">
                     <h4>REQUEST STATUS</h4><hr>
-                    <h1><p th:text="${error}" /></h1>
                     <div class="form-group">
-                        <label for="trackingNumber">Insert tracking number</label>
-                        <input type="search" name="trackingNumber" class="form-control" id="trackingNumber">
+                        <label for="reference">Insert tracking number</label>
+                        <input type="search" name="reference" class="form-control" id="reference">
                     </div>
                     <button type="submit" class="btn btn-primary">Check the status</button>
                 </form>
