@@ -86,6 +86,8 @@ public class TransactionController {
     public String getTransactionsBySender(Model model){
 
         List<Transaction> transactions = transactionService.getTransactionsBySender("6666");
+        String transferMessage = transactions.size()==0? "You have not made any transaction": " here is your list of sent transactions";
+
         //display in terminal for test
         System.out.println("Showing all transactions Sent ");
         for (Transaction transaction :transactions) {
@@ -93,7 +95,7 @@ public class TransactionController {
             System.out.println(transaction.toString());
         }
         model.addAttribute("transactions", transactions);
-
+        model.addAttribute("transferMessage", transferMessage);
         return "transactions";
     }
 
@@ -101,6 +103,8 @@ public class TransactionController {
     public String getTransactionsByRecipient(Model model){
 
         List<Transaction> transactions = transactionService.getTransactionsByRecipient("12345");
+        String transferMessage = transactions.size()==0? "You have not any transactions": " here is your list of all received transactions";
+
         //display in terminal for test
         System.out.println("Showing all transactions received ");
         for (Transaction transaction :transactions) {
@@ -109,16 +113,17 @@ public class TransactionController {
 
         }
         model.addAttribute("transactions", transactions);
+        model.addAttribute("transferMessage", transferMessage);
         return "transactions";
 
     }
 
-    @GetMapping(value = {"/LKMBank/testuser/account/transactions/all", "/LKMBank/testuser/account/transactions/all"})
+    @GetMapping(value = {"/LKMBank/testuser/account/transactions", "/LKMBank/testuser/account/transactions/all"})
     public String getAllTransactions(Model model){
 
         System.out.println("Showing all transactions");
         List<Transaction> transactions = transactionService.getAllTransactions();
-
+        String transferMessage = transactions.size()==0? "You have no transactions": " here is your list of all transactions";
         for (Transaction transaction :transactions) {
             System.out.println(transaction.getId() + " created_at" + transaction.getCreated_at()+" modified_at"+transaction.getModified_at());
             System.out.println(transaction.toString());
@@ -126,6 +131,7 @@ public class TransactionController {
         }
 
         model.addAttribute("transactions",transactions);
+        model.addAttribute("transferMessage", transferMessage);
         return "transactions";
     }
 
