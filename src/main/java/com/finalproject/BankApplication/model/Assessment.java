@@ -3,11 +3,13 @@ package com.finalproject.BankApplication.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 
 import static com.finalproject.BankApplication.model.AssessmentStatus.*;
 
@@ -22,8 +24,8 @@ public class Assessment extends TimeEntity{
     private String lastName;
     private String email;
 
-//    @DateTimeFormat(pattern = "dd/MM/yyyy")
-//    private Date dateOfBirth;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private LocalDateTime dateOfBirth;
 
     private int annualIncome;
     private int firstDeposit;
@@ -31,6 +33,15 @@ public class Assessment extends TimeEntity{
     private String city;
     private String postcode;
     private String street;
+    private int payDay;
+    private String reason;
+    private long amount;
+
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private LocalDateTime startDate;
+
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private LocalDateTime dueDate;
 
     @Enumerated(EnumType.STRING)
     private AssessmentType type;
@@ -41,22 +52,6 @@ public class Assessment extends TimeEntity{
     @Enumerated(EnumType.STRING)
     private Decision decision;
 
-    public Assessment(String firstName, String lastName, String email,
-                      int annualIncome, int firstDeposit, String country, String city,
-                      String postcode, String street, AssessmentType type, AssessmentStatus status) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-//        this.dateOfBirth = dateOfBirth;
-        this.annualIncome = annualIncome;
-        this.firstDeposit = firstDeposit;
-        this.country = country;
-        this.city = city;
-        this.postcode = postcode;
-        this.street = street;
-        this.type = type;
-        this.status = status;
-    }
 
     public void start(){
         if (status==PENDING) {
