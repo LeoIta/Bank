@@ -37,10 +37,4 @@ public class Account extends TimeEntity{
     @Enumerated(EnumType.STRING)
     private FormStatus accountStatus;
 
-    public boolean isSubmitted() {
-        return accountStatus == FormStatus.SUBMITTED;
-    }
-
-    @OneToOne
-    private Assessment assessment;
 }

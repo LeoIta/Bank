@@ -25,24 +25,4 @@ public class Loan extends TimeEntity{
     private Date dueDate;
     private int payDay;
 
-    @Enumerated(EnumType.STRING)
-    private FormStatus loanStatus;
-
-    @OneToOne
-    private Assessment assessment;
-
-    public Loan(long amount, String reason, Account account, Date startDate,
-                Date dueDate, int payDay) {
-        this.amount = amount;
-        this.reason = reason;
-        this.account = account;
-        this.startDate = startDate;
-        this.dueDate = dueDate;
-        this.payDay = payDay;
-        this.loanStatus = FormStatus.SUBMITTED;
-    }
-
-    public boolean isSubmitted() {
-        return loanStatus == FormStatus.SUBMITTED;
-    }
 }

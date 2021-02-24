@@ -1,4 +1,28 @@
 package com.finalproject.BankApplication.reposiitory;
 
-public class AssessmentRepository {
+import com.finalproject.BankApplication.model.Assessment;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface AssessmentRepository extends JpaRepository<Assessment,Integer> {
+    public Assessment findFirstByOrderByIdDesc();
+    public Assessment findAssessmentByTrackingNumber(String TrackingNumber);
+
+    @Modifying(clearAutomatically = true)
+    @Query("UPDATE Assessment a SET a.status = :status WHERE a.id = :id")
+    int updateStatus(@Param("id") int id, @Param("status") String status);
+
+    @Modifying(clearAutomatically = true)
+    @Query("UPDATE Assessment a SET a.type = :type WHERE a.id = :id")
+    int updateType(@Param("id") int id, @Param("type") String type);
+
+    @Modifying(clearAutomatically = true)
+    @Query("UPDATE Assessment a SET a.trackingNumber = :trackingNumber WHERE a.id = :id")
+    int updateTrackingNumber(@Param("id") int id, @Param("trackingNumber") String trackingNumber);
+
+
 }
