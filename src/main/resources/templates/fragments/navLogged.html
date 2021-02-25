@@ -18,11 +18,11 @@
 
                 <ul class="navbar-nav">
 
-                    <li>
+                    <li class="nav-item dropdown">
                     <li><a class="dropdown-item" th:href="@{/LKMBank/testuser/account/}">Dashboard</a></li>
                     <li><a class="dropdown-item" th:href="@{/LKMBank/testuser/account/transactions}">History</a></li>
-                    <li><a class="dropdown-item" th:href="@{/LKMBank/testuser/account/loan}">Loan requests</a></li>
-                    <li><a class="dropdown-item" th:href="@{/LKMBank/testuser/account/loandetails}">Account request</a></li>
+                    <li><a class="dropdown-item" th:href="@{/LKMBank/testuser/account/loan}">Request a loan</a></li>
+                    <li><a class="dropdown-item" th:href="@{/LKMBank/testuser/account/loandetails}">Check loan</a></li>
                     <li><a class="dropdown-item" th:href="@{/LKMBank/testuser/account/maketransfer}">Make transaction</a></li>
                     </li>
                 </ul>
@@ -60,7 +60,7 @@
                 </button>
             </a>
 
-            <div class="cointainer-fluid" id="home">
+            <div class="cointainer-fluid" id="teller">
 
                 <ul class="navbar-nav">
                     <li class="nav-item">
