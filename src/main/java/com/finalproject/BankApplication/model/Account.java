@@ -7,6 +7,12 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import java.util.HashSet;
+import java.util.Set;
+
+
+
 @Entity
 @Getter
 @Setter
@@ -18,8 +24,13 @@ public class Account extends TimeEntity{
     @Column(name="account_number")
     private String accountNumber;
 
+
+    @OneToOne(targetEntity = Customer.class)
+    private Customer customerID;
+
     @OneToOne(targetEntity = Customer.class)
     private Customer customer;
+
 
     @Column()
     private long balance;

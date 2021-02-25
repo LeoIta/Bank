@@ -8,13 +8,19 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Date;
 
+
+
+
 @Entity
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table
+@Entity
 public class Loan extends TimeEntity{
+
     private long amount;
     private String reason;
 

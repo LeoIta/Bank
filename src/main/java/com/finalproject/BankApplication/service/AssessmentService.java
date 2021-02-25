@@ -3,11 +3,22 @@ package com.finalproject.BankApplication.service;
 import com.finalproject.BankApplication.model.Assessment;
 import com.finalproject.BankApplication.model.AssessmentStatus;
 import com.finalproject.BankApplication.model.AssessmentType;
+
+import com.finalproject.BankApplication.reposiitory.AssessmentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.finalproject.BankApplication.repository.AssessmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 

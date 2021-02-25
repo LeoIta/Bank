@@ -1,3 +1,4 @@
+
 package com.finalproject.BankApplication.model;
 
 import lombok.Getter;
@@ -9,7 +10,14 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
+
+
 import static com.finalproject.BankApplication.model.AssessmentStatus.*;
+
+
+
+import static com.finalproject.BankApplication.model.AssessmentStatus.*;
+
 
 @Entity
 @Getter
