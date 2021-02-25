@@ -15,10 +15,10 @@ public class AssessmentController {
     @Autowired
     AssessmentService assessmentService;
 
-    @GetMapping("/")
+    /*@GetMapping("/")
     public String home(){
         return "home";
-    }
+    }*/
 
     @GetMapping("/user/openAccount")
     public String accountForm(Model model){

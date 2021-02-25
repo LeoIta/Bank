@@ -5,7 +5,7 @@
 <div th:fragment="navHome">
 <nav class="navbar navbar-expand-md navbar-light" style="background-color: #FFF;">
     <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/LKMBank}" style="padding-left:50px">
+        <a class="navbar-brand" th:href="@{/}" style="padding-left:50px">
             <img th:src="@{/images/bull.png}" width="30" height="30" class="d-inline-block align-top">
             <span>LKM BANK</span>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -21,8 +21,8 @@
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Request a loan</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" th:href="@{/LKMBank/login}">Our client</a></li>
-                        <li><a class="dropdown-item" th:href="@{/LKMBank/openLoan}">Not our client</a></li>
+                        <li><a class="dropdown-item" th:href="@{/login}">Our client</a></li>
+                        <li><a class="dropdown-item" th:href="@{/openLoan}">Not our client</a></li>
                     </ul>
                 </li>
             </ul>
