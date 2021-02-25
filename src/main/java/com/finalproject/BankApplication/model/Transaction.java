@@ -20,5 +20,8 @@ public class Transaction extends BaseEntity{
     private long amount;
     private String reason;
 
+    private long recipientBalance;
+    private long senderBalance;
+
 
 }

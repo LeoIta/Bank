@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.SQLOutput;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Controller
 //@RequestMapping("/")
@@ -64,17 +63,26 @@ public class TransactionController {
         if ( transaction.getAmount() < currentBalance ){
             validationMessage += " Validated";
             currentBalance -= transaction.getAmount();
+            transaction.setSenderBalance(currentBalance); // we save the new balance for the sender
             /*if (isCustomer(transaction.getRecipientAccount())){
-                long receiverBalance = 100000;
-                receiverBalance += transaction.getAmount();
                 Account receiverAccount = new Account();
                 receiverAccount = accountService.findByAccountNumber( transaction.getRecipientAccount());
-                accountService.updateAmountWhereBankId()
+                long receiverBalance = receiverAccount.getBalance();
+                receiverBalance += transaction.getAmount();
+                accountService.updateAmountWhereAccountNumber();
+                transaction.setReceiverBalance(receiverBalance); // we save the new balance for the sender
             }*/
+            if ( transaction.getRecipientAccount().equals("12345")) {
+                transaction.setRecipientBalance(transaction.getAmount());
+            }else{transaction.setRecipientBalance(0);}
+
             transactionService.saveTransaction(transaction);
+            //transactionService.updateCustomerTransaction(1,500000l);
         }else{
             validationMessage += " rejected. You can not transfer more than you have";
         }
+
+        //implementing sender and receiver balance after transfer
 
         model.addAttribute("validationMessage",validationMessage);
 
@@ -85,8 +93,13 @@ public class TransactionController {
     @GetMapping("/LKMBank/testuser/account/transactions/sent")
     public String getTransactionsBySender(Model model){
 
-        List<Transaction> transactions = transactionService.getTransactionsBySender("6666");
+        List<Transaction> transactions = transactionService.getTransactionsBySender("12345");
         String transferMessage = transactions.size()==0? "You have not made any transaction": " here is your list of sent transactions";
+        List<Long> balances = new ArrayList<>();
+        for (Transaction transaction :transactions){
+            balances.add(transaction.getSenderBalance());
+        }
+        model.addAttribute("balances", balances);
 
         //display in terminal for test
         System.out.println("Showing all transactions Sent ");
@@ -103,7 +116,12 @@ public class TransactionController {
     public String getTransactionsByRecipient(Model model){
 
         List<Transaction> transactions = transactionService.getTransactionsByRecipient("12345");
-        String transferMessage = transactions.size()==0? "You have not any transactions": " here is your list of all received transactions";
+        String transferMessage = transactions.size()==0? "You have not received any transactions": " here is your list of all received transactions";
+        List<Long> balances = new ArrayList<>();
+        for (Transaction transaction :transactions){
+            balances.add(transaction.getRecipientBalance());
+        }
+        model.addAttribute("balances", balances);
 
         //display in terminal for test
         System.out.println("Showing all transactions received ");
@@ -118,19 +136,41 @@ public class TransactionController {
 
     }
 
-    @GetMapping(value = {"/LKMBank/testuser/account/transactions", "/LKMBank/testuser/account/transactions/all"})
+    @GetMapping(value = {"/LKMBank/testuser/account/transactions/all", "/LKMBank/testuser/account/transactions/all"})
     public String getAllTransactions(Model model){
 
         System.out.println("Showing all transactions");
-        List<Transaction> transactions = transactionService.getAllTransactions();
-        String transferMessage = transactions.size()==0? "You have no transactions": " here is your list of all transactions";
-        for (Transaction transaction :transactions) {
+        //List<Transaction> transactions = transactionService.getAllTransactions();
+        List<Transaction> allTransactions = transactionService.getTransactionsByRecipient("12345");
+        allTransactions.addAll( transactionService.getTransactionsBySender("12345") ) ;
+
+        String transferMessage = allTransactions.size()==0? "You have no transactions": " here is your list of all transactions";
+        for (Transaction transaction :allTransactions) {
             System.out.println(transaction.getId() + " created_at" + transaction.getCreated_at()+" modified_at"+transaction.getModified_at());
             System.out.println(transaction.toString());
 
         }
 
-        model.addAttribute("transactions",transactions);
+        Comparator byDate = new Comparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                return 0;
+            }
+
+            public int compare(Transaction c1, Transaction c2) {
+                return Long.valueOf(c1.getCreated_at().getTime()).compareTo(c2.getCreated_at().getTime());
+            }
+        };
+
+        Collections.sort(allTransactions,byDate);
+
+        List<Long> balances = new ArrayList<>();
+        for (Transaction transaction :allTransactions){
+            balances.add(transaction.getSenderBalance());
+        }
+        model.addAttribute("balances", balances);
+
+        model.addAttribute("transactions",allTransactions);
         model.addAttribute("transferMessage", transferMessage);
         return "transactions";
     }

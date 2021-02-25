@@ -59,6 +59,14 @@ public class TransactionService {
         transactionRepository.save(transaction);
     }
 
+    public void updateCustomerTransaction( Integer id, long amount){
+        //transactionRepository.updateTransaction(id, amount);
+        Transaction transaction = transactionRepository.findById(id).get();
+        transactionRepository.deleteById(id);
+        transaction.setAmount(amount);
+        transaction.setId(id);
+        saveTransaction(transaction);
+    }
 
 
 
