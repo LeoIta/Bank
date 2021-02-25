@@ -67,15 +67,6 @@ public class FrontEndController {
         return "balance";
     }
 
-    @GetMapping("/loan")
-    public String askLoanExternal(){
-        return "loan";
-    }
-
-    @PostMapping("/loan")
-    public String loanExternal(){
-        return "loan";
-    }
 
     @PostMapping("/{bankId}/account/loan")
     public String askLoanInternal(@RequestParam("bankId") String bankId){
