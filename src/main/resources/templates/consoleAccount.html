@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
-
-<div th:replace="fragments/navHome :: navHome"/>
+<div th:replace="fragments/navLogged :: navClient"/>
 <body th:style="'background-image: url(' + @{/images/background.png} + ');
                 background-repeat: no-repeat;
                 background-size: cover;
@@ -25,7 +24,7 @@
         <tbody>
 
         <tr>
-            <td valign="center"> <p th:text="${assessment.createdAt}"/> </td>
+            <td valign="center"> <p foundAccountStatus.html/> </td>
             <td valign="center"> <p th:text="${assessment.modifiedAt}"/> </td>
             <td valign="center"> <p><span th:text="${assessment.firstName}"/> <span th:text="${assessment.lastName}"/></p> </td>
             <td valign="center"> <p th:text="${assessment.status}"/> </td>

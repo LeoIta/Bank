@@ -3,6 +3,7 @@ package com.finalproject.BankApplication.service;
 import com.finalproject.BankApplication.model.Assessment;
 import com.finalproject.BankApplication.model.AssessmentStatus;
 import com.finalproject.BankApplication.model.AssessmentType;
+
 import com.finalproject.BankApplication.reposiitory.AssessmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.finalproject.BankApplication.repository.AssessmentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.*;
+
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -114,7 +122,7 @@ public class AssessmentService {
     public List<Assessment> findLoanRequestWIP(){return findWIPRequest(AssessmentType.LOAN);}
 
     public List<Assessment> findLoanRequestDone(){return findDoneRequest(AssessmentType.LOAN);}
-
+    
     public Map<String, Integer> statistics(){
         Map<String, Integer> statistics = new HashMap<>();
         int totalRequests= findAll()!=null?findAll().size():0;
@@ -135,7 +143,7 @@ public class AssessmentService {
         int totalLoanWIP= findLoanRequestWIP()!=null?findLoanRequestWIP().size():0;
         int totalLoanPending= findLoanRequestPending()!=null?findLoanRequestPending().size():0;
         int totalLoanCompleted=findLoanRequestDone()!=null?findLoanRequestDone().size():0;
-
+        
         statistics.put("totalRequests", totalRequests);
 
         statistics.put("totalOpen", totalOpen);
@@ -156,13 +164,13 @@ public class AssessmentService {
         statistics.put("totalLoanCompleted",totalLoanCompleted);
 
         return statistics;}
-
-
-
-
-
-
-
+    
+    
+    
+    
+    
+    
+    
 //    TODO: 1. Update Status 2. Update decision
 
 }

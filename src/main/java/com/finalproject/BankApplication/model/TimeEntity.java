@@ -39,4 +39,5 @@ public abstract class TimeEntity extends BaseEntity {
             nullable = false
     )
     Date modifiedAt;
+
 }

@@ -11,6 +11,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 
+
+import static com.finalproject.BankApplication.model.AssessmentStatus.*;
+
+
+
 import static com.finalproject.BankApplication.model.AssessmentStatus.*;
 
 
