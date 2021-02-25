@@ -1,4 +1,4 @@
-package com.finalproject.BankApplication.config;
+package com.finalproject.BankApplication.controller;
 
 
 import org.springframework.security.access.AccessDeniedException;

@@ -10,25 +10,24 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/LKMBank")
 public class AssessmentController {
 
     @Autowired
     AssessmentService assessmentService;
 
-    @GetMapping()
+    @GetMapping("/")
     public String home(){
         return "home";
     }
 
-    @GetMapping("/openAccount")
+    @GetMapping("/user/openAccount")
     public String accountForm(Model model){
         Assessment assessment = new Assessment();
         model.addAttribute("assessment",assessment);
         return "openAccount";
     }
 
-    @PostMapping("/openAccount")
+    @PostMapping("/user/openAccount")
     public String createAssessment(@ModelAttribute Assessment assessment,Model model){
         assessment.setType(AssessmentType.ACCOUNT);
         assessment.setStatus(AssessmentStatus.PENDING);
@@ -39,14 +38,14 @@ public class AssessmentController {
         return "SubmitApplicationConfirmation";
     }
 
-    @GetMapping("/openLoan")
+    @GetMapping("/user/openLoan")
     public String loanForm(Model model){
         Assessment assessment = new Assessment();
         model.addAttribute("assessment",assessment);
         return "openLoan";
     }
 
-    @PostMapping("/openLoan")
+    @PostMapping("/user/openLoan")
     public String createLoanAssessment(@ModelAttribute Assessment assessment,Model model){
         assessment.setType(AssessmentType.LOAN);
         assessment.setStatus(AssessmentStatus.PENDING);
@@ -57,19 +56,19 @@ public class AssessmentController {
         return "SubmitApplicationConfirmation";
     }
 
-    @GetMapping("/checkStatusRequest")
+    @GetMapping("/user/checkStatusRequest")
     public String checkStatus() {
         return "findApplicationStatus";
     }
 
-    @PostMapping("/checkStatusRequest")
+    @PostMapping("/user/checkStatusRequest")
     public String getStatus(@RequestParam("reference") String reference){
         int refId = Integer.parseInt(reference.substring(1)) - 12346789;
         char type = reference.charAt(0);
         return "redirect:/LKMBank/"+type+"/"+refId;
     }
 
-    @GetMapping(value= "/{type}/{refId}")
+    @GetMapping(value= "/user/{type}/{refId}")
     public String statusFound(@PathVariable("refId") int refId, @PathVariable("type") String type, Model model){
         Assessment assessment = assessmentService.findById(refId);
         model.addAttribute("assessment",assessment);
