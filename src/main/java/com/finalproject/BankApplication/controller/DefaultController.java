@@ -11,9 +11,7 @@ public class DefaultController {
     public String defaultAfterLogin(HttpServletRequest request) {
         if (request.isUserInRole("ADMIN")) {
             return "redirect:/admin/adminHome/";
-        } else if (request.isUserInRole("TELLER")) {
-            return "redirect:/tellerdashboard/";
-        } else
+        }
             return "redirect:/user/userHome";
     }
 }
