@@ -1,39 +1,49 @@
-/*
+
 package com.finalproject.BankApplication.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
+
 
 import static com.finalproject.BankApplication.model.AssessmentStatus.*;
 
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table
-@Entity
 public class Assessment extends TimeEntity{
 
     private String firstName;
     private String lastName;
     private String email;
-    private Date dateOfBirth;
+
+//    @DateTimeFormat(pattern = "dd/MM/yyyy")
+//    private LocalDateTime dateOfBirth;
+
     private int annualIncome;
     private int firstDeposit;
     private String country;
     private String city;
     private String postcode;
     private String street;
+    private int payDay;
+    private String reason;
+    private long amount;
+
+
+//    private LocalDateTime startDate;
+//    private LocalDateTime dueDate;
+
+    @Enumerated(EnumType.STRING)
     private AssessmentType type;
-
-    @OneToOne
-    private int tellerId;
-
-    private String trackingNumber;
 
     @Enumerated(EnumType.STRING)
     private AssessmentStatus status;
@@ -41,22 +51,6 @@ public class Assessment extends TimeEntity{
     @Enumerated(EnumType.STRING)
     private Decision decision;
 
-    public Assessment(String firstName, String lastName, String email,
-                      int annualIncome, int firstDeposit, String country, String city,
-                      String postcode, String street, AssessmentType type, AssessmentStatus status) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-//        this.dateOfBirth = dateOfBirth;
-        this.annualIncome = annualIncome;
-        this.firstDeposit = firstDeposit;
-        this.country = country;
-        this.city = city;
-        this.postcode = postcode;
-        this.street = street;
-        this.type = type;
-        this.status = status;
-    }
 
     public void start(){
         if (status==PENDING) {
@@ -75,4 +69,4 @@ public class Assessment extends TimeEntity{
         }
     }
 
-}*/
+}

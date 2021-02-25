@@ -1,5 +1,5 @@
 package com.finalproject.BankApplication.controller;
-/*
+
 import com.finalproject.BankApplication.model.Assessment;
 import com.finalproject.BankApplication.model.AssessmentStatus;
 import com.finalproject.BankApplication.model.AssessmentType;
@@ -35,42 +35,50 @@ public class AssessmentController {
         assessmentService.saveNew(assessment);
         int id = assessmentService.findLastId();
         String ref = "A" + (12346789 + id);
-        assessmentService.updateTrackingNumberById(id,ref);
+        model.addAttribute("confirmation","Your account request has been submitted with reference " + ref );
+        return "SubmitApplicationConfirmation";
+    }
 
-        model.addAttribute("confirmation","Your account has been created with reference " + ref );
-        return "accountConfirmation";
+    @GetMapping("/openLoan")
+    public String loanForm(Model model){
+        Assessment assessment = new Assessment();
+        model.addAttribute("assessment",assessment);
+        return "openLoan";
+    }
+
+    @PostMapping("/openLoan")
+    public String createLoanAssessment(@ModelAttribute Assessment assessment,Model model){
+        assessment.setType(AssessmentType.LOAN);
+        assessment.setStatus(AssessmentStatus.PENDING);
+        assessmentService.saveNew(assessment);
+        int id = assessmentService.findLastId();
+        String ref = "L" + (12346789 + id);
+        model.addAttribute("confirmation","Your loan request has been submitted with reference " + ref );
+        return "SubmitApplicationConfirmation";
     }
 
     @GetMapping("/checkStatusRequest")
-    public String checkStatus(){
-        return "findRequest";
+    public String checkStatus() {
+        return "findApplicationStatus";
     }
 
     @PostMapping("/checkStatusRequest")
-    public String getStatus(@RequestParam String trackingNumber, Model model){
-        Assessment ass = assessmentService.findTrackingNumber(trackingNumber);
-        if(ass==null){
-            model.addAttribute("error","Tracking number not found, please check if you type the correct one");
-            return "findRequest";}
-        return "redirect:/LKMBank/checkStatusRequest/{trackingNumber}";
+    public String getStatus(@RequestParam("reference") String reference){
+        int refId = Integer.parseInt(reference.substring(1)) - 12346789;
+        char type = reference.charAt(0);
+        return "redirect:/LKMBank/"+type+"/"+refId;
     }
 
-    @GetMapping("/checkStatusRequest/{trackingNumber}")
-    public String myStatus(@RequestParam String trackingNumber){
-        char type = trackingNumber.charAt(0);
-        String code = trackingNumber.substring(1);
-        return "redirect:/LKMBank/checkStatusRequest/{type}/{code}";
-    }
-
-    @GetMapping("/checkStatusRequest/A/{code}")
-    public String accountStatus(@RequestParam String code){
-        String trackingNumber = "A" + code;
-        Assessment assessment = assessmentService.findTrackingNumber(trackingNumber);
-        return "accountRequest";
+    @GetMapping(value= "/{type}/{refId}")
+    public String statusFound(@PathVariable("refId") int refId, @PathVariable("type") String type, Model model){
+        Assessment assessment = assessmentService.findById(refId);
+        model.addAttribute("assessment",assessment);
+        if (type.equals("A")){
+            return "foundAccountStatus";}
+        else{
+            return "foundLoanStatus";}
     }
 
 
-
+    //    TODO: we need to solve two problems 1. using Date and 2. SQL DML
 }
-
- */

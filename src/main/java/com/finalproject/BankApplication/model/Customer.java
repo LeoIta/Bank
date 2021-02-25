@@ -17,17 +17,17 @@ import java.util.Date;
 public class Customer extends PersonEntity{
 
 
-   /* @OneToOne(targetEntity = Account.class)
+    @OneToOne(targetEntity = Account.class)
     private Account account;
 
-    private Date dateOfBirth;
+    /*private Date dateOfBirth;*/
 
     private String annualIncome;
 
     @ManyToOne
     @JoinColumn(name="address_id")
     private Address address;
-    */
+
     @Column(name = "ACTIVE")
     private int active;
 }

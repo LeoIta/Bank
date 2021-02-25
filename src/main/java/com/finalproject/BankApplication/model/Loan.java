@@ -1,5 +1,5 @@
 package com.finalproject.BankApplication.model;
-/*
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +16,7 @@ import java.util.Date;
 @Table
 @Entity
 public class Loan extends TimeEntity{
+
     private long amount;
     private String reason;
 
@@ -27,4 +28,3 @@ public class Loan extends TimeEntity{
     private int payDay;
 
 }
-*/

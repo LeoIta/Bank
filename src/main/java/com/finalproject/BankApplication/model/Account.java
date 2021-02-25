@@ -1,27 +1,23 @@
 package com.finalproject.BankApplication.model;
-/*
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
+import lombok.Data;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import java.util.HashSet;
+import java.util.Set;
 
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Table
 @Entity
-public class Account extends TimeEntity{
+@Data
+@Table
+public class Account extends BaseEntity{
 
     @Column(name="account_number")
     private String accountNumber;
 
-    @ManyToOne
-    @JoinColumn(name="customer_id")
-    private Customer customer;
+
+    @OneToOne(targetEntity = Customer.class)
+    private Customer customerID;
 
     @Column()
     private long balance;
@@ -29,5 +25,5 @@ public class Account extends TimeEntity{
     @OneToOne(targetEntity = Loan.class, cascade = CascadeType.ALL)
     private Loan loan;
 
+
 }
-*/

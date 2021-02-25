@@ -6,5 +6,3 @@ public interface CustomerService {
     public Customer findUserByEmail(String email) ;
     public Customer saveUser(Customer customer);
 }
-
-
