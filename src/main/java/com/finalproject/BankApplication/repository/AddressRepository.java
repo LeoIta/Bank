@@ -1,4 +1,4 @@
-package com.finalproject.BankApplication.reposiitory;
+package com.finalproject.BankApplication.repository;
 
 import com.finalproject.BankApplication.model.Address;
 import org.springframework.data.jpa.repository.JpaRepository;
