@@ -18,12 +18,15 @@ public class Customer extends PersonEntity{
     @OneToOne(targetEntity = Account.class)
     private Account account;
 
-//    private Date dateOfBirth;
+    /*private Date dateOfBirth;*/
+
     private String annualIncome;
+
     @ManyToOne
     @JoinColumn(name="address_id")
     private Address address;
 
-    private String mail;
+    @Column(name = "ACTIVE")
+    private int active;
 }
 

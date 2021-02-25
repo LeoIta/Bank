@@ -1,30 +1,26 @@
 package com.finalproject.BankApplication.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Table
-public class Account extends TimeEntity{
+public class Account extends BaseEntity{
 
     @Column(name="account_number")
     private String accountNumber;
 
+
     @OneToOne(targetEntity = Customer.class)
-    private Customer customer;
+    private Customer customerID;
 
     @Column()
     private long balance;
 
     @OneToOne(targetEntity = Loan.class, cascade = CascadeType.ALL)
     private Loan loan;
+
 
 }
