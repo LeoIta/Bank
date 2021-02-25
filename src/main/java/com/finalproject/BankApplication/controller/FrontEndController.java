@@ -1,3 +1,4 @@
+/*
 package com.finalproject.BankApplication.controller;
 
 import org.springframework.stereotype.Controller;
@@ -122,3 +123,4 @@ public class FrontEndController {
         return "loandetails";
     }
 }
+*/
