@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
-<div th:replace="fragments/navHome :: navHome"/>
+<div th:replace="fragments/navLogged :: navClient"/>
 <body th:style="'background-image: url(' + @{/images/background.png} + ');
                 background-repeat: no-repeat;
                 background-size: cover;
                 height=100%'">
-<br><h3 align="center">Account request status</h3><br>
+<br><h3 align="center">Loan request status</h3><br>
 <div align="center" th:style="'margin: auto;
   width: 60%;
   border: 3px solid rgba(224, 228, 228, 0.801);

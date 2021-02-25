@@ -3,13 +3,11 @@ package com.finalproject.BankApplication.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
 
 import static com.finalproject.BankApplication.model.AssessmentStatus.*;
 
@@ -24,8 +22,8 @@ public class Assessment extends TimeEntity{
     private String lastName;
     private String email;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private LocalDateTime dateOfBirth;
+//    @DateTimeFormat(pattern = "dd/MM/yyyy")
+//    private LocalDateTime dateOfBirth;
 
     private int annualIncome;
     private int firstDeposit;
@@ -37,11 +35,9 @@ public class Assessment extends TimeEntity{
     private String reason;
     private long amount;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private LocalDateTime startDate;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private LocalDateTime dueDate;
+//    private LocalDateTime startDate;
+//    private LocalDateTime dueDate;
 
     @Enumerated(EnumType.STRING)
     private AssessmentType type;
