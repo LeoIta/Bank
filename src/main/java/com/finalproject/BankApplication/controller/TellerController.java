@@ -16,7 +16,7 @@ import java.util.Map;
 @RequestMapping("/LKMBank/bank")
 public class TellerController {
 
-    @Autowired
+    //@Autowired
     private AssessmentService assessmentService;
 
     @GetMapping("/{tellerId}")

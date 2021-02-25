@@ -1,6 +1,7 @@
 package com.finalproject.BankApplication.repository;
 
 import com.finalproject.BankApplication.model.Account;
+import com.finalproject.BankApplication.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

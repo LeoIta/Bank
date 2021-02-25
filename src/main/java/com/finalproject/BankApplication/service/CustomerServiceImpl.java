@@ -2,14 +2,14 @@ package com.finalproject.BankApplication.service;
 
 import com.finalproject.BankApplication.model.Customer;
 import com.finalproject.BankApplication.model.Role;
-import com.finalproject.BankApplication.reposiitory.CustomerRepository;
-import com.finalproject.BankApplication.reposiitory.RoleRepository;
+import com.finalproject.BankApplication.repository.CustomerRepository;
+import com.finalproject.BankApplication.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
+
 @Service
 public class CustomerServiceImpl implements CustomerService {
 

@@ -27,13 +27,7 @@ public class Customer extends PersonEntity{
 
     private String annualIncome;
 
-
-    @OneToOne(targetEntity = Account.class)
-    private Account account;
-
-//    private Date dateOfBirth;
-    private String annualIncome;
-
+    
     @ManyToOne
     @JoinColumn(name="address_id")
     private Address address;

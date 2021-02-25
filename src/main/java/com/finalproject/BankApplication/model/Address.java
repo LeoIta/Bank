@@ -27,7 +27,7 @@ public class Address extends BaseEntity{
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "address")
 
-    private Set<Customer> customers = new HashSet<>();
+    //private Set<Customer> customers = new HashSet<>();
 
     private List<Customer> customers = new ArrayList<>();
 
