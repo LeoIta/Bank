@@ -20,11 +20,11 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @RequestMapping(value={"/login"}, method = RequestMethod.GET)
-    public String showLogin(Model model){
-        Customer customer = new Customer();
-        model.addAttribute("customer",customer);
-        return "login";
+    @RequestMapping(value={ "/login"}, method = RequestMethod.GET)
+    public ModelAndView login(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("login");
+        return modelAndView;
     }
 
 
@@ -75,7 +75,7 @@ public class CustomerController {
     }
 
     @RequestMapping(value="/user/userHome", method = RequestMethod.GET)
-    public ModelAndView client(){
+    public ModelAndView customer(){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = customerService.findUserByEmail(auth.getName());
@@ -84,6 +84,8 @@ public class CustomerController {
         modelAndView.setViewName("user/userHome");
         return modelAndView;
     }
+
+
 
 
 
