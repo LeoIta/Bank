@@ -10,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table
-public class Transaction extends BaseEntity{
+public class Transaction extends TimeEntity{
 
     private String recipientAccount;
     private String recipientName;
@@ -20,8 +20,7 @@ public class Transaction extends BaseEntity{
     private long amount;
     private String reason;
 
-    private long recipientBalance;
     private long senderBalance;
-
+    private long recipientBalance;
 
 }

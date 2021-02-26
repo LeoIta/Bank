@@ -1,7 +1,7 @@
 package com.finalproject.BankApplication.service;
 
 import com.finalproject.BankApplication.model.Transaction;
-import com.finalproject.BankApplication.reposiitory.TransactionRepository;
+import com.finalproject.BankApplication.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.ls.LSInput;

@@ -14,51 +14,54 @@
                 border-width: 1px;
                 padding-top:10px;
                 padding-bottom:10px'">
-        <form method="POST">
-            <h4>OPEN NEW ACCOUNT</h4>
+        <form th:action="@{/LKMBank/openAccount}" th:object="${assessment}"  method="POST">
+            <h4>OPEN NEW ACCOUNT</h4><hr>
             <div class="form-group">
-                <label for="first_name">First name</label>
-                <input type="text" name="first_name" class="form-control" id="first_name" required>
+                <label for="firstName">First name</label>
+                <input type="text" th:field="*{firstName}" name="firstName" class="form-control" id="firstName" required>
             </div>
             <div class="form-group">
-                <label for="last_name">Last name</label>
-                <input type="text" name="last_name" class="form-control" id="last_name" required>
+                <label for="lastName">Last name</label>
+                <input type="text" th:field="*{lastName}"name="lastName" class="form-control" id="lastName" required>
             </div>
             <div class="form-group">
                 <label for="mail">Email</label>
-                <input type="email" name="mail" class="form-control" id="mail" required>
+                <input type="email" th:field="*{email}"name="mail" class="form-control" id="mail" required>
+            </div>
+
+            <div class="form-group">
+                <label for="annualIncome">Annual income</label>
+                <input type="number" th:field="*{annualIncome}" name="annualIncome" class="form-control" id="annualIncome" min="0" required>
             </div>
             <div class="form-group">
-                <label for="date_of_birth">Birthday</label>
-                <input type="date" name="date_of_birth" class="form-control" id="date_of_birth" required>
-            </div>
-            <div class="form-group">
-                <label for="annual_income">Annual income</label>
-                <input type="number" name="annual_income" class="form-control" id="annual_income" min="0" required>
-            </div>
-            <div class="form-group">
-                <label for="first_deposit">First deposit</label>
-                <input type="number" name="first_deposit" class="form-control" id="first_deposit" min="50" required>
+                <label for="firstDeposit">First deposit</label>
+                <input type="number" th:field="*{firstDeposit}" name="firstDeposit" class="form-control" id="firstDeposit" min="50" required>
             </div>
             <hr>
             <h6>Address</h6>
             <div class="form-group">
                 <label for="country">Country</label>
-                <input type="text" name="country" class="form-control" id="country" required>
+                <input type="text" th:field="*{country}" name="country" class="form-control" id="country" required>
             </div>
             <div class="form-group">
                 <label for="city">City</label>
-                <input type="text" name="city" class="form-control" id="city" required>
+                <input type="text" th:field="*{city}" name="city" class="form-control" id="city" required>
             </div>
             <div class="form-group">
                 <label for="postcode">Postal Code</label>
-                <input type="tel" name="postcode" class="form-control" id="postcode" required>
+
+                <input type="text" th:field="*{postcode}" name="postcode" class="form-control" id="postcode" required>
+
             </div>
             <div class="form-group">
                 <label for="street">Street</label>
-                <input type="text" name="street" class="form-control" id="street" required>
+                <input type="text" th:field="*{street}" name="street" class="form-control" id="street" required>
             </div>
+
 <br>
+
+            <br>
+
             <button type="submit" class="btn btn-primary">Submit your request</button>
         </form>
         <hr>
