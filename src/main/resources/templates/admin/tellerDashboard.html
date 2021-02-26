@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
 <div th:replace="fragments/navLogged :: navTeller"/>
@@ -11,13 +10,27 @@
 <div align="center" th:style="'margin: auto;rgba(224, 228, 228, 0.801);'">
     <div class="card" th:style="'background-color:transparent;width:800px;'">
         <div class="card-body">
+            <div class="card-title">
+                <form th:action="@{/logout}" method="get">
+                    <button class="btn btn-md btn-danger btn-block" name="login"
+                            type="Submit">Logout
+                    </button>
+                </form>
+                <div class="panel-heading">
+                    <span th:utext="${userName}"></span>
+                </div>
+            </div>
+            <p class="admin-message-text text-center" th:utext="${userMessage}"></p>
+         </div>
+    </div>
+
             <table class="table table-secondary table-bordered mt-5 align-middle">
                 <tr>
                     <th align="center">Total Requests (<span th:text="${totalRequests}"/>)</th>
                     <th> <a th:href="@{LKMBank/bank/1/ticket-console/opened}" class="btn btn-primary">Opened (<span th:text="${totalOpen}"/>)</a></th>
-                    <td><a th:href="@{LKMBank/bank/1/ticket-console/pending}" class="btn btn-primary">Pending (<span th:text="${totalWIP}"/>)</a></td>
-                    <td><a th:href="@{LKMBank/bank/1/ticket-console/progress}" class="btn btn-primary">In progress (<span th:text="${totalPending}"/>)</a></td>
-                    <td><a th:href="@{LKMBank/bank/1/ticket-console/completed}" class="btn btn-primary">Completed (<span th:text="${totalCompleted}"/>)</a></td>
+                <td><a th:href="@{LKMBank/bank/1/ticket-console/pending}" class="btn btn-primary">Pending (<span th:text="${totalWIP}"/>)</a></td>
+                <td><a th:href="@{LKMBank/bank/1/ticket-console/progress}" class="btn btn-primary">In progress (<span th:text="${totalPending}"/>)</a></td>
+                <td><a th:href="@{LKMBank/bank/1/ticket-console/completed}" class="btn btn-primary">Completed (<span th:text="${totalCompleted}"/>)</a></td>
                 </tr>
                 <tr>
                     <th align="center">Account Requests (<span th:text="${totalAccountRequests}"/>)</th>
@@ -37,14 +50,5 @@
         </div>
     </div>
 </div>
-=======
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
->>>>>>> main
 </body>
 </html>

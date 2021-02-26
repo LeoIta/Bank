@@ -48,22 +48,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/signup").permitAll()
-                .antMatchers("/LKMBank/**").permitAll()
-                .antMatchers("/LKMBank/bank/1/*").permitAll()
-                .antMatchers("/LKMBank/bank/1/**").permitAll()
-                .antMatchers("/user/**").hasAuthority("USER")
+                .antMatchers("/customer/**").hasAuthority("USER")
                 .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
                 .authenticated().and().formLogin()
-                .loginPage("/LKMBank/login").failureUrl("/login?error=true")
-                .defaultSuccessUrl("/default")
+                .loginPage("/login").failureUrl("/login?error=true")
+                .defaultSuccessUrl("/default", true)
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/").and().exceptionHandling()
-                .accessDeniedPage("/access-denied")
-
-        ;
+                .accessDeniedPage("/access-denied");
     }
 
 

@@ -68,28 +68,28 @@ public class AssessmentService {
     public List<Assessment> findOpenRequest(AssessmentType type){
         List<Assessment> openedRequestList = new ArrayList<>();
         openedRequestList = findOpen().
-                stream().filter(a->a.getStatus().equals(type)).
+                stream().filter(a->a.getType().equals(type)).
                 collect(Collectors.toList());
         return openedRequestList;}
 
     public List<Assessment> findPendingRequest(AssessmentType type){
         List<Assessment> pendingRequestList = new ArrayList<>();
         pendingRequestList = findPending().
-                stream().filter(a->a.getStatus().equals(type)).
+                stream().filter(a->a.getType().equals(type)).
                 collect(Collectors.toList());
         return pendingRequestList;}
 
     public List<Assessment> findWIPRequest(AssessmentType type){
         List<Assessment> WIPRequestList = new ArrayList<>();
         WIPRequestList = findWIP().
-                stream().filter(a->a.getStatus().equals(type)).
+                stream().filter(a->a.getType().equals(type)).
                 collect(Collectors.toList());
         return WIPRequestList;}
 
     public List<Assessment> findDoneRequest(AssessmentType type){
         List<Assessment> doneAccountRequestList = new ArrayList<>();
         doneAccountRequestList = findDone().
-                stream().filter(a->a.getStatus().equals(type)).
+                stream().filter(a->a.getType().equals(type)).
                 collect(Collectors.toList());
         return doneAccountRequestList;}
 
