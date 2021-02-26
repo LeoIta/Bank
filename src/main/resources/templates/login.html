@@ -15,10 +15,6 @@
                 padding-top:10px;
                 padding-bottom:10px'">
 
-<<<<<<< HEAD
-=======
-
->>>>>>> main
         <form th:action="@{/login}" method="POST" class="form-signin">
             <h4>LOGIN</h4>
             <div class="form-group">
@@ -29,10 +25,7 @@
                 <label for="password">Password</label>
                 <input type="password" name="password" class="form-control" id="password" required>
             </div>
-<<<<<<< HEAD
-=======
 
->>>>>>> main
             <div align="center" th:if="${param.error}">
                 <p style="font-size: 20; color: #FF1C19;">Email or Password invalid, please verify</p>
             </div>
@@ -40,23 +33,16 @@
 
             <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit"
                     th:text="Login"></button>
-<<<<<<< HEAD
-=======
-
->>>>>>> main
 
         </form>
         <hr>
         <div class="text-center">
-<<<<<<< HEAD
             New customer? <a th:href="@{/signup}">Create account</a>
             <a th:href="@{/LKMBank/testuser/account}">after login</a>
             <a th:href="@{/LKMBank/bank}">after teller login</a>
-=======
 
           New customer? <a th:href="@{/signup}">Create account</a>
           
->>>>>>> main
         </div>
     </div>
 </div>
