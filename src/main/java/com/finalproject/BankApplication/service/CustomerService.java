@@ -5,12 +5,4 @@ public interface CustomerService {
     public Customer findUserByEmail(String email) ;
     public Customer saveUser(Customer customer);
 
-<<<<<<< HEAD
-import com.finalproject.BankApplication.model.Customer;
-
-public interface CustomerService {
-    public Customer findUserByEmail(String email) ;
-    public Customer saveUser(Customer customer);
-=======
->>>>>>> main
 }
