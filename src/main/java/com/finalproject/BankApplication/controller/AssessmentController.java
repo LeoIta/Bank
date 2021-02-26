@@ -1,8 +1,6 @@
 package com.finalproject.BankApplication.controller;
 
 import com.finalproject.BankApplication.model.Assessment;
-import com.finalproject.BankApplication.model.AssessmentStatus;
-import com.finalproject.BankApplication.model.AssessmentType;
 import com.finalproject.BankApplication.service.AssessmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,11 +28,10 @@ public class AssessmentController {
 
     @PostMapping("/openAccount")
     public String createAssessment(@ModelAttribute Assessment assessment,Model model){
-        assessment.setType(AssessmentType.ACCOUNT);
-//        assessment.setStatus(AssessmentStatus.PENDING);
         assessmentService.saveNew(assessment);
         int id = assessmentService.findLastId();
-        assessmentService.updateStatus(AssessmentStatus.PENDING, id);
+        assessmentService.submit(id);
+        assessmentService.accountType(id);
         String ref = "A" + (12346789 + id);
         model.addAttribute("confirmation","Your account request has been submitted with reference " + ref );
         return "SubmitApplicationConfirmation";
@@ -49,11 +46,10 @@ public class AssessmentController {
 
     @PostMapping("/openLoan")
     public String createLoanAssessment(@ModelAttribute Assessment assessment,Model model){
-        assessment.setType(AssessmentType.LOAN);
-//        assessment.setStatus(AssessmentStatus.PENDING);
         assessmentService.saveNew(assessment);
         int id = assessmentService.findLastId();
-        assessmentService.updateStatus(AssessmentStatus.PENDING, id);
+        assessmentService.submit(id);
+        assessmentService.loanType(id);
         String ref = "L" + (12346789 + id);
         model.addAttribute("confirmation","Your loan request has been submitted with reference " + ref );
         return "SubmitApplicationConfirmation";
@@ -81,6 +77,5 @@ public class AssessmentController {
             return "foundLoanStatus";}
     }
 
-
-    //    TODO: we need to solve two problems 1. using Date and 2. SQL DML
+    //    TODO: we need to solve two problems 1. using Date
 }

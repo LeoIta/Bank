@@ -11,14 +11,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 
-
-import static com.finalproject.BankApplication.model.AssessmentStatus.*;
-
-
-
-import static com.finalproject.BankApplication.model.AssessmentStatus.*;
-
-
 @Entity
 @Getter
 @Setter
@@ -57,21 +49,21 @@ public class Assessment extends TimeEntity{
     private Decision decision;
 
 
-    public void start(){
-        if (status==PENDING) {
-            status = IN_PROGRESS;
-        }else{
-            throw new InvalidAssessmentStatusException();
-        }
-    }
-
-    public void makeDecision(Decision decision){
-        if (status==IN_PROGRESS) {
-            this.decision = decision;
-            status = DONE;
-        }else{
-            throw new InvalidAssessmentStatusException();
-        }
-    }
+//    public void start(){
+//        if (status==PENDING) {
+//            status = IN_PROGRESS;
+//        }else{
+//            throw new InvalidAssessmentStatusException();
+//        }
+//    }
+//
+//    public void makeDecision(Decision decision){
+//        if (status==IN_PROGRESS) {
+//            this.decision = decision;
+//            status = DONE;
+//        }else{
+//            throw new InvalidAssessmentStatusException();
+//        }
+//    }
 
 }
