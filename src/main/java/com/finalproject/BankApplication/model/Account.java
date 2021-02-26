@@ -4,10 +4,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.util.HashSet;
-import java.util.Set;
-
 
 
 @Entity
@@ -18,16 +14,8 @@ public class Account extends BaseEntity{
     @Column(name="account_number")
     private String accountNumber;
 
-
-<<<<<<< HEAD
-=======
     @OneToOne(targetEntity = Customer.class)
     private Customer customerID;
-
->>>>>>> main
-    @OneToOne(targetEntity = Customer.class)
-    private Customer customerID;
-
 
     @Column()
     private long balance;

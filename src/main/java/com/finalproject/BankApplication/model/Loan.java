@@ -8,11 +8,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Date;
 
-
-<<<<<<< HEAD
-=======
-
->>>>>>> main
 @Getter
 @Setter
 @NoArgsConstructor

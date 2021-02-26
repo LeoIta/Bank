@@ -9,7 +9,6 @@ import javax.persistence.*;
 import java.util.Date;
 
 
-
 @Entity
 @Getter
 @Setter
@@ -18,8 +17,6 @@ import java.util.Date;
 @Table
 public class Customer extends PersonEntity{
 
-
-
     @OneToOne(targetEntity = Account.class)
     private Account account;
 
@@ -27,24 +24,13 @@ public class Customer extends PersonEntity{
 
     private String annualIncome;
 
-<<<<<<< HEAD
-=======
-    
->>>>>>> main
     @ManyToOne
     @JoinColumn(name="address_id")
     private Address address;
-
-<<<<<<< HEAD
-    @Column(name = "ACTIVE")
-    private int active;
-=======
 
     @Column(name = "ACTIVE")
     private int active;
 
     private String mail;
-
->>>>>>> main
 }
 
