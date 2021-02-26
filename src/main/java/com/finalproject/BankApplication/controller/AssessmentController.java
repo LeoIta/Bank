@@ -3,8 +3,12 @@ package com.finalproject.BankApplication.controller;
 import com.finalproject.BankApplication.model.Assessment;
 import com.finalproject.BankApplication.model.AssessmentStatus;
 import com.finalproject.BankApplication.model.AssessmentType;
+import com.finalproject.BankApplication.model.Customer;
 import com.finalproject.BankApplication.service.AssessmentService;
+import com.finalproject.BankApplication.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +18,9 @@ public class AssessmentController {
 
     @Autowired
     AssessmentService assessmentService;
+
+    @Autowired
+    CustomerService customerService;
 
     /*@GetMapping("/")
     public String home(){
@@ -29,6 +36,9 @@ public class AssessmentController {
 
     @PostMapping("/user/openAccount")
     public String createAssessment(@ModelAttribute Assessment assessment,Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Customer customer = customerService.findUserByEmail(auth.getName());
+        assessment.setCustomerId(customer.getId());
         assessment.setType(AssessmentType.ACCOUNT);
         assessment.setStatus(AssessmentStatus.PENDING);
         assessmentService.saveNew(assessment);
@@ -65,7 +75,7 @@ public class AssessmentController {
     public String getStatus(@RequestParam("reference") String reference){
         int refId = Integer.parseInt(reference.substring(1)) - 12346789;
         char type = reference.charAt(0);
-        return "redirect:/LKMBank/"+type+"/"+refId;
+        return "redirect:user/{type}/{refId}";
     }
 
     @GetMapping(value= "/user/{type}/{refId}")

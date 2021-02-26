@@ -4,11 +4,9 @@ package com.finalproject.BankApplication.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.stereotype.Controller;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 import static com.finalproject.BankApplication.model.AssessmentStatus.*;
@@ -20,6 +18,9 @@ import static com.finalproject.BankApplication.model.AssessmentStatus.*;
 @NoArgsConstructor
 @Table
 public class Assessment extends TimeEntity{
+
+    @Column
+    private int customerId;
 
     private String firstName;
     private String lastName;
