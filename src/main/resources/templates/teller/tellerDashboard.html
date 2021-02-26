@@ -7,6 +7,17 @@
                 background-size: cover;
                 height=100%'">
 <br><br>
+<form th:action="@{/logout}" method="get">
+    <button class="btn btn-md btn-danger btn-block" name="login"
+            type="Submit">Logout
+    </button>
+</form>
+<div class="panel-heading">
+    <span th:utext="${userName}"></span>
+</div>
+</div>
+<p class="admin-message-text text-center" th:utext="${adminMessage}"></p>
+</div>
 <div align="center" th:style="'margin: auto;rgba(224, 228, 228, 0.801);'">
     <div class="card" th:style="'background-color:transparent;width:800px;'">
         <div class="card-body">

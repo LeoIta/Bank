@@ -1,9 +1,6 @@
 package com.finalproject.BankApplication.controller;
 
-import com.finalproject.BankApplication.model.Assessment;
-import com.finalproject.BankApplication.model.AssessmentStatus;
-import com.finalproject.BankApplication.model.AssessmentType;
-import com.finalproject.BankApplication.model.Customer;
+import com.finalproject.BankApplication.model.*;
 import com.finalproject.BankApplication.service.AssessmentService;
 import com.finalproject.BankApplication.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +19,6 @@ public class AssessmentController {
     @Autowired
     CustomerService customerService;
 
-    /*@GetMapping("/")
-    public String home(){
-        return "home";
-    }*/
 
     @GetMapping("/user/openAccount")
     public String accountForm(Model model){
@@ -39,7 +32,8 @@ public class AssessmentController {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = customerService.findUserByEmail(auth.getName());
-        assessment.setCustomerId(customer.getId());
+        int customerId = customer.getId();
+        assessment.setCustomerId(customerId);
         assessment.setType(AssessmentType.ACCOUNT);
         assessment.setStatus(AssessmentStatus.PENDING);
         customer.setAnnualIncome(assessment.getAnnualIncome());
