@@ -36,12 +36,16 @@ public class AssessmentController {
 
     @PostMapping("/user/openAccount")
     public String createAssessment(@ModelAttribute Assessment assessment,Model model){
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = customerService.findUserByEmail(auth.getName());
         assessment.setCustomerId(customer.getId());
+
         assessment.setType(AssessmentType.ACCOUNT);
         assessment.setStatus(AssessmentStatus.PENDING);
+        customer.setAnnualIncome(assessment.getAnnualIncome());
         assessmentService.saveNew(assessment);
+
         int id = assessmentService.findLastId();
         String ref = "A" + (12346789 + id);
         model.addAttribute("confirmation","Your account request has been submitted with reference " + ref );

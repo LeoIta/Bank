@@ -29,7 +29,7 @@ public class Assessment extends TimeEntity{
 //    @DateTimeFormat(pattern = "dd/MM/yyyy")
 //    private LocalDateTime dateOfBirth;
 
-    private int annualIncome;
+    private Long annualIncome;
     private int firstDeposit;
     private String country;
     private String city;

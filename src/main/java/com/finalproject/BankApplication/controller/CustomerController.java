@@ -63,25 +63,25 @@ public class CustomerController {
     }
 
 
-    @RequestMapping(value="/admin/adminHome", method = RequestMethod.GET)
+    @RequestMapping(value="/teller/tellerDashboard", method = RequestMethod.GET)
     public ModelAndView admin(){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = customerService.findUserByEmail(auth.getName());
         modelAndView.addObject("userName", "Welcome " + customer.getFirstName() + " " + customer.getLastName() + " (" + customer.getEmail() + ")");
-        modelAndView.addObject("adminMessage","This Page is available to Users with Admin Role");
-        modelAndView.setViewName("admin/adminHome");
+        modelAndView.addObject("adminMessage","Have a productive day!");
+        modelAndView.setViewName("teller/tellerDashboard");
         return modelAndView;
     }
 
-    @RequestMapping(value="/user/userHome", method = RequestMethod.GET)
+    @RequestMapping(value="/user/userDashboard", method = RequestMethod.GET)
     public ModelAndView customer(){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = customerService.findUserByEmail(auth.getName());
         modelAndView.addObject("userName", "Welcome " + customer.getFirstName() + " " + customer.getLastName() + " (" + customer.getEmail() + ")");
-        modelAndView.addObject("userMessage","This Page is available to Users with User Role");
-        modelAndView.setViewName("user/userHome");
+        modelAndView.addObject("userMessage","LKM bank!");
+        modelAndView.setViewName("user/userDashboard");
         return modelAndView;
     }
 

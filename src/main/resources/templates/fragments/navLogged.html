@@ -3,10 +3,10 @@
 <head th:replace="header :: header"/>
 <body>
 
-<div th:fragment="navCustomer">
+<div th:fragment="navClient">
     <nav class="navbar navbar-expand-md navbar-light" style="background-color: #FFF;">
         <div class="container-fluid">
-            <a class="navbar-brand" th:href="@{/user/account}" style="padding-left:50px">
+            <a class="navbar-brand" th:href="@{/LKMBank/testuser/account}" style="padding-left:50px">
                 <img th:src="@{/images/bull.png}" width="30" height="30" class="d-inline-block align-top">
                 <span>LKM BANK</span>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -18,12 +18,12 @@
 
                 <ul class="navbar-nav">
 
-                    <li class="nav-item dropdown">
-                    <li><a class="dropdown-item" th:href="@{/user/account/}">Dashboard</a></li>
-                    <li><a class="dropdown-item" th:href="@{/user/account/transactions}">History</a></li>
-                    <li><a class="dropdown-item" th:href="@{/user/account/loan}">Request a loan</a></li>
-                    <li><a class="dropdown-item" th:href="@{/user/account/loandetails}">Check loan</a></li>
-                    <li><a class="dropdown-item" th:href="@{/user/account/maketransfer}">Make transaction</a></li>
+                    <li>
+                    <li><a class="dropdown-item" th:href="@{/LKMBank/testuser/account/}">Dashboard</a></li>
+                    <li><a class="dropdown-item" th:href="@{/LKMBank/testuser/account/transactions}">History</a></li>
+                    <li><a class="dropdown-item" th:href="@{/LKMBank/testuser/account/loan}">Loan requests</a></li>
+                    <li><a class="dropdown-item" th:href="@{/LKMBank/testuser/account/loandetails}">Account request</a></li>
+                    <li><a class="dropdown-item" th:href="@{/LKMBank/testuser/account/maketransfer}">Make transaction</a></li>
                     </li>
                 </ul>
 
@@ -35,8 +35,8 @@
                     <a class="nav-link dropdown-toggle" id="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         John Geller</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" th:href="@{/user/account/data/view}">Your data</a></li>
-                        <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
+                        <li><a class="dropdown-item" th:href="@{/LKMBank/testuser/account/data/view}">Your data</a></li>
+                        <li><a class="dropdown-item" th:href="@{/LKMBank}">Logout</a></li>
                     </ul>
                 </li>
 
@@ -60,17 +60,23 @@
                 </button>
             </a>
 
-            <div class="cointainer-fluid" id="teller">
+            <div class="cointainer-fluid" id="home">
 
                 <ul class="navbar-nav">
-
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/LKMBank/bank/1}">Dashboard</a>
+                    </li>
                     <li class="nav-item dropdown">
-
-                    <li><a class="dropdown-item" th:href="@{/LKMBank/bank/teller}">Dashboard</a></li>
-                    <li><a class="dropdown-item" th:href="@{/LKMBank/bank/teller/loans}">Loan request</a></li>
-                    <li><a class="dropdown-item" th:href="@{/LKMBank/bank/teller/accounts}">Account request</a></li>
-                    <li><a class="dropdown-item" th:href="@{/LKMBank/bank/teller/myrequest}">My request</a></li>
-
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Console</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/LKMBank/bank/1/account-console}">Account console</a></li>
+                            <li><a class="dropdown-item" th:href="@{/LKMBank/bank/1/admin-console}">Admin console</a></li>
+                            <li><a class="dropdown-item" th:href="@{/LKMBank/bank/1/loan-console}">Loan Console</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/LKMBank/bank/1}">My assigned assessment</a>
                     </li>
                 </ul>
 

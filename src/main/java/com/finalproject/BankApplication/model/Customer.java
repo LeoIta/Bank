@@ -22,7 +22,7 @@ public class Customer extends PersonEntity{
 
     /*private Date dateOfBirth;*/
 
-    private String annualIncome;
+    private Long annualIncome;
 
     @ManyToOne
     @JoinColumn(name="address_id")
