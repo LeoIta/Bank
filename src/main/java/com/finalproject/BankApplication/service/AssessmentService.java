@@ -4,6 +4,7 @@ import com.finalproject.BankApplication.model.Assessment;
 import com.finalproject.BankApplication.model.AssessmentStatus;
 import com.finalproject.BankApplication.model.AssessmentType;
 
+import com.finalproject.BankApplication.model.Decision;
 import com.finalproject.BankApplication.repository.AssessmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -160,6 +161,31 @@ public class AssessmentService {
 
         return statistics;}
 
-//    TODO: 1. Update Status 2. Update decision
+    public void submit(int id ){
+        assessmentRepository.changeStatus(AssessmentStatus.PENDING,id);
+    }
+    public void start(int id ){
+        assessmentRepository.changeStatus(AssessmentStatus.IN_PROGRESS,id);
+    }
+    public void done(int id ){
+        assessmentRepository.changeStatus(AssessmentStatus.DONE,id);
+    }
+
+    public void accountType(int id ){
+        assessmentRepository.changeType(AssessmentType.ACCOUNT,id);
+    }
+    public void loanType(int id ){
+        assessmentRepository.changeType(AssessmentType.LOAN,id);
+    }
+
+    public void approved(int id ){
+        assessmentRepository.changeDecision(Decision.APPROVED,id);
+    }
+    public void rejected(int id ){
+        assessmentRepository.changeDecision(Decision.REJECTED,id);
+    }
+
+
+
 
 }
