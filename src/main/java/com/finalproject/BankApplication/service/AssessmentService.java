@@ -162,4 +162,8 @@ public class AssessmentService {
 
 //    TODO: 1. Update Status 2. Update decision
 
+    public void updateStatus(AssessmentStatus status, int id ){
+        assessmentRepository.changeStatus(status,id);
+    }
+
 }

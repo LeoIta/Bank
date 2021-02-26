@@ -31,9 +31,10 @@ public class AssessmentController {
     @PostMapping("/openAccount")
     public String createAssessment(@ModelAttribute Assessment assessment,Model model){
         assessment.setType(AssessmentType.ACCOUNT);
-        assessment.setStatus(AssessmentStatus.PENDING);
+//        assessment.setStatus(AssessmentStatus.PENDING);
         assessmentService.saveNew(assessment);
         int id = assessmentService.findLastId();
+        assessmentService.updateStatus(AssessmentStatus.PENDING, id);
         String ref = "A" + (12346789 + id);
         model.addAttribute("confirmation","Your account request has been submitted with reference " + ref );
         return "SubmitApplicationConfirmation";
@@ -49,9 +50,10 @@ public class AssessmentController {
     @PostMapping("/openLoan")
     public String createLoanAssessment(@ModelAttribute Assessment assessment,Model model){
         assessment.setType(AssessmentType.LOAN);
-        assessment.setStatus(AssessmentStatus.PENDING);
+//        assessment.setStatus(AssessmentStatus.PENDING);
         assessmentService.saveNew(assessment);
         int id = assessmentService.findLastId();
+        assessmentService.updateStatus(AssessmentStatus.PENDING, id);
         String ref = "L" + (12346789 + id);
         model.addAttribute("confirmation","Your loan request has been submitted with reference " + ref );
         return "SubmitApplicationConfirmation";

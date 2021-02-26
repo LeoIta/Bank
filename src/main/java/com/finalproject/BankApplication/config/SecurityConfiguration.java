@@ -48,10 +48,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/signup").permitAll()
+                .antMatchers("/LKMBank/**").permitAll()
+                .antMatchers("/LKMBank/bank/1/*").permitAll()
+                .antMatchers("/LKMBank/bank/1/**").permitAll()
                 .antMatchers("/user/**").hasAuthority("USER")
                 .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
                 .authenticated().and().formLogin()
-                .loginPage("/login").failureUrl("/login?error=true")
+                .loginPage("/LKMBank/login").failureUrl("/login?error=true")
                 .defaultSuccessUrl("/default")
                 .usernameParameter("email")
                 .passwordParameter("password")
@@ -62,10 +65,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         ;
     }
-
-
-
-
 
 
     @Override

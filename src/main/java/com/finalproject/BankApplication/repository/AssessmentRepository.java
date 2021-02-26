@@ -4,6 +4,9 @@ import com.finalproject.BankApplication.model.Assessment;
 import com.finalproject.BankApplication.model.AssessmentStatus;
 import com.finalproject.BankApplication.model.AssessmentType;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,4 +18,7 @@ public interface AssessmentRepository extends JpaRepository<Assessment,Integer> 
     public List<Assessment> findAssessmentByType(AssessmentType type);
     public List<Assessment> findAssessmentByStatus(AssessmentStatus status);
 
+    @Modifying
+    @Query("update Assessment a set a.status = :status where a.id = :id")
+    void changeStatus(@Param("status") AssessmentStatus status, @Param("status") int id);
 }
