@@ -1,31 +1,21 @@
 package com.finalproject.BankApplication.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 
+
+
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Table
 public class Account extends BaseEntity{
 
-    private String account_number;
+    @Column(name="account_number")
+    private String accountNumber;
 
-    public Account(Customer customer, long balance) {
-        this.customer = customer;
-        this.balance = balance;
-        this.accountStatus = FormStatus.SUBMITTED;;
-    }
-
-    @ManyToOne
-    @JoinColumn(name="customer_id")
-    private Customer customer;
+    @OneToOne(targetEntity = Customer.class)
+    private Customer customerID;
 
     @Column()
     private long balance;
@@ -33,13 +23,5 @@ public class Account extends BaseEntity{
     @OneToOne(targetEntity = Loan.class, cascade = CascadeType.ALL)
     private Loan loan;
 
-    @Enumerated(EnumType.STRING)
-    private FormStatus accountStatus;
 
-    public boolean isSubmitted() {
-        return accountStatus == FormStatus.SUBMITTED;
-    }
-
-    @OneToOne
-    private Assessment assessment;
 }

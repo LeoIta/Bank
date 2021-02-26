@@ -1,63 +1,69 @@
+
 package com.finalproject.BankApplication.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
 
-import static com.finalproject.BankApplication.model.AssessmentStatus.*;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table
-public class Assessment extends BaseEntity{
+public class Assessment extends TimeEntity{
 
-    @OneToOne
-    private Account accountForm;
-    @OneToOne
-    private Loan loanForm;
+    private String firstName;
+    private String lastName;
+    private String email;
+
+//    @DateTimeFormat(pattern = "dd/MM/yyyy")
+//    private LocalDateTime dateOfBirth;
+
+    private int annualIncome;
+    private int firstDeposit;
+    private String country;
+    private String city;
+    private String postcode;
+    private String street;
+    private int payDay;
+    private String reason;
+    private long amount;
+
+
+//    private LocalDateTime startDate;
+//    private LocalDateTime dueDate;
 
     @Enumerated(EnumType.STRING)
-    private Decision decision;
+    private AssessmentType type;
 
     @Enumerated(EnumType.STRING)
     private AssessmentStatus status;
 
-    public Assessment(Account form) {
-        if(!form.isSubmitted()){
-            throw new FormNotSubmittedException();
-        }
-        this.accountForm = form;
-        this.status = PENDING;
-    }
+    @Enumerated(EnumType.STRING)
+    private Decision decision;
 
-    public Assessment(Loan form) {
-        if(!form.isSubmitted()){
-            throw new FormNotSubmittedException();
-        }
-        this.loanForm = form;
-    }
 
-    public void start(){
-        if (status==PENDING) {
-            status = IN_PROGRESS;
-        }else{
-            throw new InvalidAssessmentStatusException();
-        }
-    }
-
-    public void makeDecision(Decision decision){
-        if (status==IN_PROGRESS) {
-            this.decision = decision;
-            status = DONE;
-        }else{
-            throw new InvalidAssessmentStatusException();
-        }
-    }
+//    public void start(){
+//        if (status==PENDING) {
+//            status = IN_PROGRESS;
+//        }else{
+//            throw new InvalidAssessmentStatusException();
+//        }
+//    }
+//
+//    public void makeDecision(Decision decision){
+//        if (status==IN_PROGRESS) {
+//            this.decision = decision;
+//            status = DONE;
+//        }else{
+//            throw new InvalidAssessmentStatusException();
+//        }
+//    }
 
 }

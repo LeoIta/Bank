@@ -1,9 +1,6 @@
 package com.finalproject.BankApplication.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -13,10 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Table
 public class Address extends BaseEntity{
 
@@ -26,5 +20,9 @@ public class Address extends BaseEntity{
     private String street;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "address")
+
+    //private Set<Customer> customers = new HashSet<>();
+
     private List<Customer> customers = new ArrayList<>();
+
 }
