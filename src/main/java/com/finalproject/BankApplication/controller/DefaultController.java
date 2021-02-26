@@ -1,3 +1,4 @@
+/*
 package com.finalproject.BankApplication.controller;
 
 import org.springframework.stereotype.Controller;
@@ -9,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 public class DefaultController {
     @RequestMapping("/default")
     public String defaultAfterLogin(HttpServletRequest request) {
-        if (request.isUserInRole("ADMIN")) {
-            return "redirect:/teller/tellerDashboard";
-        }
+        if (request.isUserInRole("AUTHORITY_USER")) {
             return "redirect:/user/userDashboard";
+        }
+            return "redirect:/teller/tellerDashboard";
     }
-}
+}*/

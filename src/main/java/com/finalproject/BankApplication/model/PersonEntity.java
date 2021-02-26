@@ -36,6 +36,7 @@ public abstract class PersonEntity {
     @Column(name = "LAST_NAME")
     private String lastName;
 
+    @Column
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
     private Set<Role> roles;
