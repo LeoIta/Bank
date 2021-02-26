@@ -28,6 +28,13 @@ public class CustomerController {
         return modelAndView;
     }
 
+    @RequestMapping(value={"/","/index"}, method = RequestMethod.GET)
+    public ModelAndView index() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("index");
+        return modelAndView;
+    }
+
 
     @RequestMapping(value="/signup", method = RequestMethod.GET)
     public ModelAndView signup(){
@@ -66,7 +73,7 @@ public class CustomerController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = customerService.findUserByEmail(auth.getName());
-        modelAndView.addObject("userName", "Welcome Teller: " + customer.getId() +  (" + customer.getEmail() + "));
+        modelAndView.addObject("userName", "Welcome Teller: " + customer.getId());
         modelAndView.addObject("adminMessage","Have a productive day!");
         modelAndView.setViewName("teller/tellerDashboard");
         return modelAndView;
