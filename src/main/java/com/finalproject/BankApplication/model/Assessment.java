@@ -1,9 +1,7 @@
 
 package com.finalproject.BankApplication.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,9 +10,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @Table
 public class Assessment extends TimeEntity{
 
@@ -22,10 +18,11 @@ public class Assessment extends TimeEntity{
     private String lastName;
     private String email;
 
+
 //    @DateTimeFormat(pattern = "dd/MM/yyyy")
 //    private LocalDateTime dateOfBirth;
 
-    private int annualIncome;
+    private long annualIncome;
     private int firstDeposit;
     private String country;
     private String city;
@@ -34,7 +31,7 @@ public class Assessment extends TimeEntity{
     private int payDay;
     private String reason;
     private long amount;
-
+    private int customerId;
 
 //    private LocalDateTime startDate;
 //    private LocalDateTime dueDate;

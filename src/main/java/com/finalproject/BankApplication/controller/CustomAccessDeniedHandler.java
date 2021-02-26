@@ -1,4 +1,4 @@
-package com.finalproject.BankApplication.config;
+package com.finalproject.BankApplication.controller;
 
 
 import org.springframework.security.access.AccessDeniedException;
@@ -11,7 +11,8 @@ import java.io.IOException;
 
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     @Override
-    public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException, ServletException {
+    public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e)
+            throws IOException, ServletException {
         httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/access-denied");
     }
 }

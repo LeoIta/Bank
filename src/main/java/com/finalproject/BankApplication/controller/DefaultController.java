@@ -9,11 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 public class DefaultController {
     @RequestMapping("/default")
     public String defaultAfterLogin(HttpServletRequest request) {
-        if (request.isUserInRole("ADMIN")) {
-            return "redirect:/admin/adminHome/";
 
-        } else if (request.isUserInRole("TELLER")) {
-            return "redirect:/tellerdashboard/";
-        } else{
-            return "redirect:/user/userHome";
-    }}}
+        if (request.isUserInRole("ADMIN")) {
+            System.out.println(("I am here ADMIN"));
+            return "redirect:/admin/tellerDashboard";
+        }
+        System.out.println(("I am here customer"));
+        return "redirect:/customer/customerDashboard";
+    }
+}
