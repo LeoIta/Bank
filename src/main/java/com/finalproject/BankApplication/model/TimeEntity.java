@@ -39,5 +39,10 @@ public abstract class TimeEntity extends BaseEntity {
             nullable = false
     )
     Date modifiedAt;
+<<<<<<< HEAD
+}
+//    TODO: we need to use LocalDateTime for timestamps
+=======
 
 }
+>>>>>>> main

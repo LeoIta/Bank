@@ -1,9 +1,6 @@
 package com.finalproject.BankApplication.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 
@@ -14,22 +11,22 @@ import java.util.Set;
 
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Table
-public class Account extends TimeEntity{
+public class Account extends BaseEntity{
 
     @Column(name="account_number")
     private String accountNumber;
 
 
+<<<<<<< HEAD
+=======
     @OneToOne(targetEntity = Customer.class)
     private Customer customerID;
 
+>>>>>>> main
     @OneToOne(targetEntity = Customer.class)
-    private Customer customer;
+    private Customer customerID;
 
 
     @Column()
@@ -37,5 +34,6 @@ public class Account extends TimeEntity{
 
     @OneToOne(targetEntity = Loan.class, cascade = CascadeType.ALL)
     private Loan loan;
+
 
 }

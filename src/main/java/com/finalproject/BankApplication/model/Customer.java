@@ -27,16 +27,24 @@ public class Customer extends PersonEntity{
 
     private String annualIncome;
 
+<<<<<<< HEAD
+=======
     
+>>>>>>> main
     @ManyToOne
     @JoinColumn(name="address_id")
     private Address address;
 
+<<<<<<< HEAD
+    @Column(name = "ACTIVE")
+    private int active;
+=======
 
     @Column(name = "ACTIVE")
     private int active;
 
     private String mail;
 
+>>>>>>> main
 }
 
