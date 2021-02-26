@@ -33,7 +33,7 @@ public interface AssessmentRepository extends JpaRepository<Assessment,Integer> 
     @Modifying
     @Transactional
     @Query(value = "update Assessment a set a.decision = :decision where a.id = :id")
-    void changeDecision(@Param("type") Decision decision, @Param("id") int id);
+    void changeDecision(@Param("decision") Decision decision, @Param("id") int id);
 
 }
 
