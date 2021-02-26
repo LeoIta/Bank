@@ -28,10 +28,7 @@
                 <label for="mail">Email</label>
                 <input type="email" th:field="*{email}"name="mail" class="form-control" id="mail" required>
             </div>
-<!--            <div class="form-group">-->
-<!--                <label for="DateOfBirth"> Date Of Birth</label>-->
-<!--                <input type="datetime-local" th:value="*{DateOfBirth}" name="DateOfBirth" class="form-control" id="DateOfBirth" required>-->
-<!--            </div>-->
+
             <div class="form-group">
                 <label for="annualIncome">Annual income</label>
                 <input type="number" th:field="*{annualIncome}" name="annualIncome" class="form-control" id="annualIncome" min="0" required>
@@ -52,13 +49,19 @@
             </div>
             <div class="form-group">
                 <label for="postcode">Postal Code</label>
+
                 <input type="text" th:field="*{postcode}" name="postcode" class="form-control" id="postcode" required>
+
             </div>
             <div class="form-group">
                 <label for="street">Street</label>
                 <input type="text" th:field="*{street}" name="street" class="form-control" id="street" required>
             </div>
+
+<br>
+
             <br>
+
             <button type="submit" class="btn btn-primary">Submit your request</button>
         </form>
         <hr>

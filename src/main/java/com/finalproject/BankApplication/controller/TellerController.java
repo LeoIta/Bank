@@ -1,5 +1,6 @@
 package com.finalproject.BankApplication.controller;
 
+
 import com.finalproject.BankApplication.model.Assessment;
 import com.finalproject.BankApplication.service.AssessmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import java.util.Map;
 @RequestMapping("/LKMBank/bank")
 public class TellerController {
 
-    @Autowired
+    //@Autowired
     private AssessmentService assessmentService;
 
     @GetMapping("/{tellerId}")
@@ -125,3 +126,4 @@ public class TellerController {
     }
 
 }
+
