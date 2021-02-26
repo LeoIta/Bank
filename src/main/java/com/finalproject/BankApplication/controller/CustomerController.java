@@ -41,10 +41,8 @@ public class CustomerController {
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public ModelAndView createNewUser(@Valid Customer customer, BindingResult bindingResult) {
-        System.out.println("I'm in the create new user method");
         ModelAndView modelAndView = new ModelAndView();
         Customer userExists = customerService.findUserByEmail(customer.getEmail());
-        System.out.println("getting email " + userExists);
         if (userExists != null) {
             bindingResult
                     .rejectValue("email", "email.inuse",
@@ -68,7 +66,7 @@ public class CustomerController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = customerService.findUserByEmail(auth.getName());
-        modelAndView.addObject("userName", "Welcome " + customer.getFirstName() + " " + customer.getLastName() + " (" + customer.getEmail() + ")");
+        modelAndView.addObject("userName", "Welcome Teller: " + customer.getId() +  (" + customer.getEmail() + "));
         modelAndView.addObject("adminMessage","Have a productive day!");
         modelAndView.setViewName("teller/tellerDashboard");
         return modelAndView;
@@ -79,8 +77,8 @@ public class CustomerController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = customerService.findUserByEmail(auth.getName());
-        modelAndView.addObject("userName", "Welcome " + customer.getFirstName() + " " + customer.getLastName() + " (" + customer.getEmail() + ")");
-        modelAndView.addObject("userMessage","LKM bank!");
+        modelAndView.addObject("userName", "Welcome Customer: " + customer.getFirstName() + " " + customer.getLastName() + " (" + customer.getEmail() + ")");
+        modelAndView.addObject("userMessage","LMK bank!");
         modelAndView.setViewName("user/userDashboard");
         return modelAndView;
     }
