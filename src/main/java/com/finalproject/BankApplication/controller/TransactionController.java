@@ -9,6 +9,8 @@ import com.finalproject.BankApplication.repository.TransactionRepository;
 import com.finalproject.BankApplication.service.*;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +21,7 @@ import java.sql.SQLOutput;
 import java.util.*;
 
 @Controller
-@RequestMapping("/LKMBank/user/{userId}")
+@RequestMapping("/customer")
 public class TransactionController {
 
     @Autowired
@@ -38,8 +40,10 @@ public class TransactionController {
 
     @GetMapping //(value="/{userId}")
     //@ResponseBody
-    public String  blabla(@PathVariable(name="userId") int id, Model model){
-        //int id=1;
+    public String  blabla(@PathVariable(name="userId") int ids, Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Customer customer = customerService.findUserByEmail(auth.getName());
+        int id=1;
         System.out.println("oh oh "+id);
         //return " This is "+id;
 
@@ -47,13 +51,13 @@ public class TransactionController {
         model.addAttribute("account",account);
         Loan loan = loanService.findLoanByAccountId(id);
         model.addAttribute("loan", loan);
-        return "dashboardCustomer";
+        return "customer/dashboardCustomer";
     }
 
     @GetMapping(value = "/transaction")
     public String getTransactionsPages() {
         System.out.println("I am in transaction");
-        return "transaction";
+        return "customer/transaction";
     }
 
     @GetMapping("/maketransfer")
@@ -78,7 +82,7 @@ public class TransactionController {
         model.addAttribute("transaction", transaction);
         model.addAttribute("cst",customer);
         model.addAttribute("acc",senderAccount);
-        return "transfers";
+        return "customer/transfers";
     }
 
     @PostMapping("/maketransfer")
@@ -126,7 +130,7 @@ public class TransactionController {
         model.addAttribute("validationMessage",validationMessage);
 
         model.addAttribute("transaction", transaction);
-        return "transferstatus";
+        return "customer/transferstatus";
     }
 
     @GetMapping("/transactions/sent")
@@ -151,7 +155,7 @@ public class TransactionController {
         model.addAttribute("transferMessage", transferMessage);
         model.addAttribute("sent");
         model.addAttribute("balanceType","sent");
-        return "transactions";
+        return "customer/transactions";
     }
 
     @GetMapping("/transactions/received")
@@ -177,7 +181,7 @@ public class TransactionController {
         model.addAttribute("transactions", transactions);
         model.addAttribute("transferMessage", transferMessage);
         model.addAttribute("received");
-        return "transactions";
+        return "customer/transactions";
 
     }
 
@@ -219,7 +223,7 @@ public class TransactionController {
 
         model.addAttribute("transactions",allTransactions);
         model.addAttribute("transferMessage", transferMessage);
-        return "transactions";
+        return "customer/transactions";
     }
 
 }

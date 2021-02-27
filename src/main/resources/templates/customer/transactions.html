@@ -52,18 +52,18 @@
     </table>
 
 
-    <a th:href="@{'/LKMBank/user/'+${userId}+'/transactions/all'}" class="btn btn-primary" >Show All transactions (loan included)</a>
+    <a th:href="@{'/customer/transactions/all}" class="btn btn-primary" >Show All transactions (loan included)</a>
 
-    <a th:href="@{'/LKMBank/user/'+${userId}+'/transactions/received'}" class="btn btn-primary">Show All received transfers </a>
+    <a th:href="@{'/customer/transactions/received}" class="btn btn-primary">Show All received transfers </a>
 
-    <a th:href="@{'/LKMBank/user/'+${userId}+'/transactions/sent'}" class="btn btn-primary">show all sent transfers</a>
+    <a th:href="@{'/customer/transactions/sent}" class="btn btn-primary">show all sent transfers</a>
 
 
 
 </div>
 <br>
 <br>
-<a th:href="@{'/LKMBank/user/'+${userId}}" class="btn btn-primary">return your account dashboard</a>
+<a th:href="@{'/customer}" class="btn btn-primary">return your account dashboard</a>
 
 </body>
 </html>

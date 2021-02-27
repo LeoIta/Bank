@@ -11,13 +11,13 @@
     <div class="card" th:style="'padding=20px;background-color:transparent;width:400px;'">
         <div class="card-body">
             <h1>Transactions  pages </h1>
-            <a th:href="@{/LKMBank/user/{userId}/maketransfer}">make a transfer</a>
+            <a th:href="@{/customer/maketransfer}">make a transfer</a>
             <br><br>
-            <a th:href="@{/LKMBank/user/{userId}/transactions}">Show All transactions</a>
+            <a th:href="@{/customer/transactions}">Show All transactions</a>
             <br><br>
-            <a th:href="@{/LKMBank/user/{userId}/transactions/bysender}">Show transactions By sender  </a>
+            <a th:href="@{/customer/transactions/bysender}">Show transactions By sender  </a>
             <br><br>
-            <a th:href="@{/LKMBank/user/{userId}/transactions/byrecipient}">Show transactions By recipient  </a>
+            <a th:href="@{/customer/transactions/byrecipient}">Show transactions By recipient  </a>
             <br><br>
         </div>
     </div>

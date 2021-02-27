@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,7 +21,17 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @RequestMapping(value={ "/LKMBank/login"}, method = RequestMethod.GET)
+    @RequestMapping("/accessDenied")
+    public ModelAndView accessDenied() {
+        return new ModelAndView("accessDenied");
+    }
+
+    @GetMapping("/LKMBank")
+    public String home(){
+        return "home";
+    }
+
+    @RequestMapping(value={ "/login"}, method = RequestMethod.GET)
     public ModelAndView login(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login");
@@ -29,7 +40,6 @@ public class CustomerController {
 
     @RequestMapping(value="/signup", method = RequestMethod.GET)
     public ModelAndView signup(){
-        System.out.println("Loading the Signup Page");
         ModelAndView modelAndView = new ModelAndView();
         Customer customer = new Customer();
         modelAndView.addObject("customer", customer);
@@ -39,7 +49,6 @@ public class CustomerController {
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public ModelAndView createNewUser(@Valid Customer customer, BindingResult bindingResult) {
-        System.out.println("I'm in the create new user method");
         ModelAndView modelAndView = new ModelAndView();
         Customer userExists = customerService.findUserByEmail(customer.getEmail());
         System.out.println("getting email " + userExists);
@@ -60,26 +69,13 @@ public class CustomerController {
         return modelAndView;
     }
 
-
-    @RequestMapping(value="/admin/adminHome", method = RequestMethod.GET)
-    public ModelAndView admin(){
-        ModelAndView modelAndView = new ModelAndView();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Customer customer = customerService.findUserByEmail(auth.getName());
-        modelAndView.addObject("userName", "Welcome " + customer.getFirstName() + " " + customer.getLastName() + " (" + customer.getEmail() + ")");
-        modelAndView.addObject("adminMessage","This Page is available to Users with Admin Role");
-        modelAndView.setViewName("admin/adminHome");
-        return modelAndView;
-    }
-
-    @RequestMapping(value="/user/userHome", method = RequestMethod.GET)
+    @RequestMapping(value="/customer/customerDashboard", method = RequestMethod.GET)
     public ModelAndView customer(){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = customerService.findUserByEmail(auth.getName());
-        modelAndView.addObject("userName", "Welcome " + customer.getFirstName() + " " + customer.getLastName() + " (" + customer.getEmail() + ")");
-        modelAndView.addObject("userMessage","This Page is available to Users with User Role");
-        modelAndView.setViewName("user/userHome");
+        modelAndView.addObject("userName", "Welcome to LKM Bank " + customer.getFirstName() + " " + customer.getLastName());
+        modelAndView.setViewName("customer/customerDashboard");
         return modelAndView;
     }
 }
