@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Map;
@@ -52,7 +51,7 @@ public class AssessmentController {
             return "foundLoanStatus";}
     }
 
-    //    TODO: we need to solve problems with Date
+    //    TODO: admin/console and children
 
 
     @GetMapping("/admin/admin-console")
@@ -61,18 +60,16 @@ public class AssessmentController {
     }
 
     @GetMapping("/admin/tellerDashboard")
-    public ModelAndView tellerConsole(){
-        ModelAndView modelAndView= new ModelAndView();
+    public String tellerConsole(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = customerService.findUserByEmail(auth.getName());
         Map<String, Integer> statistics = assessmentService.statistics();
-        modelAndView.addObject("userName", "Welcome Teller: " + customer.getId() +  (" + customer.getEmail() + "));
-        modelAndView.addObject("adminMessage","Have a productive day!");
+        model.addAttribute("userName", "Welcome " + customer.getFirstName());
+        model.addAttribute("adminMessage","Have a productive day!");
         statistics.forEach((key,value) -> {
-            modelAndView.addObject(key,value);
+            model.addAttribute(key,value);
         });
-        modelAndView.setViewName("admin/tellerDashboard");
-        return modelAndView;}
+        return "admin/tellerDashboard";}
 
     // ticket console
 

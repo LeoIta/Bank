@@ -14,15 +14,19 @@ import java.util.List;
 @Table
 public class Address extends BaseEntity{
 
-    private String country;
-    private String city;
-    private String postcode;
-    private String street;
+    private String country="";
+    private String city="";
+    private String postcode="";
+    private String street="";
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "address")
-
-    //private Set<Customer> customers = new HashSet<>();
-
     private List<Customer> customers = new ArrayList<>();
 
+    public Address(String country, String city, String postcode, String street) {
+        this.country = country;
+        this.city = city;
+        this.postcode = postcode;
+        this.street = street;
+    }
+    public Address(){}
 }

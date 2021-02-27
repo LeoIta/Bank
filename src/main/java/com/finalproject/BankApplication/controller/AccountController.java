@@ -1,5 +1,6 @@
 package com.finalproject.BankApplication.controller;
 
+import com.finalproject.BankApplication.model.Address;
 import com.finalproject.BankApplication.model.Assessment;
 import com.finalproject.BankApplication.model.Customer;
 import com.finalproject.BankApplication.service.AssessmentService;
@@ -43,15 +44,27 @@ public class AccountController {
         return "SubmitApplicationConfirmation";
     }
 
-    @GetMapping("/customer/loan")
+    //TODO:loan and new account after login
+
+    @GetMapping("/customer/openLoan")
     public String loggedLoan(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Customer customer = customerService.findUserByEmail(auth.getName());
+        Address address = new Address();
         Assessment assessment = new Assessment();
+        address = customer.getAddress()!=null?customer.getAddress():address;
+        assessment.setCountry(address.getCountry());
+        assessment.setCity(address.getCity());
+        assessment.setPostcode(address.getPostcode());
+        assessment.setStreet(address.getStreet());
+        assessment.setFirstName(customer.getFirstName());
+        assessment.setLastName(customer.getLastName());
         model.addAttribute("assessment",assessment);
-        return "redirect:/customer/loan";
+        return "customer/openLoan";
     }
 
-    @PostMapping("/customer/loan")
-    public String createLoggedLoan(@ModelAttribute Assessment assessment,Model model){
+    @PostMapping("/customer/openLoan")
+    public String createLoggedLoan(@ModelAttribute Assessment assessment, Model model){
         assessmentService.saveNew(assessment);
         int id = assessmentService.findLastId();
         assessmentService.submit(id);
@@ -59,22 +72,5 @@ public class AccountController {
         String ref = "L" + (12346789 + id);
         model.addAttribute("confirmation","Your loan request has been submitted with reference " + ref );
         return "SubmitApplicationConfirmation";
-    }
-    @GetMapping("/loan")
-    public String loanForm(Model model){
-        Assessment assessment = new Assessment();
-        model.addAttribute("assessment",assessment);
-        return "loan";
-    }
-
-    @PostMapping("/loan")
-    public String createLoanAssessment(@ModelAttribute Assessment assessment,Model model){
-        assessmentService.saveNew(assessment);
-        int id = assessmentService.findLastId();
-        assessmentService.submit(id);
-        assessmentService.loanType(id);
-        String ref = "L" + (12346789 + id);
-        model.addAttribute("confirmation","Your loan request has been submitted with reference " + ref );
-        return "submitApplicationConfirmation";
     }
 }

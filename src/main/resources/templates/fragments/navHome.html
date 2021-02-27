@@ -20,16 +20,10 @@
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/LKMBank}">Home</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Request a loan</a>
-                        <ul class="dropdown-menu">
 
-                            <li><a class="dropdown-item" th:href="@{/login}">Our client</a></li>
-                            <li><a class="dropdown-item" th:href="@{/loan}">Not our client</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/customer/openLoan}">Request a loan</a>
                     </li>
-
 
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/checkStatusRequest}">Search request status</a>
