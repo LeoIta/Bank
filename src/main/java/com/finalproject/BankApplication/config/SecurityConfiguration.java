@@ -46,8 +46,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.
                 authorizeRequests()
                 .antMatchers("/").permitAll()
+                .antMatchers("/LKMBank").permitAll()
                 .antMatchers("/checkStatusRequest").permitAll()
-                .antMatchers("/openLoan").permitAll()
+                .antMatchers("/**").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/signup").permitAll()
                 .antMatchers("/customer/**").hasAuthority("USER")

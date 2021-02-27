@@ -25,7 +25,7 @@ public class AssessmentController {
     AssessmentService assessmentService;
     CustomerService customerService;
 
-    @GetMapping("//LKMBank")
+    @GetMapping("/LKMBank")
     public String home(){
         return "home";
     }

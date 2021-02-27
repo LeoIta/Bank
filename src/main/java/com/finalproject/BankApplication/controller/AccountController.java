@@ -20,14 +20,14 @@ public class AccountController {
     CustomerService customerService;
     AssessmentService assessmentService;
 
-    @GetMapping("/openAccount")
+    @GetMapping("/customer/openAccount")
     public String accountForm(Model model){
         Assessment assessment = new Assessment();
         model.addAttribute("assessment",assessment);
-        return "openAccount";
+        return "customer/openAccount";
     }
 
-    @PostMapping("/openAccount")
+    @PostMapping("/customer/openAccount")
     public String createAssessment(@ModelAttribute Assessment assessment, Model model){
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -38,17 +38,33 @@ public class AccountController {
         int id = assessmentService.findLastId();
         assessmentService.submit(id);
         assessmentService.accountType(id);
-        //maybe customer id
         String ref = "A" + (12346789 + id);
         model.addAttribute("confirmation","Your account request has been submitted with reference " + ref );
         return "SubmitApplicationConfirmation";
     }
 
     @GetMapping("/customer/loan")
+    public String loggedLoan(Model model){
+        Assessment assessment = new Assessment();
+        model.addAttribute("assessment",assessment);
+        return "redirect:/customer/loan";
+    }
+
+    @PostMapping("/customer/loan")
+    public String createLoggedLoan(@ModelAttribute Assessment assessment,Model model){
+        assessmentService.saveNew(assessment);
+        int id = assessmentService.findLastId();
+        assessmentService.submit(id);
+        assessmentService.loanType(id);
+        String ref = "L" + (12346789 + id);
+        model.addAttribute("confirmation","Your loan request has been submitted with reference " + ref );
+        return "SubmitApplicationConfirmation";
+    }
+    @GetMapping("/loan")
     public String loanForm(Model model){
         Assessment assessment = new Assessment();
         model.addAttribute("assessment",assessment);
-        return "/customer/loan";
+        return "loan";
     }
 
     @PostMapping("/loan")
@@ -59,6 +75,6 @@ public class AccountController {
         assessmentService.loanType(id);
         String ref = "L" + (12346789 + id);
         model.addAttribute("confirmation","Your loan request has been submitted with reference " + ref );
-        return "SubmitApplicationConfirmation";
+        return "submitApplicationConfirmation";
     }
 }
