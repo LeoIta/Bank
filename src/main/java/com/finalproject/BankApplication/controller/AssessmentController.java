@@ -1,6 +1,7 @@
 package com.finalproject.BankApplication.controller;
 
 import com.finalproject.BankApplication.model.Assessment;
+import com.finalproject.BankApplication.model.AssessmentStatus;
 import com.finalproject.BankApplication.model.Customer;
 import com.finalproject.BankApplication.service.AssessmentService;
 import com.finalproject.BankApplication.service.CustomerService;
@@ -9,10 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -23,7 +21,6 @@ public class AssessmentController {
 
     AssessmentService assessmentService;
     CustomerService customerService;
-
 
 
     @GetMapping("/checkStatusRequest")
@@ -48,8 +45,6 @@ public class AssessmentController {
             return "foundLoanStatus";}
     }
 
-    //    TODO: admin/console and children
-
     @GetMapping("/admin/tellerDashboard")
     public String tellerConsole(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -66,6 +61,10 @@ public class AssessmentController {
 
     @GetMapping("admin/ticket-console/opened")
     public String openedTicketConsole(Model model){
+        Map<String, Integer> statistics = assessmentService.statistics();
+        statistics.forEach((key,value) -> {
+            model.addAttribute(key,value);
+        });
         List<Assessment> assessmentList = assessmentService.findOpen();
         model.addAttribute("assessments",assessmentList);
         return "admin/consoleTicketOpened";
@@ -73,6 +72,10 @@ public class AssessmentController {
 
     @GetMapping("admin/ticket-console/pending")
     public String pendingTicketConsole(Model model){
+        Map<String, Integer> statistics = assessmentService.statistics();
+        statistics.forEach((key,value) -> {
+            model.addAttribute(key,value);
+        });
         List<Assessment> assessmentList = assessmentService.findPending();
         model.addAttribute("assessments",assessmentList);
         return "admin/consoleTicketPending";
@@ -80,12 +83,20 @@ public class AssessmentController {
 
     @GetMapping("admin/ticket-console/progress")
     public String progressTicketConsole(Model model){
+        Map<String, Integer> statistics = assessmentService.statistics();
+        statistics.forEach((key,value) -> {
+            model.addAttribute(key,value);
+        });
         List<Assessment> assessmentList = assessmentService.findWIP();
         model.addAttribute("assessments",assessmentList);
         return "admin/consoleTicketProgress";}
 
     @GetMapping("admin/ticket-console/completed")
     public String completedTicketConsole(Model model){
+        Map<String, Integer> statistics = assessmentService.statistics();
+        statistics.forEach((key,value) -> {
+            model.addAttribute(key,value);
+        });
         List<Assessment> assessmentList = assessmentService.findDone();
         model.addAttribute("assessments",assessmentList);
         return "admin/consoleTicketCompleted";}
@@ -106,25 +117,45 @@ public class AssessmentController {
 
     @GetMapping("admin/account-console/opened")
     public String openedAccountConsole(Model model){
-        List<Assessment> assessmentList = assessmentService.findAccountRequest();
+        Map<String, Integer> statistics = assessmentService.statistics();
+        statistics.forEach((key,value) -> {
+            model.addAttribute(key,value);
+        });
+        List<Assessment> assessmentList = assessmentService.findAccountRequestOpen();
         model.addAttribute("assessments",assessmentList);
         return "admin/consoleAccountOpened";
     }
 
     @GetMapping("admin/account-console/pending")
     public String pendingAccountConsole(Model model){
-        List<Assessment> assessmentList = assessmentService.findAccountRequest();
+        Map<String, Integer> statistics = assessmentService.statistics();
+        statistics.forEach((key,value) -> {
+            model.addAttribute(key,value);
+        });
+        List<Assessment> assessmentList = assessmentService.findAccountRequestPending();
         model.addAttribute("assessments",assessmentList);
         return "admin/consoleAccountPending";
     }
 
     @GetMapping("admin/account-console/progress")
     public String progressAccountConsole(Model model){
+        Map<String, Integer> statistics = assessmentService.statistics();
+        statistics.forEach((key,value) -> {
+            model.addAttribute(key,value);
+        });
+        List<Assessment> assessmentList = assessmentService.findAccountRequestWIP();
+        model.addAttribute("assessments",assessmentList);
         return "admin/consoleAccountProgress";
     }
 
     @GetMapping("admin/account-console/completed")
     public String completedAccountConsole(Model model){
+        Map<String, Integer> statistics = assessmentService.statistics();
+        statistics.forEach((key,value) -> {
+            model.addAttribute(key,value);
+        });
+        List<Assessment> assessmentList = assessmentService.findAccountRequestDone();
+        model.addAttribute("assessments",assessmentList);
         return "admin/consoleAccountCompleted";
     }
 
@@ -132,27 +163,74 @@ public class AssessmentController {
 
     @GetMapping("admin/loan-console")
     public String loanConsole(Model model){
+        Map<String, Integer> statistics = assessmentService.statistics();
+        statistics.forEach((key,value) -> {
+            model.addAttribute(key,value);
+        });
+        List<Assessment> assessmentList = assessmentService.findLoanRequest();
+        model.addAttribute("assessments",assessmentList);
         return "admin/consoleLoan";
     }
 
     @GetMapping("admin/loan-console/opened")
     public String openedLoanConsole(Model model){
+        Map<String, Integer> statistics = assessmentService.statistics();
+        statistics.forEach((key,value) -> {
+            model.addAttribute(key,value);
+        });
+        List<Assessment> assessmentList = assessmentService.findLoanRequestOpen();
+        model.addAttribute("assessments",assessmentList);
         return "admin/consoleLoanOpened";
     }
 
     @GetMapping("admin/loan-console/pending")
     public String pendingLoanConsole(Model model){
+        Map<String, Integer> statistics = assessmentService.statistics();
+        statistics.forEach((key,value) -> {
+            model.addAttribute(key,value);
+        });
+        List<Assessment> assessmentList = assessmentService.findLoanRequestPending();
+        model.addAttribute("assessments",assessmentList);
         return "admin/consoleLoanPending";
     }
 
     @GetMapping("admin/loan-console/progress")
     public String progressLoanConsole(Model model){
+        Map<String, Integer> statistics = assessmentService.statistics();
+        statistics.forEach((key,value) -> {
+            model.addAttribute(key,value);
+        });
+        List<Assessment> assessmentList = assessmentService.findLoanRequestWIP();
+        model.addAttribute("assessments",assessmentList);
         return "admin/consoleLoanProgress";
     }
 
     @GetMapping("admin/loan-console/completed")
     public String completedLoanConsole(Model model){
+        Map<String, Integer> statistics = assessmentService.statistics();
+        statistics.forEach((key,value) -> {
+            model.addAttribute(key,value);
+        });
+        List<Assessment> assessmentList = assessmentService.findLoanRequestDone();
+        model.addAttribute("assessments",assessmentList);
         return "admin/consoleLoanCompleted";
     }
 
+    @GetMapping(value={"admin/account-console/{action}/{id}",
+                        "admin/ticket-console/{action}/{id}",
+                        "admin/loan-console/{action}/{id}"})
+    public String details(  @PathVariable String action,
+                            @PathVariable int id, Model model){
+        Assessment assessment = new Assessment();
+        assessment = assessmentService.findById(id);
+        if( action== "start" &&
+                assessment.getStatus() == AssessmentStatus.PENDING){
+                    assessmentService.start(id);
+            };
+        model.addAttribute("assessment",assessment);
+        return "redirect:admin/assessment-details";
+        }
+
 }
+
+

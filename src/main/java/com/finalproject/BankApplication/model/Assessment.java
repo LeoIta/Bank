@@ -77,7 +77,7 @@ public class Assessment extends TimeEntity{
         } catch(ParseException e) {
             e.printStackTrace();
         }
-        this.dateOfBirth = d;
+        this.dueDate = d;
     }
 
 }
