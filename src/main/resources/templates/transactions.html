@@ -31,11 +31,15 @@
         </tr>
         </head>
 
-        <tbody th:each="balance: ${balances}">
-        <tr th:each="transaction :  ${transactions}">
-            <td> <p th:text="${balance}"/> </td>
+        <tbody >
+        <tr th:each="transaction :  ${transactions} " >
+            <td>
+                <a th:if="${balanceType}=='sent'"> <p th:text ="${transaction.senderBalance}"/></a>
+                <a th:if="${balanceType}=='received'"> <p th:text ="${transaction.recipientBalance}"/></a>
+                <a th:if="${balanceType}=='all'"> <p th:text="'calculating ... '"/></a>
+            </td>
             <td> <p th:text="${transaction.amount}" /></td>
-            <td> <p th:text="${transaction.created_at}" /></td>
+            <td> <p th:text="${transaction.createdAt}" /></td>
             <td> <p th:text="${transaction.reason}" /></td>
             <td> <p th:text="${transaction.recipientAccount}" /></td>
             <td> <p th:text="${transaction.recipientName}" /> </td>
@@ -48,18 +52,18 @@
     </table>
 
 
-    <a th:href="@{/LKMBank/testuser/account/transactions/all}" class="btn btn-primary" >Show All transactions (loan included)</a>
+    <a th:href="@{'/LKMBank/user/'+${userId}+'/transactions/all'}" class="btn btn-primary" >Show All transactions (loan included)</a>
 
-    <a th:href="@{/LKMBank/testuser/account/transactions/received}" class="btn btn-primary">Show All received transfers </a>
+    <a th:href="@{'/LKMBank/user/'+${userId}+'/transactions/received'}" class="btn btn-primary">Show All received transfers </a>
 
-    <a th:href="@{/LKMBank/testuser/account/transactions/sent}" class="btn btn-primary">show all sent transfers</a>
+    <a th:href="@{'/LKMBank/user/'+${userId}+'/transactions/sent'}" class="btn btn-primary">show all sent transfers</a>
 
 
 
 </div>
 <br>
 <br>
-<a th:href="@{/LKMBank/testuser/account}" class="btn btn-primary">return your account dashboard</a>
+<a th:href="@{'/LKMBank/user/'+${userId}}" class="btn btn-primary">return your account dashboard</a>
 
 </body>
 </html>

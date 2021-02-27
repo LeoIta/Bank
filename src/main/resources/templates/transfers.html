@@ -14,7 +14,7 @@
                 border-width: 1px;
                 padding-top:10px;
                 padding-bottom:10px'">
-        <form action="#" th:action="@{/LKMBank/user/{userId}/maketransfer}" th:object="${transaction}" method="post">
+        <form action="#" th:action="@{'/LKMBank/user/'+${userId}+'/maketransfer'}" th:object="${transaction}" method="post">
             <h4>MAKE TRANSFER</h4>
             <br>
             <div class="card-text">
@@ -51,7 +51,7 @@
             </div>
             <br>
             <button type="submit" class="btn btn-primary">Confirm transfer</button>
-            <a type="button" th:href="@{/LKMBank/testuser/account}" class="btn btn-primary">Cancel</a>
+            <a type="button" th:href="@{'/LKMBank/user/'+${userId}}" class="btn btn-primary">Cancel</a>
         </form>
         <hr>
     </div>

@@ -2,13 +2,11 @@ package com.finalproject.BankApplication.controller;
 
 import com.finalproject.BankApplication.model.Account;
 import com.finalproject.BankApplication.model.Customer;
+import com.finalproject.BankApplication.model.Loan;
 import com.finalproject.BankApplication.model.Transaction;
 import com.finalproject.BankApplication.repository.AccountRepository;
 import com.finalproject.BankApplication.repository.TransactionRepository;
-import com.finalproject.BankApplication.service.AccountService;
-import com.finalproject.BankApplication.service.CustomerService;
-import com.finalproject.BankApplication.service.CustomerServiceImpl;
-import com.finalproject.BankApplication.service.TransactionService;
+import com.finalproject.BankApplication.service.*;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,16 +31,23 @@ public class TransactionController {
     @Autowired
     private AccountService accountService;
 
-    /*@Autowired
-    private AccountService accountService;*/
+    @Autowired
+    private LoanService loanService;
 
 
 
-    @GetMapping //(value="/LKMBank/user/{userId}")
-    @ResponseBody
-    public String  blabla(@PathVariable("userId") int id){
+    @GetMapping //(value="/{userId}")
+    //@ResponseBody
+    public String  blabla(@PathVariable(name="userId") int id, Model model){
+        //int id=1;
         System.out.println("oh oh "+id);
-        return " This is "+id;
+        //return " This is "+id;
+
+        Account account = accountService.findAccountByCstId(id);
+        model.addAttribute("account",account);
+        Loan loan = loanService.findLoanByAccountId(id);
+        model.addAttribute("loan", loan);
+        return "dashboardCustomer";
     }
 
     @GetMapping(value = "/transaction")
@@ -52,7 +57,7 @@ public class TransactionController {
     }
 
     @GetMapping("/maketransfer")
-    public String initiateTransfer(@PathVariable("userId") String ids, Model model){
+    public String initiateTransfer(@PathVariable("userId") int id, Model model){
         // Mocking a customer
         /*long customerBalance = 100000;
         String customerName = "John Geller";
@@ -64,10 +69,10 @@ public class TransactionController {
 
         //String senderAccount = accountService.findByCustomerId(id).getAccountNumber;
         //String senderAccount = "12345";
-        System.out.println("here is the id : "+ ids);
-        //int id = Integer.parseInt(ids);
-        Account senderAccount = accountService.findAccountById(1);
-        Customer customer = customerService.findUserById(1);
+        System.out.println("here is the id : "+ id);
+        //int id = 2;
+        Account senderAccount = accountService.findAccountById(id);
+        Customer customer = customerService.findUserById(id);
 
         Transaction transaction = new Transaction();
         model.addAttribute("transaction", transaction);
@@ -77,35 +82,41 @@ public class TransactionController {
     }
 
     @PostMapping("/maketransfer")
-    public String validateTransfer(@ModelAttribute Transaction transaction, Model model){
-        // Mocking the customer again.
-        long currentBalance = 100000;
-        String customerName = "John Geller";
-        String accountNumber = "32 4787 4781 4737 3728 7392 5353";
-        transaction.setSenderAccount(customerName); transaction.setSenderAccount(accountNumber);
+    public String validateTransfer(@ModelAttribute Transaction transaction, Model model,@PathVariable("userId") int id){
+        System.out.println("transfer initiated ......................");
+        //int id =2;
+        Customer customer = customerService.findUserById(id);
+        Account account = accountService.findAccountByCstId(id);
+        transaction.setSenderName(customer.getFirstName() +" "+ customer.getLastName());
+        transaction.setSenderAccount(accountService.findAccountById(id).getAccountNumber());
         // end of mocking
 
         String validationMessage =" You transfer of " + transaction.getAmount() + " to " + transaction.getRecipientName() + " has been ";;
         // implement the verification of balance.
-
+        long currentBalance = account.getBalance();
         if ( transaction.getAmount() < currentBalance ){
+            System.out.println(" transfer accepted !!!!!! ");
             validationMessage += " Validated";
             currentBalance -= transaction.getAmount();
+            account.setBalance(currentBalance);
+            System.out.println("sender balance updated ");
             transaction.setSenderBalance(currentBalance); // we save the new balance for the sender
-            /*if (isCustomer(transaction.getRecipientAccount())){
+            if (accountService.isClientOfTheBank(transaction.getRecipientAccount())){
+                System.out.println(" the receiver is our client is our client");
                 Account receiverAccount = new Account();
-                receiverAccount = accountService.findByAccountNumber( transaction.getRecipientAccount());
+                receiverAccount = accountService.findAccountByAccountNumber(transaction.getRecipientAccount());
                 long receiverBalance = receiverAccount.getBalance();
-                receiverBalance += transaction.getAmount();
-                accountService.updateAmountWhereAccountNumber();
-                transaction.setReceiverBalance(receiverBalance); // we save the new balance for the sender
-            }*/
-            if ( transaction.getRecipientAccount().equals("12345")) {
-                transaction.setRecipientBalance(transaction.getAmount());
-            }else{transaction.setRecipientBalance(0);}
+                receiverBalance += transaction.getAmount();         // calculating new balance.
+                System.out.println("receiver balance updated ");
+                receiverAccount.setBalance(receiverBalance);        //updating receiver balance
+                transaction.setRecipientBalance(receiverBalance); // we save the new balance for the sender
+                //accountService.saveAccount(receiverAccount);
+
+            }else{
+                transaction.setRecipientBalance(0);
+            }
 
             transactionService.saveTransaction(transaction);
-            //transactionService.updateCustomerTransaction(1,500000l);
         }else{
             validationMessage += " rejected. You can not transfer more than you have";
         }
@@ -119,9 +130,10 @@ public class TransactionController {
     }
 
     @GetMapping("/transactions/sent")
-    public String getTransactionsBySender(Model model){
-
-        List<Transaction> transactions = transactionService.getTransactionsBySender("12345");
+    public String getTransactionsBySender(@PathVariable("userId") int id, Model model){
+        //int id =1;
+        List<Transaction> transactions = transactionService.getTransactionsBySender(accountService.findAccountByCstId(id).getAccountNumber());
+        System.out.println("we found this many transactions sent"+transactions.size());
         String transferMessage = transactions.size()==0? "You have not made any transaction": " here is your list of sent transactions";
         List<Long> balances = new ArrayList<>();
         for (Transaction transaction :transactions){
@@ -137,19 +149,23 @@ public class TransactionController {
         }
         model.addAttribute("transactions", transactions);
         model.addAttribute("transferMessage", transferMessage);
+        model.addAttribute("sent");
+        model.addAttribute("balanceType","sent");
         return "transactions";
     }
 
     @GetMapping("/transactions/received")
-    public String getTransactionsByRecipient(Model model){
-
-        List<Transaction> transactions = transactionService.getTransactionsByRecipient("12345");
+    public String getTransactionsByRecipient(@PathVariable("userId") int id,Model model){
+        //int id =1;
+        List<Transaction> transactions = transactionService.getTransactionsByRecipient(accountService.findAccountByCstId(id).getAccountNumber());
+        System.out.println("we found this many transactions received"+transactions.size());
         String transferMessage = transactions.size()==0? "You have not received any transactions": " here is your list of all received transactions";
         List<Long> balances = new ArrayList<>();
         for (Transaction transaction :transactions){
             balances.add(transaction.getRecipientBalance());
         }
         model.addAttribute("balances", balances);
+        model.addAttribute("balanceType","received");
 
         //display in terminal for test
         System.out.println("Showing all transactions received ");
@@ -160,17 +176,19 @@ public class TransactionController {
         }
         model.addAttribute("transactions", transactions);
         model.addAttribute("transferMessage", transferMessage);
+        model.addAttribute("received");
         return "transactions";
 
     }
 
-    @GetMapping(value = {"/transactions/all", "/transactions/all"})
-    public String getAllTransactions(Model model){
-
+    @GetMapping(value = {"/transactions", "/transactions/all"})
+    public String getAllTransactions(@PathVariable("userId") int id, Model model){
+        //int id =1;
+        String accountNumber = accountService.findAccountByCstId(id).getAccountNumber();
         System.out.println("Showing all transactions");
         //List<Transaction> transactions = transactionService.getAllTransactions();
-        List<Transaction> allTransactions = transactionService.getTransactionsByRecipient("12345");
-        allTransactions.addAll( transactionService.getTransactionsBySender("12345") ) ;
+        List<Transaction> allTransactions = transactionService.getTransactionsByRecipient(accountNumber);
+        allTransactions.addAll( transactionService.getTransactionsBySender(accountNumber) ) ;
 
         String transferMessage = allTransactions.size()==0? "You have no transactions": " here is your list of all transactions";
         for (Transaction transaction :allTransactions) {
@@ -197,6 +215,7 @@ public class TransactionController {
             balances.add(transaction.getSenderBalance());
         }
         model.addAttribute("balances", balances);
+        model.addAttribute("balanceType","all");
 
         model.addAttribute("transactions",allTransactions);
         model.addAttribute("transferMessage", transferMessage);

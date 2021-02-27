@@ -12,9 +12,11 @@
         <div class="card-body">
          <h1>Information about your transaction </h1>
             <p th:text="${validationMessage}" />
-            <a type="button" th:href="@{/LKMBank/testuser/account/maketransfer}" class="btn btn-primary">Make another transfer</a>
+            <a type="button" th:href="@{'/LKMBank/user/'+${userId}+'/maketransfer'}" class="btn btn-primary">Make another transfer</a>
             <br><br>
-            <a type="button" th:href="@{/LKMBank/testuser/account/transactions}" class="btn btn-primary">go back to transaction page</a>
+            <a type="button" th:href="@{'/LKMBank/user/'+${userId}+'/transactions'}" class="btn btn-primary">go back to transaction page</a>
+
+
 
         </div>
     </div>

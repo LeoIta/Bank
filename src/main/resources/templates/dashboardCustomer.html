@@ -12,22 +12,22 @@
             <div class="card-body">
                 <h5 class="card-title">Your Account</h5>
                 <p class="card-text"><b>Account number:</b></p>
-                <p class="card-text">32 4787 4781 4737 3728 7392 5353</p>
+                <p class="card-text"><p th:text="${account.accountNumber}" /></p>
                 <p class="card-text"><b>Balance:</b></p>
-                <p class="card-text">10000</p>
-                <a th:href="@{/LKMBank/user/{userId}/transactions}" class="btn btn-primary">Show details</a>
-                <a th:href="@{/LKMBank/user/{userId}/maketransfer}" class="btn btn-primary">Make transaction</a>
+                <p class="card-text"><p th:text="${account.balance}" /></p>
+                <a th:href="@{'/LKMBank/user/'+${userId}+'/transactions'}" class="btn btn-primary">Show details</a>
+                <a th:href="@{'/LKMBank/user/'+${userId}+'/maketransfer'}" class="btn btn-primary">Make transaction</a>
             </div></div>
     <br><br>
         <div class="card" th:style="'padding=20px;background-color: transparent;width:400px;'">
             <div class="card-body">
                     <h5 class="card-title">Loan</h5>
-                    <p class="card-text"><b>Loan amount: </b> 98500</p>
-                    <p class="card-text"><b>End date: </b>2050-12-22</p>
+                    <p class="card-text"><b>Loan amount: </b> <p th:text="${loan.amount}" /></p>
+                    <p class="card-text"><b>End date: </b><p th:text="${loan.dueDate}" /></p>
                     <p class="card-text"><b>Monthly payment: </b>500</p>
-                    <p class="card-text"><b>Pay day: </b>22</p>
+                    <p class="card-text"><b>Pay day: </b><p th:text="${loan.payDay}" /></p>
 
-                <a th:href="@{/LKMBank/testuser/account/loandetails}" class="btn btn-primary">Show details</a>
+                <a th:href="@{'/LKMBank/user/'+${userId}+'/loandetails'}" class="btn btn-primary">Show details</a>
             </div>
         </div>
 </div>
