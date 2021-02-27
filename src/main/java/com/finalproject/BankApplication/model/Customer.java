@@ -1,6 +1,7 @@
 package com.finalproject.BankApplication.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -8,6 +9,7 @@ import java.util.Set;
 
 @Entity
 @Data
+@NoArgsConstructor
 @Table
 public class Customer extends BaseEntity{
 
@@ -35,7 +37,7 @@ public class Customer extends BaseEntity{
 
     /*private Date dateOfBirth;*/
 
-    private Long annualIncome;
+    private Long annualIncome = 0L;
 
     @ManyToOne
     @JoinColumn(name="address_id")
@@ -43,7 +45,5 @@ public class Customer extends BaseEntity{
 
     @Column(name = "ACTIVE")
     private int active;
-
-    private String mail;
 }
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
-<div th:replace="fragments/navHome :: navHome"/>
+<div th:replace="fragments/navLogged :: navClient"/>
 <body th:style="'background-image: url(' + @{/images/background.png} + ');
                 background-repeat: no-repeat;
                 background-size: cover;
@@ -14,7 +14,7 @@
                 border-width: 1px;
                 padding-top:10px;
                 padding-bottom:10px'">
-        <form th:action="@{/LKMBank/openAccount}" th:object="${assessment}"  method="POST">
+        <form th:action="@{/customer/openAccount}" th:object="${assessment}"  method="POST">
             <h4>OPEN NEW ACCOUNT</h4><hr>
             <div class="form-group">
                 <label for="firstName">First name</label>
@@ -58,9 +58,7 @@
                 <input type="text" th:field="*{street}" name="street" class="form-control" id="street" required>
             </div>
 
-<br>
-
-            <br>
+<br><br>
 
             <button type="submit" class="btn btn-primary">Submit your request</button>
         </form>
