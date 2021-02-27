@@ -1,8 +1,7 @@
 package com.finalproject.BankApplication.controller;
 
-import com.finalproject.BankApplication.model.Assessment;
-import com.finalproject.BankApplication.model.AssessmentStatus;
-import com.finalproject.BankApplication.model.Customer;
+import com.finalproject.BankApplication.model.*;
+import com.finalproject.BankApplication.service.AddressService;
 import com.finalproject.BankApplication.service.AssessmentService;
 import com.finalproject.BankApplication.service.CustomerService;
 import lombok.AllArgsConstructor;
@@ -21,6 +20,7 @@ public class AssessmentController {
 
     AssessmentService assessmentService;
     CustomerService customerService;
+    AddressService addressService;
 
 
     @GetMapping("/checkStatusRequest")
@@ -219,17 +219,77 @@ public class AssessmentController {
     @GetMapping(value={"admin/account-console/{action}/{id}",
                         "admin/ticket-console/{action}/{id}",
                         "admin/loan-console/{action}/{id}"})
-    public String details(  @PathVariable String action,
-                            @PathVariable int id, Model model){
-        Assessment assessment = new Assessment();
-        assessment = assessmentService.findById(id);
-        if( action== "start" &&
+    @ResponseBody
+    public String details(  @RequestParam String action,
+                            @RequestParam int id, Model model){
+        Assessment assessment = assessmentService.findById(id);
+        if( action.equals("start") &&
                 assessment.getStatus() == AssessmentStatus.PENDING){
                     assessmentService.start(id);
+            return "admin/ticket-console/progress";
             };
+        boolean isLoan = assessment.getType()==AssessmentType.LOAN;
+        boolean cannotStart = !(assessment.getStatus()==AssessmentStatus.PENDING);
+        boolean cannotDecide = !(assessment.getStatus()==AssessmentStatus.IN_PROGRESS);
+        model.addAttribute("isLoan", isLoan);
+        model.addAttribute("cannotStart", cannotStart);
+        model.addAttribute("cannotStart", cannotStart);
         model.addAttribute("assessment",assessment);
-        return "redirect:admin/assessment-details";
+        return "admin/assessment-details";
+    }
+
+    @PostMapping("/admin/account{decision}")
+    public String accountApproved(@ModelAttribute Assessment assessment, @PathVariable String decision, Model model){
+        assessment.setStatus(AssessmentStatus.DONE);
+        if (decision.equals("Approved")){
+            assessment.setDecision(Decision.APPROVED);
+            Account account = new Account();
+            String ref = "LKM" + (12346789 + "_" + assessment.getCustomerId());
+            account.setAccountNumber(ref);
+            model.addAttribute("confirmation","You have opened an account: " + ref );
+
+        }else{
+            assessment.setDecision(Decision.REJECTED);
+            model.addAttribute("confirmation","You have rejected the request");
         }
+        return "/admin/tellerDashboardt";}
+
+
+    @GetMapping("/customer/openAccount")
+    public String accountForm(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Customer customer = customerService.findUserByEmail(auth.getName());
+        Assessment assessment = new Assessment();
+        assessment.setFirstName(customer.getFirstName());
+        assessment.setLastName(customer.getLastName());
+        assessment.setEmail(customer.getEmail());
+        model.addAttribute("assessment",assessment);
+        return "customer/openAccount";
+    }
+
+    @PostMapping("/customer/openAccount")
+    public String createAssessment(@ModelAttribute Assessment assessment, Model model){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Customer customer = customerService.findUserByEmail(auth.getName());
+        Address address = new Address();
+        Integer customerId = customer.getId();
+        address.setCity(assessment.getCity());
+        address.setCountry(assessment.getCountry());
+        address.setPostcode(assessment.getPostcode());
+        address.setStreet(assessment.getStreet());
+        address.setCustomerId(customerId);
+        addressService.saveAddress(address);
+        assessment.setCustomerId(customer.getId());
+        customer.setAnnualIncome(assessment.getAnnualIncome());
+        assessmentService.saveNew(assessment);
+        int id = assessmentService.findLastId();
+        assessmentService.submit(id);
+        assessmentService.accountType(id);
+        String ref = "A" + (12346789 + id);
+        model.addAttribute("confirmation","Your account request has been submitted with reference " + ref );
+        return "SubmitApplicationConfirmation";
+    }
 
 }
 

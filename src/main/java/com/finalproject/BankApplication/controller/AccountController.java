@@ -20,33 +20,6 @@ public class AccountController {
     CustomerService customerService;
     AssessmentService assessmentService;
 
-    @GetMapping("/customer/openAccount")
-    public String accountForm(Model model){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Customer customer = customerService.findUserByEmail(auth.getName());
-        Assessment assessment = new Assessment();
-        assessment.setFirstName(customer.getFirstName());
-        assessment.setLastName(customer.getLastName());
-        assessment.setEmail(customer.getEmail());
-        model.addAttribute("assessment",assessment);
-        return "customer/openAccount";
-    }
-
-    @PostMapping("/customer/openAccount")
-    public String createAssessment(@ModelAttribute Assessment assessment, Model model){
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Customer customer = customerService.findUserByEmail(auth.getName());
-        assessment.setCustomerId(customer.getId());
-        customer.setAnnualIncome(assessment.getAnnualIncome());
-        assessmentService.saveNew(assessment);
-        int id = assessmentService.findLastId();
-        assessmentService.submit(id);
-        assessmentService.accountType(id);
-        String ref = "A" + (12346789 + id);
-        model.addAttribute("confirmation","Your account request has been submitted with reference " + ref );
-        return "SubmitApplicationConfirmation";
-    }
 
     @GetMapping("/customer/openLoan")
     public String loggedLoan(Model model){
