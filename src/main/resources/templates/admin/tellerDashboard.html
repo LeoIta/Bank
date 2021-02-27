@@ -18,7 +18,7 @@
             <p class="admin-message-text text-center" th:utext="${userMessage}"></p>
          </div>
     </div>
-
+    <div class="card" th:style="'background-color:transparent;width:800px;'">
             <table class="table table-secondary table-bordered mt-5 align-middle">
                 <tr>
                     <th align="center">Total Requests (<span th:text="${totalRequests}"/>)</th>
@@ -42,6 +42,7 @@
                     <td><a th:href="@{loan-console/completed}" class="btn btn-primary">Completed (<span th:text="${totalLoanCompleted}"/>)</a></td>
                 </tr>
             </table>
+        </div>
         </div>
     </div>
 </div>
