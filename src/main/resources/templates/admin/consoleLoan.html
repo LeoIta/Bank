@@ -16,8 +16,8 @@
         <tr>
             <th align="center">Loan Requests (<span th:text="${totalLoanRequests}"/>)</th>
             <th> <a th:href="@{loan-console/opened}" class="btn btn-primary">Opened (<span th:text="${totalLoanOpen}"/>)</a></th>
-            <td><a th:href="@{loan-console/pending}" class="btn btn-primary">Pending (<span th:text="${totalLoanWIP}"/>)</a></td>
-            <td><a th:href="@{loan-console/progress}" class="btn btn-primary">In progress (<span th:text="${totalLoanPending}"/>)</a></td>
+            <td><a th:href="@{loan-console/pending}" class="btn btn-primary">Pending (<span th:text="${totalLoanPending}"/>)</a></td>
+            <td><a th:href="@{loan-console/progress}" class="btn btn-primary">In progress (<span th:text="${totalLoanWIP}"/>)</a></td>
             <td><a th:href="@{loan-console/completed}" class="btn btn-primary">Completed (<span th:text="${totalLoanCompleted}"/>)</a></td>
         </tr>
     </table>
