@@ -23,23 +23,15 @@
                     <li><a class="dropdown-item" th:href="@{/customer/openLoan}">Loan requests</a></li>
                     <li><a class="dropdown-item" th:href="@{/customer/openAccount}">Account request</a></li>
                     <li><a class="dropdown-item" th:href="@{/customer/makeTransfer}">Make transaction</a></li>
+                    <li><a class="nav-link" th:href="@{/checkStatusRequest}">Search request status</a></li>
                     </li>
                 </ul>
 
             </div>
-
-
-                <li><a class="dropdown-item" th:href="@{/customer/checkStatusRequest}">
-                    <button type="button" class="btn btn-outline-warning" style="color:black">Your requests</button>
-                </a></li>
-
-                <li><a class="dropdown-item" th:href="@{/customer/data/view}">
-                    <button type="button" class="btn btn-outline-warning" style="color:black">Your data</button>
-                </a></li>
-
+            <ul class="navbar-nav">
                 <li><a class="dropdown-item">
                     <form th:action="@{/logout}" method="get">
-                        <button class="btn btn-outline-warning" style="color:black" name="login"
+                        <button class="btn btn-outline-warning" style="color:black" name="logout"
                                 type="Submit">Logout
                         </button>
                     </form>

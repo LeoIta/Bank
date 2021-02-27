@@ -15,10 +15,10 @@
     <table class="table table-secondary table-bordered mt-5 align-middle" >
     <tr>
         <th align="center">Account Requests (<span th:text="${totalAccountRequests}"/>)</th>
-        <th> <a th:href="@{LKMBank/bank/1/account-console/opened}" class="btn btn-primary">Opened (<span th:text="${totalAccountOpen}"/>)</a></th>
-        <td><a th:href="@{LKMBank/bank/1/account-console/pending}" class="btn btn-primary">Pending (<span th:text="${totalAccountWIP}"/>)</a></td>
-        <td><a th:href="@{LKMBank/bank/1/account-console/progress}" class="btn btn-primary">In progress (<span th:text="${totalAccountPending}"/>)</a></td>
-        <td><a th:href="@{LKMBank/bank/1/account-console/completed}" class="btn btn-primary">Completed (<span th:text="${totalAccountCompleted}"/>)</a></td>
+        <th> <a th:href="@{account-console/opened}" class="btn btn-primary">Opened (<span th:text="${totalAccountOpen}"/>)</a></th>
+        <td><a th:href="@{account-console/pending}" class="btn btn-primary">Pending (<span th:text="${totalAccountWIP}"/>)</a></td>
+        <td><a th:href="@{account-console/progress}" class="btn btn-primary">In progress (<span th:text="${totalAccountPending}"/>)</a></td>
+        <td><a th:href="@{account-console/completed}" class="btn btn-primary">Completed (<span th:text="${totalAccountCompleted}"/>)</a></td>
     </tr>
     </table>
 
@@ -41,7 +41,10 @@
             <td valign="center"> <p th:text="${assessment.modifiedAt}"/> </td>
             <td valign="center"> <p><span th:text="${assessment.firstName}"/> <span th:text="${assessment.lastName}"/></p> </td>
             <td valign="bottom"> <p th:text="${assessment.status}"/> </td>
-
+            <td>
+                <a th:href="@{account-console/details}" class="btn btn-primary">Details</a></td>
+                <a th:href="@{account-console/details}" class="btn btn-primary">Start</a>
+                <a th:href="@{account-console/details}" class="btn btn-primary">Take decision</a></td>
         </tr>
         </th:block>
         </tbody>

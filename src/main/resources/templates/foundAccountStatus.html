@@ -2,11 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
 
-<div th:replace="fragments/navHome :: navHome"/>
 <body th:style="'background-image: url(' + @{/images/background.png} + ');
                 background-repeat: no-repeat;
                 background-size: cover;
                 height=100%'">
+
 <br><h3 align="center">Account request status</h3><br>
 <div align="center" th:style="'margin: auto;
   width: 60%;
@@ -32,6 +32,11 @@
         </tr>
         </tbody>
     </table>
+    <br><br>
+
+    <a class="btn btn-primary" th:href="@{/customer/customerDashboard}">Home</a>
+
+    <a class="btn btn-primary" th:href="@{/checkStatusRequest}">Search again</a>
 </div>
 </body>
 </html>

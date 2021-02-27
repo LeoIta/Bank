@@ -50,12 +50,6 @@ public class AssessmentController {
 
     //    TODO: admin/console and children
 
-
-    @GetMapping("/admin/admin-console")
-    public String adminConsole(Model model){
-        return "tellerDashboard";
-    }
-
     @GetMapping("/admin/tellerDashboard")
     public String tellerConsole(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -70,35 +64,35 @@ public class AssessmentController {
 
     // ticket console
 
-    @GetMapping("/ticket-console/opened")
+    @GetMapping("admin/ticket-console/opened")
     public String openedTicketConsole(Model model){
         List<Assessment> assessmentList = assessmentService.findOpen();
         model.addAttribute("assessments",assessmentList);
-        return "consoleTicketOpened";
+        return "admin/consoleTicketOpened";
     }
 
-    @GetMapping("/ticket-console/pending")
+    @GetMapping("admin/ticket-console/pending")
     public String pendingTicketConsole(Model model){
         List<Assessment> assessmentList = assessmentService.findPending();
         model.addAttribute("assessments",assessmentList);
-        return "consoleTicketPending";
+        return "admin/consoleTicketPending";
     }
 
-    @GetMapping("/ticket-console/progress")
+    @GetMapping("admin/ticket-console/progress")
     public String progressTicketConsole(Model model){
         List<Assessment> assessmentList = assessmentService.findWIP();
         model.addAttribute("assessments",assessmentList);
-        return "consoleTicketProgress";}
+        return "admin/consoleTicketProgress";}
 
-    @GetMapping("/ticket-console/completed")
+    @GetMapping("admin/ticket-console/completed")
     public String completedTicketConsole(Model model){
         List<Assessment> assessmentList = assessmentService.findDone();
         model.addAttribute("assessments",assessmentList);
-        return "consoleTicketCompleted";}
+        return "admin/consoleTicketCompleted";}
 
     // account console
 
-    @GetMapping("/account-console")
+    @GetMapping("admin/account-console")
     public String accountConsole(Model model){
         Map<String, Integer> statistics = assessmentService.statistics();
         statistics.forEach((key,value) -> {
@@ -107,58 +101,58 @@ public class AssessmentController {
         List<Assessment> assessmentList = assessmentService.findAccountRequest();
         model.addAttribute("assessments",assessmentList);
 
-        return "consoleAccount";
+        return "admin/consoleAccount";
     }
 
-    @GetMapping("/account-console/opened")
+    @GetMapping("admin/account-console/opened")
     public String openedAccountConsole(Model model){
         List<Assessment> assessmentList = assessmentService.findAccountRequest();
         model.addAttribute("assessments",assessmentList);
-        return "consoleAccountOpened";
+        return "admin/consoleAccountOpened";
     }
 
-    @GetMapping("/account-console/pending")
+    @GetMapping("admin/account-console/pending")
     public String pendingAccountConsole(Model model){
         List<Assessment> assessmentList = assessmentService.findAccountRequest();
         model.addAttribute("assessments",assessmentList);
-        return "consoleAccountPending";
+        return "admin/consoleAccountPending";
     }
 
-    @GetMapping("/account-console/progress")
+    @GetMapping("admin/account-console/progress")
     public String progressAccountConsole(Model model){
-        return "consoleAccountProgress";
+        return "admin/consoleAccountProgress";
     }
 
-    @GetMapping("/account-console/completed")
+    @GetMapping("admin/account-console/completed")
     public String completedAccountConsole(Model model){
-        return "consoleAccountCompleted";
+        return "admin/consoleAccountCompleted";
     }
 
     // loan console
 
-    @GetMapping("/loan-console")
-    public String LoanConsole(Model model){
-        return "consoleLoan";
+    @GetMapping("admin/loan-console")
+    public String loanConsole(Model model){
+        return "admin/consoleLoan";
     }
 
-    @GetMapping("/loan-console/opened")
+    @GetMapping("admin/loan-console/opened")
     public String openedLoanConsole(Model model){
-        return "consoleLoanOpened";
+        return "admin/consoleLoanOpened";
     }
 
-    @GetMapping("/loan-console/pending")
+    @GetMapping("admin/loan-console/pending")
     public String pendingLoanConsole(Model model){
-        return "consoleLoanPending";
+        return "admin/consoleLoanPending";
     }
 
-    @GetMapping("/loan-console/progress")
+    @GetMapping("admin/loan-console/progress")
     public String progressLoanConsole(Model model){
-        return "consoleLoanProgress";
+        return "admin/consoleLoanProgress";
     }
 
-    @GetMapping("/loan-console/completed")
+    @GetMapping("admin/loan-console/completed")
     public String completedLoanConsole(Model model){
-        return "consoleLoanCompleted";
+        return "admin/consoleLoanCompleted";
     }
 
 }
