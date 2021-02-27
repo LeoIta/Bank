@@ -24,11 +24,10 @@ public class Customer extends PersonEntity{
 
     private Long annualIncome;
 
-    @ManyToOne
-    @JoinColumn(name="address_id")
-    private Address address;
+
+    private Integer addressId;
 
     @Column(name = "ACTIVE")
-    private int active;
+    private Integer active;
 }
 

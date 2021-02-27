@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
@@ -18,8 +17,6 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
-    private AuthenticationSuccessHandler authenticationSuccessHandler;
 
 
     @Autowired
@@ -58,15 +55,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/teller/**").hasAuthority("ADMIN")
                 .antMatchers("/user/**").hasAuthority("USER")
                 .antMatchers("/**")
-                .permitAll().anyRequest()
-                .authenticated().and().csrf().disable().formLogin()
-                .loginPage("/login").failureUrl("/login?error=true")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .csrf()
+                .disable()
+                .formLogin()
+                .loginPage("/login")
+                .failureUrl("/login?error=true")
                 .successHandler(successHandler)
                 .usernameParameter("email")
                 .passwordParameter("password")
-                .and().logout()
+                .and()
+                .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/").and().exceptionHandling()
+                .logoutSuccessUrl("/")
+                .and()
+                .exceptionHandling()
                 .accessDeniedPage("/accessDenied")
 
         ;

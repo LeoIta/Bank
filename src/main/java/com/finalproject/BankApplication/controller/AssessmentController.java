@@ -1,6 +1,7 @@
 package com.finalproject.BankApplication.controller;
 
 import com.finalproject.BankApplication.model.*;
+import com.finalproject.BankApplication.service.AddressService;
 import com.finalproject.BankApplication.service.AssessmentService;
 import com.finalproject.BankApplication.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class AssessmentController {
     @Autowired
     CustomerService customerService;
 
+    @Autowired
+    AddressService addressService;
+
 
     @GetMapping("/user/openAccount")
     public String accountForm(Model model){
@@ -32,13 +36,24 @@ public class AssessmentController {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = customerService.findUserByEmail(auth.getName());
-        int customerId = customer.getId();
+        Address address = new Address();
+        Integer customerId = customer.getId();
+
+        address.setCity(assessment.getCity());
+        address.setCountry(assessment.getCountry());
+        address.setPostcode(assessment.getPostcode());
+        address.setStreet(assessment.getStreet());
+        address.setCustomerId(customerId);
+        addressService.saveAddress(address);
+
         assessment.setCustomerId(customerId);
         assessment.setType(AssessmentType.ACCOUNT);
         assessment.setStatus(AssessmentStatus.PENDING);
         customer.setAnnualIncome(assessment.getAnnualIncome());
+        customer.setAddressId(address.getId());
+
         assessmentService.saveNew(assessment);
-        int id = assessmentService.findLastId();
+        Integer id = assessmentService.findLastId();
         String ref = "A" + (12346789 + id);
         model.addAttribute("confirmation","Your account request has been submitted with reference " + ref );
         return "SubmitApplicationConfirmation";

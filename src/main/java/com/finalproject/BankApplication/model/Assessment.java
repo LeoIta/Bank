@@ -20,7 +20,7 @@ import static com.finalproject.BankApplication.model.AssessmentStatus.*;
 public class Assessment extends TimeEntity{
 
     @Column
-    private int customerId;
+    private Integer customerId;
 
     private String firstName;
     private String lastName;
@@ -30,7 +30,7 @@ public class Assessment extends TimeEntity{
 //    private LocalDateTime dateOfBirth;
 
     private Long annualIncome;
-    private int firstDeposit;
+    private Integer firstDeposit;
     private String country;
     private String city;
     private String postcode;
