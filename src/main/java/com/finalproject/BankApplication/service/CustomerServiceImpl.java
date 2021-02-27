@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -36,6 +37,12 @@ public class CustomerServiceImpl implements CustomerService {
         Role userRole = roleRepository.findByRole("USER");
         customer.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         return customerRepository.save(customer);
+    }
+
+    @Override
+    public Customer findUserById(int id){
+        return customerRepository.findById(id).get();
+
     }
 }
 

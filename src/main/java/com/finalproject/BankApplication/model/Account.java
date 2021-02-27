@@ -15,7 +15,7 @@ public class Account extends BaseEntity{
     private String accountNumber;
 
     @OneToOne(targetEntity = Customer.class)
-    private Customer customerID;
+    private Customer customer;
 
     @Column()
     private long balance;
