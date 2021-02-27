@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:ch="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
-<div th:replace="fragments/navHome :: navHome"/>
+<div th:replace="fragments/navLogged :: navClient"/>
 <body th:style="'background-image: url(' + @{/images/background.png} + ');
                 background-repeat: no-repeat;
                 background-size: cover;
@@ -43,7 +43,7 @@
                 <a th:if="${transaction.senderAccount} == ${accountNumber}"> <p th:text="${transaction.senderBalance}" /></a>
             </td>
             <td>
-                <a th:if="${transaction.recipientAccount} == ${accountNumber}"> <p th:text="'+'${transaction.amount}" /></a>
+                <a th:if="${transaction.recipientAccount} == ${accountNumber}"> <p th:text="'+'+${transaction.amount}" /></a>
                 <a th:if="${transaction.senderAccount} == ${accountNumber}"> <p th:text="-${transaction.amount}" /></a>
                 <!--<p th:text="${transaction.amount}" />-->
             </td>

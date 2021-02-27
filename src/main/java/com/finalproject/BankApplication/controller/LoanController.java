@@ -1,5 +1,6 @@
 package com.finalproject.BankApplication.controller;
 
+import com.finalproject.BankApplication.model.Account;
 import com.finalproject.BankApplication.model.Customer;
 import com.finalproject.BankApplication.model.Loan;
 import com.finalproject.BankApplication.service.AccountService;
@@ -32,9 +33,12 @@ public class LoanController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = customerService.findUserByEmail(auth.getName());
         int cstId = customer.getId();
-        int accountId = accountService.findAccountByCstId(cstId).getId();
+        Account account = accountService.findAccountByCstId(cstId);
+        int accountId = account.getId();
         Loan loan = loanService.findLoanByAccountId(accountId);
         model.addAttribute("loan",loan);
+        model.addAttribute("customerName", customer.getFirstName()+" "+customer.getLastName());
+        model.addAttribute("accountNumber",account.getAccountNumber());
         return "customer/loandetails";
     }
 

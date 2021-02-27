@@ -150,7 +150,7 @@ public class TransactionController {
         }
         model.addAttribute("transactions", transactions);
         model.addAttribute("transferMessage", transferMessage);
-        model.addAttribute("acountNumber",accountNumber);
+        model.addAttribute("accountNumber",accountNumber);
         return "customer/transactions";
     }
 
