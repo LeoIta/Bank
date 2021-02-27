@@ -4,8 +4,6 @@ package com.finalproject.BankApplication.controller;
 import com.finalproject.BankApplication.model.Customer;
 import com.finalproject.BankApplication.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -74,13 +72,4 @@ public class CustomerController {
         return modelAndView;
     }
 
-    /*@RequestMapping(value="/customer/customerDashboard", method = RequestMethod.GET)
-    public ModelAndView customer(){
-        ModelAndView modelAndView = new ModelAndView();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Customer customer = customerService.findUserByEmail(auth.getName());
-        modelAndView.addObject("userName", "Welcome to LKM Bank " + customer.getFirstName() + " " + customer.getLastName());
-        modelAndView.setViewName("customer/customerDashboard");
-        return modelAndView;
-    }*/
 }

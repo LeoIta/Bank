@@ -6,7 +6,7 @@
                 background-repeat: no-repeat;
                 background-size: cover;
                 height=100%'">
-<br><h3 align="center">Account request status</h3><br>
+<br><h3 align="center">Opened requests</h3><br>
 <div align="center" th:style="'margin: auto;
   width: 60%;
   border: 3px solid rgba(224, 228, 228, 0.801);
@@ -31,8 +31,11 @@
                 <td > <p th:text="${assessment.modifiedAt}"/> </td>
                 <td> <p><span th:text="${assessment.firstName}"/> <span th:text="${assessment.lastName}"/></p> </td>
                 <td> <p th:text="${assessment.status}"/> </td>
-                <td> <a th:href="@{account-console/details}" class="btn btn-primary">Start</a>
-                    <a th:href="@{account-console/details}" class="btn btn-primary">Take decision</a></td>
+                <td>
+                    <a th:href="@{/admin/ticket-console/details/} + ${assessment.id}" class="btn btn-primary">Details</a>
+                    <a th:href="@{/admin/ticket-console/start/} + ${assessment.id}" class="btn btn-primary">Start</a>
+                    <a th:href="@{/admin/ticket-console/details/} + ${assessment.id}" class="btn btn-primary">Take decision</a>
+                </td>
             </tr>
         </th:block>
         </tbody>
