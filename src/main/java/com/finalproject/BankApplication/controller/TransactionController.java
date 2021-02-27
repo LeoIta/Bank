@@ -38,20 +38,18 @@ public class TransactionController {
 
 
 
-    @GetMapping //(value="/{userId}")
-    //@ResponseBody
-    public String  blabla(@PathVariable(name="userId") int ids, Model model){
+    @GetMapping ("/customerDashboard")
+    public String  blabla(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = customerService.findUserByEmail(auth.getName());
-        int id=1;
-        System.out.println("oh oh "+id);
-        //return " This is "+id;
-
+        int id=customer.getId();
+        System.out.println("oh oh  this is a customer ---------------------------:" );
         Account account = accountService.findAccountByCstId(id);
         model.addAttribute("account",account);
         Loan loan = loanService.findLoanByAccountId(id);
+        loan.setReason("this reason");
         model.addAttribute("loan", loan);
-        return "customer/dashboardCustomer";
+        return "customer/customerDashboard";
     }
 
     @GetMapping(value = "/transaction")
@@ -61,23 +59,14 @@ public class TransactionController {
     }
 
     @GetMapping("/maketransfer")
-    public String initiateTransfer(@PathVariable("userId") int id, Model model){
-        // Mocking a customer
-        /*long customerBalance = 100000;
-        String customerName = "John Geller";
-        String accountNumber = "32 4787 4781 4737 3728 7392 5353";
-        //model.addAttribute("balance",customerBalance);
-        //model.addAttribute("customerName",customerName);
-        //model.addAttribute("accountNumber",accountNumber);
-         */
+    public String initiateTransfer(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Customer customer = customerService.findUserByEmail(auth.getName());
+        int cstId = customer.getId();
 
-        //String senderAccount = accountService.findByCustomerId(id).getAccountNumber;
-        //String senderAccount = "12345";
-        System.out.println("here is the id : "+ id);
+        System.out.println("here is the id : "+ customer.getId());
         //int id = 2;
-        Account senderAccount = accountService.findAccountById(id);
-        Customer customer = customerService.findUserById(id);
-
+        Account senderAccount = accountService.findAccountById(cstId);
         Transaction transaction = new Transaction();
         model.addAttribute("transaction", transaction);
         model.addAttribute("cst",customer);
@@ -86,13 +75,16 @@ public class TransactionController {
     }
 
     @PostMapping("/maketransfer")
-    public String validateTransfer(@ModelAttribute Transaction transaction, Model model,@PathVariable("userId") int id){
+    public String validateTransfer(@ModelAttribute Transaction transaction, Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Customer customer = customerService.findUserByEmail(auth.getName());
+        int cstId = customer.getId();
         System.out.println("transfer initiated ......................");
         //int id =2;
-        Customer customer = customerService.findUserById(id);
-        Account account = accountService.findAccountByCstId(id);
+        //Customer customer = customerService.findUserById(cstId);
+        Account account = accountService.findAccountByCstId(cstId);
         transaction.setSenderName(customer.getFirstName() +" "+ customer.getLastName());
-        transaction.setSenderAccount(accountService.findAccountById(id).getAccountNumber());
+        transaction.setSenderAccount(accountService.findAccountById(cstId).getAccountNumber());
         // end of mocking
 
         String validationMessage =" You transfer of " + transaction.getAmount() + " to " + transaction.getRecipientName() + " has been ";;
@@ -126,7 +118,6 @@ public class TransactionController {
         }
 
         //implementing sender and receiver balance after transfer
-
         model.addAttribute("validationMessage",validationMessage);
 
         model.addAttribute("transaction", transaction);
@@ -134,9 +125,15 @@ public class TransactionController {
     }
 
     @GetMapping("/transactions/sent")
-    public String getTransactionsBySender(@PathVariable("userId") int id, Model model){
+    public String getTransactionsBySender( Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Customer customer = customerService.findUserByEmail(auth.getName());
+
+        int cstId = customer.getId();
+        String accountNumber = accountService.findAccountByCstId(cstId).getAccountNumber();
+
         //int id =1;
-        List<Transaction> transactions = transactionService.getTransactionsBySender(accountService.findAccountByCstId(id).getAccountNumber());
+        List<Transaction> transactions = transactionService.getTransactionsBySender(accountService.findAccountByCstId(cstId).getAccountNumber());
         System.out.println("we found this many transactions sent"+transactions.size());
         String transferMessage = transactions.size()==0? "You have not made any transaction": " here is your list of sent transactions";
         List<Long> balances = new ArrayList<>();
@@ -153,15 +150,19 @@ public class TransactionController {
         }
         model.addAttribute("transactions", transactions);
         model.addAttribute("transferMessage", transferMessage);
-        model.addAttribute("sent");
-        model.addAttribute("balanceType","sent");
+        model.addAttribute("acountNumber",accountNumber);
         return "customer/transactions";
     }
 
     @GetMapping("/transactions/received")
-    public String getTransactionsByRecipient(@PathVariable("userId") int id,Model model){
-        //int id =1;
-        List<Transaction> transactions = transactionService.getTransactionsByRecipient(accountService.findAccountByCstId(id).getAccountNumber());
+    public String getTransactionsByRecipient(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Customer customer = customerService.findUserByEmail(auth.getName());
+
+        int cstId = customer.getId();
+        String accountNumber = accountService.findAccountByCstId(cstId).getAccountNumber();
+
+        List<Transaction> transactions = transactionService.getTransactionsByRecipient(accountService.findAccountByCstId(cstId).getAccountNumber());
         System.out.println("we found this many transactions received"+transactions.size());
         String transferMessage = transactions.size()==0? "You have not received any transactions": " here is your list of all received transactions";
         List<Long> balances = new ArrayList<>();
@@ -180,19 +181,31 @@ public class TransactionController {
         }
         model.addAttribute("transactions", transactions);
         model.addAttribute("transferMessage", transferMessage);
-        model.addAttribute("received");
+        model.addAttribute("accountNumber",accountNumber);
         return "customer/transactions";
 
     }
 
     @GetMapping(value = {"/transactions", "/transactions/all"})
-    public String getAllTransactions(@PathVariable("userId") int id, Model model){
+    public String getAllTransactions(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Customer customer = customerService.findUserByEmail(auth.getName());
+
+        int cstId = customer.getId();
         //int id =1;
-        String accountNumber = accountService.findAccountByCstId(id).getAccountNumber();
+        String accountNumber = accountService.findAccountByCstId(cstId).getAccountNumber();
         System.out.println("Showing all transactions");
         //List<Transaction> transactions = transactionService.getAllTransactions();
-        List<Transaction> allTransactions = transactionService.getTransactionsByRecipient(accountNumber);
-        allTransactions.addAll( transactionService.getTransactionsBySender(accountNumber) ) ;
+        //List<Transaction> allTransactions = transactionService.getTransactionsByRecipient(accountNumber);
+        //allTransactions.addAll( transactionService.getTransactionsBySender(accountNumber) ) ;
+
+        List<Transaction> allTransactions = transactionService.getAllTransactions();
+        List<Transaction> allTransactionsForCst = new ArrayList<>();
+        for(Transaction transaction :allTransactions){
+            if ( (transaction.getSenderAccount()==accountNumber) || transaction.getRecipientAccount()==accountNumber){
+                allTransactionsForCst.add(transaction);
+            }
+        }
 
         String transferMessage = allTransactions.size()==0? "You have no transactions": " here is your list of all transactions";
         for (Transaction transaction :allTransactions) {
@@ -201,7 +214,7 @@ public class TransactionController {
 
         }
 
-        Comparator byDate = new Comparator() {
+        /*Comparator byDate = new Comparator() {
             @Override
             public int compare(Object o1, Object o2) {
                 return 0;
@@ -217,11 +230,9 @@ public class TransactionController {
         List<Long> balances = new ArrayList<>();
         for (Transaction transaction :allTransactions){
             balances.add(transaction.getSenderBalance());
-        }
-        model.addAttribute("balances", balances);
-        model.addAttribute("balanceType","all");
-
-        model.addAttribute("transactions",allTransactions);
+        }*/
+        model.addAttribute("accountNumber",accountNumber);
+        model.addAttribute("transactions",allTransactionsForCst);
         model.addAttribute("transferMessage", transferMessage);
         return "customer/transactions";
     }

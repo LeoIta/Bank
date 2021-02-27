@@ -15,8 +15,8 @@
                 <p class="card-text"><p th:text="${account.accountNumber}" /></p>
                 <p class="card-text"><b>Balance:</b></p>
                 <p class="card-text"><p th:text="${account.balance}" /></p>
-                <a th:href="@{'/LKMBank/user/'+${userId}+'/transactions'}" class="btn btn-primary">Show details</a>
-                <a th:href="@{'/LKMBank/user/'+${userId}+'/maketransfer'}" class="btn btn-primary">Make transaction</a>
+                <a th:href="@{'/customer/transactions'}" class="btn btn-primary">Show details</a>
+                <a th:href="@{'/customer/maketransfer'}" class="btn btn-primary">Make transaction</a>
             </div></div>
     <br><br>
         <div class="card" th:style="'padding=20px;background-color: transparent;width:400px;'">
@@ -27,7 +27,7 @@
                     <p class="card-text"><b>Monthly payment: </b>500</p>
                     <p class="card-text"><b>Pay day: </b><p th:text="${loan.payDay}" /></p>
 
-                <a th:href="@{'/LKMBank/user/'+${userId}+'/loandetails'}" class="btn btn-primary">Show details</a>
+                <a th:href="@{/customer/loandetails}" class="btn btn-primary">Show details</a>
             </div>
         </div>
 </div>

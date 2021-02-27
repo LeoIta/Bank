@@ -33,12 +33,20 @@
 
         <tbody >
         <tr th:each="transaction :  ${transactions} " >
-            <td>
+            <!--<td>
                 <a th:if="${balanceType}=='sent'"> <p th:text ="${transaction.senderBalance}"/></a>
                 <a th:if="${balanceType}=='received'"> <p th:text ="${transaction.recipientBalance}"/></a>
                 <a th:if="${balanceType}=='all'"> <p th:text="'calculating ... '"/></a>
+            </td>-->
+            <td>
+                <a th:if="${transaction.recipientAccount} == ${accountNumber}"> <p th:text="${transaction.recipientBalance}" /></a>
+                <a th:if="${transaction.senderAccount} == ${accountNumber}"> <p th:text="${transaction.senderBalance}" /></a>
             </td>
-            <td> <p th:text="${transaction.amount}" /></td>
+            <td>
+                <a th:if="${transaction.recipientAccount} == ${accountNumber}"> <p th:text="'+'${transaction.amount}" /></a>
+                <a th:if="${transaction.senderAccount} == ${accountNumber}"> <p th:text="-${transaction.amount}" /></a>
+                <!--<p th:text="${transaction.amount}" />-->
+            </td>
             <td> <p th:text="${transaction.createdAt}" /></td>
             <td> <p th:text="${transaction.reason}" /></td>
             <td> <p th:text="${transaction.recipientAccount}" /></td>
@@ -52,18 +60,18 @@
     </table>
 
 
-    <a th:href="@{'/customer/transactions/all}" class="btn btn-primary" >Show All transactions (loan included)</a>
+    <a th:href="@{/customer/transactions/all}" class="btn btn-primary" >Show All transactions (loan included)</a>
 
-    <a th:href="@{'/customer/transactions/received}" class="btn btn-primary">Show All received transfers </a>
+    <a th:href="@{/customer/transactions/received}" class="btn btn-primary">Show All received transfers </a>
 
-    <a th:href="@{'/customer/transactions/sent}" class="btn btn-primary">show all sent transfers</a>
+    <a th:href="@{/customer/transactions/sent}" class="btn btn-primary">show all sent transfers</a>
 
 
 
 </div>
 <br>
 <br>
-<a th:href="@{'/customer}" class="btn btn-primary">return your account dashboard</a>
+<a th:href="@{/customer/customerDashboard}" class="btn btn-primary">return your account dashboard</a>
 
 </body>
 </html>
