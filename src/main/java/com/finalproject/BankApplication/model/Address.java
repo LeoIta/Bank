@@ -14,6 +14,8 @@ import java.util.List;
 @Table
 public class Address extends BaseEntity{
 
+    private Integer customerId;
+
     private String country="";
     private String city="";
     private String postcode="";
@@ -22,11 +24,4 @@ public class Address extends BaseEntity{
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "address")
     private List<Customer> customers = new ArrayList<>();
 
-    public Address(String country, String city, String postcode, String street) {
-        this.country = country;
-        this.city = city;
-        this.postcode = postcode;
-        this.street = street;
-    }
-    public Address(){}
 }

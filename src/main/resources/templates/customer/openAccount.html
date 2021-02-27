@@ -18,11 +18,11 @@
             <h4>OPEN NEW ACCOUNT</h4><hr>
             <div class="form-group">
                 <label for="firstName">First name</label>
-                <input type="text" th:field="*{firstName}" name="firstName" class="form-control" id="firstName" required>
+                <input type="text" th:value="*{firstName}" name="firstName" class="form-control" id="firstName" required>
             </div>
             <div class="form-group">
                 <label for="lastName">Last name</label>
-                <input type="text" th:field="*{lastName}"name="lastName" class="form-control" id="lastName" required>
+                <input type="text" th:value="*{lastName}"name="lastName" class="form-control" id="lastName" required>
             </div>
 
             <div class="form-group">
@@ -30,36 +30,36 @@
             </div>
             <div class="form-group">
                 <label for="mail">Email</label>
-                <input type="email" th:field="*{email}"name="mail" class="form-control" id="mail" required>
+                <input type="email" th:value="*{email}"name="mail" class="form-control" id="mail" required>
             </div>
 
             <div class="form-group">
                 <label for="annualIncome">Annual income</label>
-                <input type="number" th:field="*{annualIncome}" name="annualIncome" class="form-control" id="annualIncome" min="0" required>
+                <input type="number" th:value="*{annualIncome}" name="annualIncome" class="form-control" id="annualIncome" min="0" required>
             </div>
             <div class="form-group">
                 <label for="firstDeposit">First deposit</label>
-                <input type="number" th:field="*{firstDeposit}" name="firstDeposit" class="form-control" id="firstDeposit" min="50" required>
+                <input type="number" th:value="*{firstDeposit}" name="firstDeposit" class="form-control" id="firstDeposit" min="50" required>
             </div>
             <hr>
             <h6>Address</h6>
             <div class="form-group">
                 <label for="country">Country</label>
-                <input type="text" th:field="*{country}" name="country" class="form-control" id="country" required>
+                <input type="text" th:value="*{country}" name="country" class="form-control" id="country" required>
             </div>
             <div class="form-group">
                 <label for="city">City</label>
-                <input type="text" th:field="*{city}" name="city" class="form-control" id="city" required>
+                <input type="text" th:value="*{city}" name="city" class="form-control" id="city" required>
             </div>
             <div class="form-group">
                 <label for="postcode">Postal Code</label>
 
-                <input type="text" th:field="*{postcode}" name="postcode" class="form-control" id="postcode" required>
+                <input type="text" th:value="*{postcode}" name="postcode" class="form-control" id="postcode" required>
 
             </div>
             <div class="form-group">
                 <label for="street">Street</label>
-                <input type="text" th:field="*{street}" name="street" class="form-control" id="street" required>
+                <input type="text" th:value="*{street}" name="street" class="form-control" id="street" required>
             </div>
 <br><br>
             <button type="submit" class="btn btn-primary">Submit your request</button>

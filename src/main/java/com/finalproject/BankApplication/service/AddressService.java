@@ -1,4 +1,7 @@
 package com.finalproject.BankApplication.service;
 
-public class AddressService {
+import com.finalproject.BankApplication.model.Address;
+
+public interface AddressService {
+    public Address saveAddress(Address address);
 }
