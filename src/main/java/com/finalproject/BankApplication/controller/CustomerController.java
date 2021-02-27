@@ -31,6 +31,11 @@ public class CustomerController {
         return "home";
     }
 
+    @GetMapping("/")
+    public String index(){
+        return "index";
+    }
+
     @RequestMapping(value={ "/login"}, method = RequestMethod.GET)
     public ModelAndView login(){
         ModelAndView modelAndView = new ModelAndView();

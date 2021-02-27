@@ -1,9 +1,13 @@
 package com.finalproject.BankApplication.model;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Set;
 
 
@@ -35,7 +39,7 @@ public class Customer extends BaseEntity{
     @OneToOne(targetEntity = Account.class)
     private Account account;
 
-    /*private Date dateOfBirth;*/
+    private Date dateOfBirth;
 
     private Long annualIncome = 0L;
 
@@ -45,5 +49,17 @@ public class Customer extends BaseEntity{
 
     @Column(name = "ACTIVE")
     private int active;
+
+    @Builder
+    public void setDateOfBirth(String dateOfBirth) {
+        Date d = null;
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            d = format.parse(dateOfBirth);
+        } catch(ParseException e) {
+            e.printStackTrace();
+        }
+        this.dateOfBirth = d;
+    }
 }
 
