@@ -65,8 +65,7 @@ public class CustomerController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = customerService.findUserByEmail(auth.getName());
-        modelAndView.addObject("userName", "Welcome Customer: " + customer.getFirstName() + " " + customer.getLastName());
-        modelAndView.addObject("userMessage","LKM bank!");
+        modelAndView.addObject("userName", "Welcome to LKM Bank " + customer.getFirstName() + " " + customer.getLastName());
         modelAndView.setViewName("customer/customerDashboard");
         return modelAndView;
     }

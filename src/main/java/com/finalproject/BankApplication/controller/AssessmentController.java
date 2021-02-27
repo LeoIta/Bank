@@ -4,72 +4,30 @@ import com.finalproject.BankApplication.model.Assessment;
 import com.finalproject.BankApplication.model.Customer;
 import com.finalproject.BankApplication.service.AssessmentService;
 import com.finalproject.BankApplication.service.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Map;
 
 @Controller
-//@RequestMapping("/LKMBank")
+@AllArgsConstructor
 public class AssessmentController {
 
-    @Autowired
     AssessmentService assessmentService;
-
-    @Autowired
     CustomerService customerService;
 
-    @GetMapping()
+    @GetMapping("//LKMBank")
     public String home(){
         return "home";
-    }
-
-    @GetMapping("/openAccount")
-    public String accountForm(Model model){
-        Assessment assessment = new Assessment();
-        model.addAttribute("assessment",assessment);
-        return "openAccount";
-    }
-
-    @PostMapping("/openAccount")
-    public String createAssessment(@ModelAttribute Assessment assessment,Model model){
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Customer customer = customerService.findUserByEmail(auth.getName());
-        assessment.setCustomerId(customer.getId());
-        customer.setAnnualIncome(assessment.getAnnualIncome());
-        assessmentService.saveNew(assessment);
-        int id = assessmentService.findLastId();
-        assessmentService.submit(id);
-        assessmentService.accountType(id);
-        //maybe customer id
-        String ref = "A" + (12346789 + id);
-        model.addAttribute("confirmation","Your account request has been submitted with reference " + ref );
-        return "SubmitApplicationConfirmation";
-    }
-
-    @GetMapping("/openLoan")
-    public String loanForm(Model model){
-        Assessment assessment = new Assessment();
-        model.addAttribute("assessment",assessment);
-        return "openLoan";
-    }
-
-    @PostMapping("/openLoan")
-    public String createLoanAssessment(@ModelAttribute Assessment assessment,Model model){
-        assessmentService.saveNew(assessment);
-        int id = assessmentService.findLastId();
-        assessmentService.submit(id);
-        assessmentService.loanType(id);
-        String ref = "L" + (12346789 + id);
-        model.addAttribute("confirmation","Your loan request has been submitted with reference " + ref );
-        return "SubmitApplicationConfirmation";
     }
 
     @GetMapping("/checkStatusRequest")
@@ -81,7 +39,7 @@ public class AssessmentController {
     public String getStatus(@RequestParam("reference") String reference){
         int refId = Integer.parseInt(reference.substring(1)) - 12346789;
         char type = reference.charAt(0);
-        return "redirect:/LKMBank/"+type+"/"+refId;
+        return "redirect:/"+type+"/"+refId;
     }
 
     @GetMapping(value= "/{type}/{refId}")
@@ -97,9 +55,9 @@ public class AssessmentController {
     //    TODO: we need to solve problems with Date
 
 
-    @GetMapping("/admin-console")
+    @GetMapping("/admin/admin-console")
     public String adminConsole(Model model){
-        return "consoleAdmin";
+        return "tellerDashboard";
     }
 
     @GetMapping("/admin/tellerDashboard")
