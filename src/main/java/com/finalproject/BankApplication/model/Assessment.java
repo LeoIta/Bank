@@ -22,15 +22,15 @@ public class Assessment extends TimeEntity{
 //    @DateTimeFormat(pattern = "dd/MM/yyyy")
 //    private LocalDateTime dateOfBirth;
 
-    private long annualIncome;
-    private int firstDeposit;
-    private String country;
-    private String city;
-    private String postcode;
-    private String street;
-    private int payDay;
-    private String reason;
-    private long amount;
+    private long annualIncome=0;
+    private int firstDeposit=0;
+    private String country="";
+    private String city="";
+    private String postcode="";
+    private String street="";
+    private int payDay=1;
+    private String reason="";
+    private long amount=0;
     private int customerId;
 
 //    private LocalDateTime startDate;
@@ -45,22 +45,5 @@ public class Assessment extends TimeEntity{
     @Enumerated(EnumType.STRING)
     private Decision decision;
 
-
-//    public void start(){
-//        if (status==PENDING) {
-//            status = IN_PROGRESS;
-//        }else{
-//            throw new InvalidAssessmentStatusException();
-//        }
-//    }
-//
-//    public void makeDecision(Decision decision){
-//        if (status==IN_PROGRESS) {
-//            this.decision = decision;
-//            status = DONE;
-//        }else{
-//            throw new InvalidAssessmentStatusException();
-//        }
-//    }
 
 }

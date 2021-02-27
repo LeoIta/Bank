@@ -24,10 +24,7 @@ public class AssessmentController {
     AssessmentService assessmentService;
     CustomerService customerService;
 
-    @GetMapping("/LKMBank")
-    public String home(){
-        return "home";
-    }
+
 
     @GetMapping("/checkStatusRequest")
     public String checkStatus() {

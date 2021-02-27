@@ -1,6 +1,5 @@
 package com.finalproject.BankApplication.controller;
 
-import com.finalproject.BankApplication.model.Address;
 import com.finalproject.BankApplication.model.Assessment;
 import com.finalproject.BankApplication.model.Customer;
 import com.finalproject.BankApplication.service.AssessmentService;
@@ -23,7 +22,12 @@ public class AccountController {
 
     @GetMapping("/customer/openAccount")
     public String accountForm(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Customer customer = customerService.findUserByEmail(auth.getName());
         Assessment assessment = new Assessment();
+        assessment.setFirstName(customer.getFirstName());
+        assessment.setLastName(customer.getLastName());
+        assessment.setEmail(customer.getEmail());
         model.addAttribute("assessment",assessment);
         return "customer/openAccount";
     }
@@ -44,27 +48,24 @@ public class AccountController {
         return "SubmitApplicationConfirmation";
     }
 
-    //TODO:loan and new account after login
-
     @GetMapping("/customer/openLoan")
     public String loggedLoan(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = customerService.findUserByEmail(auth.getName());
-        Address address = new Address();
         Assessment assessment = new Assessment();
-        address = customer.getAddress()!=null?customer.getAddress():address;
-        assessment.setCountry(address.getCountry());
-        assessment.setCity(address.getCity());
-        assessment.setPostcode(address.getPostcode());
-        assessment.setStreet(address.getStreet());
         assessment.setFirstName(customer.getFirstName());
         assessment.setLastName(customer.getLastName());
+        assessment.setEmail(customer.getEmail());
         model.addAttribute("assessment",assessment);
         return "customer/openLoan";
     }
 
     @PostMapping("/customer/openLoan")
     public String createLoggedLoan(@ModelAttribute Assessment assessment, Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Customer customer = customerService.findUserByEmail(auth.getName());
+        assessment.setCustomerId(customer.getId());
+        customer.setAnnualIncome(assessment.getAnnualIncome());
         assessmentService.saveNew(assessment);
         int id = assessmentService.findLastId();
         assessmentService.submit(id);

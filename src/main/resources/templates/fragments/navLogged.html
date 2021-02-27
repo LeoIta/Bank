@@ -21,18 +21,13 @@
                     <li><a class="dropdown-item" th:href="@{/customer/customerDashboard}">Dashboard</a></li>
                     <li><a class="dropdown-item" th:href="@{/customer/transactions}">History</a></li>
                     <li><a class="dropdown-item" th:href="@{/customer/openLoan}">Loan requests</a></li>
-                    <li><a class="dropdown-item" th:href="@{/customer/loanDetails}">Account request</a></li>
+                    <li><a class="dropdown-item" th:href="@{/customer/openAccount}">Account request</a></li>
                     <li><a class="dropdown-item" th:href="@{/customer/makeTransfer}">Make transaction</a></li>
                     </li>
                 </ul>
 
             </div>
 
-
-            <ul class="navbar-nav" style="padding-right:50px">
-                <li><a class="btn btn-link" th:href="@{/customer/openAccount}">
-                    <button type="button" class="btn btn-outline-warning" style="color:black">Open Account</button>
-                </a></li>
 
                 <li><a class="dropdown-item" th:href="@{/customer/checkStatusRequest}">
                     <button type="button" class="btn btn-outline-warning" style="color:black">Your requests</button>
@@ -75,14 +70,9 @@
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/admin/tellerDashboard}">Dashboard</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Console</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" th:href="@{/admin/account-console}">Account console</a></li>
-                            <li><a class="dropdown-item" th:href="@{/admin/loan-console}">Loan Console</a></li>
-                        </ul>
-                    </li>
+                    <li><a class="dropdown-item" th:href="@{/admin/account-console}">Account console</a></li>
+                    <li><a class="dropdown-item" th:href="@{/admin/loan-console}">Loan Console</a></li>
+
                 </ul>
 
             </div>
