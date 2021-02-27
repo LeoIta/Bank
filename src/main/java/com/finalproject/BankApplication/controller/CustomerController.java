@@ -69,7 +69,7 @@ public class CustomerController {
         return modelAndView;
     }
 
-    @RequestMapping(value="/customer/customerDashboard", method = RequestMethod.GET)
+    /*@RequestMapping(value="/customer/customerDashboard", method = RequestMethod.GET)
     public ModelAndView customer(){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -77,5 +77,5 @@ public class CustomerController {
         modelAndView.addObject("userName", "Welcome to LKM Bank " + customer.getFirstName() + " " + customer.getLastName());
         modelAndView.setViewName("customer/customerDashboard");
         return modelAndView;
-    }
+    }*/
 }

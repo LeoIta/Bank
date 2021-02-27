@@ -115,7 +115,7 @@ public class AssessmentService {
     public List<Assessment> findLoanRequestWIP(){return findWIPRequest(AssessmentType.LOAN);}
 
     public List<Assessment> findLoanRequestDone(){return findDoneRequest(AssessmentType.LOAN);}
-    
+
     public Map<String, Integer> statistics(){
         Map<String, Integer> statistics = new HashMap<>();
         int totalRequests= findAll()!=null?findAll().size():0;
@@ -136,7 +136,7 @@ public class AssessmentService {
         int totalLoanWIP= findLoanRequestWIP()!=null?findLoanRequestWIP().size():0;
         int totalLoanPending= findLoanRequestPending()!=null?findLoanRequestPending().size():0;
         int totalLoanCompleted=findLoanRequestDone()!=null?findLoanRequestDone().size():0;
-        
+
         statistics.put("totalRequests", totalRequests);
 
         statistics.put("totalOpen", totalOpen);
