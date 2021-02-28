@@ -8,15 +8,18 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="BankApplication" />
+        <module name="BankApplication-main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="BankApplication" target="1.8" />
+      <module name="BankApplication-main" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="BankApplication" options="-parameters" />
+      <module name="BankApplication-main" options="-parameters" />
     </option>
   </component>
 </project>

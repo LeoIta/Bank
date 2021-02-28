@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments/header :: header"/>
 
 <body th:style="'background-image: url(' + @{/images/background.png} + ');
@@ -34,8 +35,12 @@
     </table>
     <br><br>
 
+    <div sec:authorize="isAuthenticated()">
     <a class="btn btn-primary" th:href="@{/customer/customerDashboard}">Home</a>
-
+    </div>
+    <div sec:authorize="isAnonymous()">
+        <a class="btn btn-primary" th:href="@{/BKLBank}">Home</a>
+    </div>
     <a class="btn btn-primary" th:href="@{/checkStatusRequest}">Search again</a>
 </div>
 </body>
