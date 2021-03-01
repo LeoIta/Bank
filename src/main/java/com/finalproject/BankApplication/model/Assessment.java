@@ -12,7 +12,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
 @Entity
 @Data
 @Table
@@ -22,15 +21,15 @@ public class Assessment extends TimeEntity{
     private String lastName;
     private String email;
     private Date dateOfBirth;
-    private long annualIncome=0;
-    private int firstDeposit=0;
-    private String country="";
-    private String city="";
-    private String postcode="";
-    private String street="";
-    private int payDay=1;
-    private String reason="";
-    private long amount=0;
+    private long annualIncome;
+    private int firstDeposit;
+    private String country;
+    private String city;
+    private String postcode;
+    private String street;
+    private int payDay;
+    private String reason;
+    private long amount;
     private int customerId;
     private Date startDate;
     private Date dueDate;
@@ -39,7 +38,7 @@ public class Assessment extends TimeEntity{
     private AssessmentType type;
 
     @Enumerated(EnumType.STRING)
-    private AssessmentStatus status;
+    private AssessmentStatus status = AssessmentStatus.PENDING;
 
     @Enumerated(EnumType.STRING)
     private Decision decision;

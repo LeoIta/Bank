@@ -5,13 +5,19 @@ import com.finalproject.BankApplication.service.AddressService;
 import com.finalproject.BankApplication.service.AssessmentService;
 import com.finalproject.BankApplication.service.CustomerService;
 import lombok.AllArgsConstructor;
+import lombok.val;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
@@ -74,8 +80,7 @@ public class AssessmentController {
         customer.setAnnualIncome(assessment.getAnnualIncome());
         assessmentService.saveNew(assessment);
         int id = assessmentService.findLastId();
-        assessmentService.submit(id);
-        assessmentService.accountType(id);
+        assessmentService.changeType(AssessmentType.ACCOUNT,id);
         String ref = "A" + (12346789 + id);
         model.addAttribute("confirmation","Your account request has been submitted with reference " + ref );
         return "SubmitApplicationConfirmation";
@@ -278,19 +283,38 @@ public class AssessmentController {
             "admin/ticket-console/{action}/{id}",
             "admin/loan-console/{action}/{id}"})
     public String details( @PathVariable String action,
-                           @PathVariable int id, Model model){
+                           @PathVariable int id, Model model, HttpServletRequest request) {
         Assessment assessment = assessmentService.findById(id);
-        if( action.equals("start") &&
-                assessment.getStatus() == AssessmentStatus.PENDING){
+        String back = request.getHeader("Referer");
+        if (action.equals("start") &&
+                assessment.getStatus() == AssessmentStatus.PENDING) {
             assessmentService.start(id);
-            return "admin/ticket-console/progress";
-        };
-        model.addAttribute("assessment",assessment);
-        if (assessment.getType()==AssessmentType.LOAN) {
-            return "admin/assessment-details";
+            model.addAttribute("assessment", assessment);
+            return "redirect:" + back;
         }
-        else{
-            return "admin/assessment-detailsA";}
+        String colors;
+        String req;
+        DateTimeFormatter myFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDateTime localDateTime = Instant
+                .ofEpochMilli(assessment.getModifiedAt().getTime())
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
+        String completedDate = localDateTime.format(myFormat);
+        if (assessment.getDecision() == Decision.APPROVED) {
+            colors = "background-color:green";
+            req = "  APPROVED ON " + completedDate;
+        } else if (assessment.getDecision() == Decision.REJECTED){
+            colors = "background-color:red";
+            req = "  REJECTED ON " + completedDate;
+        }else{
+            colors = "background-color:transparent";
+            req = "  REQUEST DETAILS";
+        }
+        model.addAttribute("colors",colors);
+        model.addAttribute("req",req);
+        model.addAttribute("assessment",assessment);
+        model.addAttribute("back",back);
+        return "admin/assessment-details";
     }
 
     @PostMapping("/admin/account{decision}")

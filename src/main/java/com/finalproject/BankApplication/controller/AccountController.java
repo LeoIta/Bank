@@ -1,6 +1,7 @@
 package com.finalproject.BankApplication.controller;
 
 import com.finalproject.BankApplication.model.Assessment;
+import com.finalproject.BankApplication.model.AssessmentType;
 import com.finalproject.BankApplication.model.Customer;
 import com.finalproject.BankApplication.service.AssessmentService;
 import com.finalproject.BankApplication.service.CustomerService;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 @Controller
 @AllArgsConstructor
@@ -65,8 +65,7 @@ public class AccountController {
         customer.setAnnualIncome(assessment.getAnnualIncome());
         assessmentService.saveNew(assessment);
         int id = assessmentService.findLastId();
-        assessmentService.submit(id);
-        assessmentService.loanType(id);
+        assessmentService.changeType(AssessmentType.LOAN,id);
         String ref = "L" + (12346789 + id);
         model.addAttribute("confirmation","Your loan request has been submitted with reference " + ref );
         return "SubmitApplicationConfirmation";
