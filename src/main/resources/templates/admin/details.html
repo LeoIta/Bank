@@ -3,14 +3,11 @@
 <head th:replace="fragments/header :: header"/>
 <div th:replace="fragments/navLogged :: navTeller"/>
 
-<body style="background-image: url('/images/background.png');
-                background-repeat: no-repeat;
-                background-size: cover;
-                height:100%">
+<body>
 
 <div class="row justify-content-center mt-5" style="margin-top: .1rem!important;">
 
-     <div class="card col-md-5" style="width:400px;"
+     <div class="card col-md-5" style="width:420px;"
         th:styleappend="${colors}";
         th:object="${assessment}">
              <div class="card-body">
@@ -77,9 +74,9 @@
                  <a th:if="${assessment.status == T(com.finalproject.BankApplication.model.AssessmentStatus).PENDING}"
                     th:href="@{/admin/loan-console/start/{id}(id=${assessment.id})}" class="btn btn-primary">Start</a>
                  <a th:if="${assessment.status == T(com.finalproject.BankApplication.model.AssessmentStatus).IN_PROGRESS}"
-                    th:href="@{/admin/account/Approved/{id}(id=${assessment.id})}" class="btn btn-primary">Approved</a>
+                    th:href="@{/admin/account/approved/{id}(id=${assessment.id})}" class="btn btn-primary">Approved</a>
                  <a th:if="${assessment.status == T(com.finalproject.BankApplication.model.AssessmentStatus).IN_PROGRESS}"
-                    th:href="@{/admin/account/Rejected/{id}(id=${assessment.id})}" class="btn btn-primary">Rejected</a>
+                    th:href="@{/admin/account/rejected/{id}(id=${assessment.id})}" class="btn btn-primary">Rejected</a>
                 <a  th:href= "${back}" class="btn btn-primary">Back</a>
                 </p>
              </div>

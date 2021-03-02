@@ -2,10 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
 <div th:replace="fragments/navLogged :: navTeller"/>
-<body th:style="'background-image: url(' + @{/images/background.png} + ');
-                background-repeat: no-repeat;
-                background-size: cover;
-                height=100%'">
+<body>
 <br><h3 align="center">Opened account requests</h3><br>
 <div align="center" th:style="'margin: auto;
   width: 60%;
@@ -32,9 +29,15 @@
                 <td> <p><span th:text="${assessment.firstName}"/> <span th:text="${assessment.lastName}"/></p> </td>
                 <td> <p th:text="${assessment.status}"/> </td>
                 <td>
-                    <a th:href="@{/admin/account-console/details/} + ${assessment.id}" class="btn btn-primary">Details</a>
-                    <a th:href="@{/admin/account-console/start/} + ${assessment.id}" class="btn btn-primary">Start</a>
-                    <a th:href="@{/admin/account-console/take-decision/} + ${assessment.id}" class="btn btn-primary">Take decision</a>
+                    <a th:href="@{/admin/details/} + ${assessment.id}"
+                       class="btn btn-primary"
+                    >Details</a>
+                    <a th:href="@{/admin/start/} + ${assessment.id}" class="btn btn-primary"
+                       th:classappend="${assessment.status==T(com.finalproject.BankApplication.model.AssessmentStatus).PENDING}?'':'disabled'">
+                        Start</a>
+                    <a th:href="@{/admin/take-decision/} + ${assessment.id}" class="btn btn-primary"
+                       th:classappend="${assessment.status==T(com.finalproject.BankApplication.model.AssessmentStatus).IN_PROGRESS}?'':'disabled'">
+                        Take decision</a>
                 </td>
             </tr>
         </th:block>
