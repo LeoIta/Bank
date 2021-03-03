@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Table
 public class Account extends BaseEntity{
 
-    @Column(name="account_number")
+    @Column
     private String accountNumber;
 
     @OneToOne(targetEntity = Customer.class)

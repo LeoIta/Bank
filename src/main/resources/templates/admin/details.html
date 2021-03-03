@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"/>
+<div th:replace="fragments/navLogged :: navTeller"/>
+
+<body>
+
+<div class="row justify-content-center mt-5" style="margin-top: .1rem!important;">
+
+     <div class="card col-md-5" style="width:420px;"
+        th:styleappend="${colors}";
+        th:object="${assessment}">
+             <div class="card-body">
+                <h5 class="card-title">
+                    <span th:text="${assessment.type} + ${req}">
+                        <h6 th:if="${assessment.decision==T(com.finalproject.BankApplication.model.Decision).APPROVED}"> - APPROVED</h6>
+                        <h6 th:if="${assessment.decision==T(com.finalproject.BankApplication.model.Decision).REJECTED}"> - REJECTED</h6>
+                    </span>
+                </h5>
+                 <div class="card-text">
+                <p><strong>First name:</strong>
+                    <span th:text="${assessment.firstName}"></span>
+                </p>
+                <p><strong>Last name:</strong>
+                    <span th:text="${assessment.lastName}"></span>
+                </p>
+                <p th:if="${assessment.type == T(com.finalproject.BankApplication.model.AssessmentType).ACCOUNT}">
+                    <strong>Date of Birth:</strong>
+                    <span th:text="${#calendars.format(assessment.dateOfBirth,'dd-MM-yyyy')}"></span>
+                </p>
+                <p><strong>Email:</strong>
+                    <span th:text="${assessment.email}"></span>
+                </p>
+                <p><strong>Country:</strong>
+                    <span th:text="${assessment.country}"></span>
+                </p>
+                <p><strong>City:</strong>
+                    <span th:text="${assessment.city}"></span>
+                </p>
+                <p><strong>Street:</strong>
+                    <span th:text="${assessment.street}"></span>
+                </p>
+                <p><strong>Postcode:</strong>
+                <span th:text="${assessment.postcode}"></span>
+                </p>
+                <p><strong>Annual Income:</strong>
+                    <span th:text="${assessment.annualIncome}"></span>
+                </p>
+                <p th:if="${assessment.type == T(com.finalproject.BankApplication.model.AssessmentType).ACCOUNT}">
+                    <strong>First deposit:</strong>
+                    <span th:text="${assessment.firstDeposit}"></span>
+                </p>
+                <p th:if="${assessment.type == T(com.finalproject.BankApplication.model.AssessmentType).LOAN}">
+                    <strong>Start Date:</strong>
+                    <span th:text="${#calendars.format(assessment.startDate,'dd-MM-yyyy')}"></span>
+                </p>
+                <p th:if="${assessment.type == T(com.finalproject.BankApplication.model.AssessmentType).LOAN}">
+                    <strong>Due Date:</strong>
+                    <span th:text="${#calendars.format(assessment.dueDate,'dd-MM-yyyy')}"></span>
+                </p>
+                <p th:if="${assessment.type == T(com.finalproject.BankApplication.model.AssessmentType).LOAN}">
+                    <strong>Pay day:</strong>
+                    <span th:text="${assessment.payDay}"></span>
+                </p>
+                <p th:if="${assessment.type == T(com.finalproject.BankApplication.model.AssessmentType).LOAN}">
+                    <strong>Amount:</strong>
+                    <span th:text="${assessment.amount}"></span>
+                </p>
+                <p th:if="${assessment.type == T(com.finalproject.BankApplication.model.AssessmentType).LOAN}">
+                    <strong>Reason:</strong>
+                    <span th:text="${assessment.reason}"></span>
+                </p>
+                <p>
+                 <a th:if="${assessment.status == T(com.finalproject.BankApplication.model.AssessmentStatus).PENDING}"
+                    th:href="@{/admin/loan-console/start/{id}(id=${assessment.id})}" class="btn btn-primary">Start</a>
+                 <a th:if="${assessment.status == T(com.finalproject.BankApplication.model.AssessmentStatus).IN_PROGRESS}"
+                    th:href="@{/admin/account/approved/{id}(id=${assessment.id})}" class="btn btn-primary">Approved</a>
+                 <a th:if="${assessment.status == T(com.finalproject.BankApplication.model.AssessmentStatus).IN_PROGRESS}"
+                    th:href="@{/admin/account/rejected/{id}(id=${assessment.id})}" class="btn btn-primary">Rejected</a>
+                <a  th:href= "${back}" class="btn btn-primary">Back</a>
+                </p>
+             </div>
+         </div>
+     </div>
+</div>
+
+</body>
+</html>

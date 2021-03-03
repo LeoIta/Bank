@@ -11,6 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -23,26 +30,81 @@ public class AssessmentController {
     AddressService addressService;
 
 
+    @GetMapping("/customer/openAccount")
+    public String accountForm(Model model){
+        Authentication auth = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+        Customer customer = customerService.findUserByEmail(auth.getName());
+        Assessment assessment = new Assessment();
+        assessment.setFirstName(customer.getFirstName());
+        assessment.setLastName(customer.getLastName());
+        assessment.setEmail(customer.getEmail());
+        ///*set limit date
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.YEAR, -18);
+        String birth = (new SimpleDateFormat("yyyy-MM-dd")
+                .format(calendar.getTime()));
+        model.addAttribute("birth",birth);
+        calendar.add(Calendar.YEAR, -82);
+        String oldest = (new SimpleDateFormat("yyyy-MM-dd")
+                .format(calendar.getTime()));
+        model.addAttribute("birth",birth);
+        model.addAttribute("oldest",oldest);
+        // set limit date*/
+        model.addAttribute("zero",0);
+        model.addAttribute("minDeposit",50);
+        model.addAttribute("assessment",assessment);
+        return "customer/openAccount";
+    }
+
+    @PostMapping("/customer/openAccount")
+    public String createAssessment(@ModelAttribute Assessment assessment, Model model){
+
+        Authentication auth = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+        Customer customer = customerService.findUserByEmail(auth.getName());
+        Address address = new Address();
+        Integer customerId = customer.getId();
+        address.setCity(assessment.getCity());
+        address.setCountry(assessment.getCountry());
+        address.setPostcode(assessment.getPostcode());
+        address.setStreet(assessment.getStreet());
+        address.setCustomerId(customerId);
+        addressService.saveAddress(address);
+        assessment.setCustomerId(customer.getId());
+        customer.setAnnualIncome(assessment.getAnnualIncome());
+        assessmentService.saveNew(assessment);
+        int id = assessmentService.findLastId();
+        assessmentService.changeType(AssessmentType.ACCOUNT,id);
+        String ref = "A" + (12346789 + id);
+        model.addAttribute("confirmation","Your account request has been submitted with reference " + ref );
+        return "submitApplicationConfirmation";
+    }
+
     @GetMapping("/checkStatusRequest")
-    public String checkStatus() {
+    public String checkStatus(HttpServletRequest request, Model model) {
+        model.addAttribute("back",request.getHeader("Referer"));
         return "findApplicationStatus";
     }
 
     @PostMapping("/checkStatusRequest")
-    public String getStatus(@RequestParam("reference") String reference){
+    public String getStatus(@RequestParam("reference") String reference,HttpServletRequest request,
+                            Model model){
         int refId = Integer.parseInt(reference.substring(1)) - 12346789;
         char type = reference.charAt(0);
-        return "redirect:/"+type+"/"+refId;
+        model.addAttribute("back",request.getHeader("Referer"));
+        return "redirect:/" + type + "/" + refId;
     }
 
     @GetMapping(value= "/{type}/{refId}")
-    public String statusFound(@PathVariable("refId") int refId, @PathVariable("type") String type, Model model){
+    public String statusFound(@PathVariable("refId") int refId, @PathVariable("type") String type,
+                              HttpServletRequest request, Model model){
         Assessment assessment = assessmentService.findById(refId);
+        model.addAttribute("back",request.getHeader("Referer"));
         model.addAttribute("assessment",assessment);
-        if (type.equals("A")){
-            return "foundAccountStatus";}
-        else{
-            return "foundLoanStatus";}
+        return "foundReqStatus";
     }
 
     @GetMapping("/admin/tellerDashboard")
@@ -50,21 +112,17 @@ public class AssessmentController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = customerService.findUserByEmail(auth.getName());
         Map<String, Integer> statistics = assessmentService.statistics();
-        model.addAttribute("userName", "Welcome " + customer.getFirstName());
-        model.addAttribute("adminMessage","Have a productive day!");
         statistics.forEach((key,value) -> {
             model.addAttribute(key,value);
         });
+        model.addAttribute("userName", "Welcome " + customer.getFirstName());
+        model.addAttribute("userMessage","Have a productive day!");
         return "admin/tellerDashboard";}
 
     // ticket console
 
     @GetMapping("admin/ticket-console/opened")
     public String openedTicketConsole(Model model){
-        Map<String, Integer> statistics = assessmentService.statistics();
-        statistics.forEach((key,value) -> {
-            model.addAttribute(key,value);
-        });
         List<Assessment> assessmentList = assessmentService.findOpen();
         model.addAttribute("assessments",assessmentList);
         return "admin/consoleTicketOpened";
@@ -72,10 +130,6 @@ public class AssessmentController {
 
     @GetMapping("admin/ticket-console/pending")
     public String pendingTicketConsole(Model model){
-        Map<String, Integer> statistics = assessmentService.statistics();
-        statistics.forEach((key,value) -> {
-            model.addAttribute(key,value);
-        });
         List<Assessment> assessmentList = assessmentService.findPending();
         model.addAttribute("assessments",assessmentList);
         return "admin/consoleTicketPending";
@@ -83,20 +137,12 @@ public class AssessmentController {
 
     @GetMapping("admin/ticket-console/progress")
     public String progressTicketConsole(Model model){
-        Map<String, Integer> statistics = assessmentService.statistics();
-        statistics.forEach((key,value) -> {
-            model.addAttribute(key,value);
-        });
         List<Assessment> assessmentList = assessmentService.findWIP();
         model.addAttribute("assessments",assessmentList);
         return "admin/consoleTicketProgress";}
 
     @GetMapping("admin/ticket-console/completed")
     public String completedTicketConsole(Model model){
-        Map<String, Integer> statistics = assessmentService.statistics();
-        statistics.forEach((key,value) -> {
-            model.addAttribute(key,value);
-        });
         List<Assessment> assessmentList = assessmentService.findDone();
         model.addAttribute("assessments",assessmentList);
         return "admin/consoleTicketCompleted";}
@@ -117,10 +163,6 @@ public class AssessmentController {
 
     @GetMapping("admin/account-console/opened")
     public String openedAccountConsole(Model model){
-        Map<String, Integer> statistics = assessmentService.statistics();
-        statistics.forEach((key,value) -> {
-            model.addAttribute(key,value);
-        });
         List<Assessment> assessmentList = assessmentService.findAccountRequestOpen();
         model.addAttribute("assessments",assessmentList);
         return "admin/consoleAccountOpened";
@@ -128,10 +170,6 @@ public class AssessmentController {
 
     @GetMapping("admin/account-console/pending")
     public String pendingAccountConsole(Model model){
-        Map<String, Integer> statistics = assessmentService.statistics();
-        statistics.forEach((key,value) -> {
-            model.addAttribute(key,value);
-        });
         List<Assessment> assessmentList = assessmentService.findAccountRequestPending();
         model.addAttribute("assessments",assessmentList);
         return "admin/consoleAccountPending";
@@ -139,10 +177,6 @@ public class AssessmentController {
 
     @GetMapping("admin/account-console/progress")
     public String progressAccountConsole(Model model){
-        Map<String, Integer> statistics = assessmentService.statistics();
-        statistics.forEach((key,value) -> {
-            model.addAttribute(key,value);
-        });
         List<Assessment> assessmentList = assessmentService.findAccountRequestWIP();
         model.addAttribute("assessments",assessmentList);
         return "admin/consoleAccountProgress";
@@ -150,10 +184,6 @@ public class AssessmentController {
 
     @GetMapping("admin/account-console/completed")
     public String completedAccountConsole(Model model){
-        Map<String, Integer> statistics = assessmentService.statistics();
-        statistics.forEach((key,value) -> {
-            model.addAttribute(key,value);
-        });
         List<Assessment> assessmentList = assessmentService.findAccountRequestDone();
         model.addAttribute("assessments",assessmentList);
         return "admin/consoleAccountCompleted";
@@ -174,10 +204,6 @@ public class AssessmentController {
 
     @GetMapping("admin/loan-console/opened")
     public String openedLoanConsole(Model model){
-        Map<String, Integer> statistics = assessmentService.statistics();
-        statistics.forEach((key,value) -> {
-            model.addAttribute(key,value);
-        });
         List<Assessment> assessmentList = assessmentService.findLoanRequestOpen();
         model.addAttribute("assessments",assessmentList);
         return "admin/consoleLoanOpened";
@@ -185,10 +211,6 @@ public class AssessmentController {
 
     @GetMapping("admin/loan-console/pending")
     public String pendingLoanConsole(Model model){
-        Map<String, Integer> statistics = assessmentService.statistics();
-        statistics.forEach((key,value) -> {
-            model.addAttribute(key,value);
-        });
         List<Assessment> assessmentList = assessmentService.findLoanRequestPending();
         model.addAttribute("assessments",assessmentList);
         return "admin/consoleLoanPending";
@@ -196,10 +218,6 @@ public class AssessmentController {
 
     @GetMapping("admin/loan-console/progress")
     public String progressLoanConsole(Model model){
-        Map<String, Integer> statistics = assessmentService.statistics();
-        statistics.forEach((key,value) -> {
-            model.addAttribute(key,value);
-        });
         List<Assessment> assessmentList = assessmentService.findLoanRequestWIP();
         model.addAttribute("assessments",assessmentList);
         return "admin/consoleLoanProgress";
@@ -207,89 +225,64 @@ public class AssessmentController {
 
     @GetMapping("admin/loan-console/completed")
     public String completedLoanConsole(Model model){
-        Map<String, Integer> statistics = assessmentService.statistics();
-        statistics.forEach((key,value) -> {
-            model.addAttribute(key,value);
-        });
         List<Assessment> assessmentList = assessmentService.findLoanRequestDone();
         model.addAttribute("assessments",assessmentList);
         return "admin/consoleLoanCompleted";
     }
 
-    @GetMapping(value={"admin/account-console/{action}/{id}",
-                        "admin/ticket-console/{action}/{id}",
-                        "admin/loan-console/{action}/{id}"})
-    @ResponseBody
-    public String details(  @RequestParam String action,
-                            @RequestParam int id, Model model){
+    @GetMapping(value="admin/{action}/{id}")
+    public String details( @PathVariable String action,
+                           @PathVariable int id, Model model, HttpServletRequest request) {
         Assessment assessment = assessmentService.findById(id);
-        if( action.equals("start") &&
-                assessment.getStatus() == AssessmentStatus.PENDING){
-                    assessmentService.start(id);
-            return "admin/ticket-console/progress";
-            };
-        boolean isLoan = assessment.getType()==AssessmentType.LOAN;
-        boolean cannotStart = !(assessment.getStatus()==AssessmentStatus.PENDING);
-        boolean cannotDecide = !(assessment.getStatus()==AssessmentStatus.IN_PROGRESS);
-        model.addAttribute("isLoan", isLoan);
-        model.addAttribute("cannotStart", cannotStart);
-        model.addAttribute("cannotStart", cannotStart);
-        model.addAttribute("assessment",assessment);
-        return "admin/assessment-details";
-    }
-
-    @PostMapping("/admin/account{decision}")
-    public String accountApproved(@ModelAttribute Assessment assessment, @PathVariable String decision, Model model){
-        assessment.setStatus(AssessmentStatus.DONE);
-        if (decision.equals("Approved")){
-            assessment.setDecision(Decision.APPROVED);
-            Account account = new Account();
-            String ref = "LKM" + (12346789 + "_" + assessment.getCustomerId());
-            account.setAccountNumber(ref);
-            model.addAttribute("confirmation","You have opened an account: " + ref );
-
+        String back = request.getHeader("Referer");
+        String colors;
+        String req;
+        DateTimeFormatter myFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDateTime localDateTime = Instant
+                .ofEpochMilli(assessment.getModifiedAt().getTime())
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
+        String completedDate = localDateTime.format(myFormat);
+        if (assessment.getDecision() == Decision.APPROVED) {
+            colors = "background-color:green";
+            req = "  APPROVED ON " + completedDate;
+        } else if (assessment.getDecision() == Decision.REJECTED){
+            colors = "background-color:red";
+            req = "  REJECTED ON " + completedDate;
         }else{
-            assessment.setDecision(Decision.REJECTED);
-            model.addAttribute("confirmation","You have rejected the request");
+            colors = "background-color:transparent";
+            req = "  REQUEST DETAILS";
         }
-        return "/admin/tellerDashboardt";}
-
-
-    @GetMapping("/customer/openAccount")
-    public String accountForm(Model model){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Customer customer = customerService.findUserByEmail(auth.getName());
-        Assessment assessment = new Assessment();
-        assessment.setFirstName(customer.getFirstName());
-        assessment.setLastName(customer.getLastName());
-        assessment.setEmail(customer.getEmail());
+        model.addAttribute("colors",colors);
+        model.addAttribute("req",req);
+        model.addAttribute("back",back);
+        if (action.equals("start") &&
+                assessment.getStatus() == AssessmentStatus.PENDING) {
+            assessmentService.start(id);
+            model.addAttribute("assessment", assessment);
+            return "admin/details";
+        }
         model.addAttribute("assessment",assessment);
-        return "customer/openAccount";
+        return "admin/details";
     }
 
-    @PostMapping("/customer/openAccount")
-    public String createAssessment(@ModelAttribute Assessment assessment, Model model){
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Customer customer = customerService.findUserByEmail(auth.getName());
-        Address address = new Address();
-        Integer customerId = customer.getId();
-        address.setCity(assessment.getCity());
-        address.setCountry(assessment.getCountry());
-        address.setPostcode(assessment.getPostcode());
-        address.setStreet(assessment.getStreet());
-        address.setCustomerId(customerId);
-        addressService.saveAddress(address);
-        assessment.setCustomerId(customer.getId());
-        customer.setAnnualIncome(assessment.getAnnualIncome());
-        assessmentService.saveNew(assessment);
-        int id = assessmentService.findLastId();
-        assessmentService.submit(id);
-        assessmentService.accountType(id);
-        String ref = "A" + (12346789 + id);
-        model.addAttribute("confirmation","Your account request has been submitted with reference " + ref );
-        return "SubmitApplicationConfirmation";
-    }
+    @GetMapping("/admin/account/{decision}/{id}")
+    public String accountApproved(@PathVariable String decision, @PathVariable int id, Model model){
+        Assessment assessment = assessmentService.findById(id);
+        model.addAttribute("id",id);
+        if (decision.equals("approved")){
+            assessmentService.approved(id);
+            assessmentService.done(id);
+            Account account = new Account();
+            String ref = "LKM" + (12346789 + "A" + assessment.getCustomerId());
+            account.setAccountNumber(ref);
+            model.addAttribute("confirmation","Request successfully approved");
+        }else{
+            assessmentService.rejected(id);
+            assessmentService.done(id);
+            model.addAttribute("confirmation","Request successfully rejected");
+        }
+        return "admin/done";}
 
 }
 

@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments/header :: header"/>
-<body th:style="'background-image: url(' + @{/images/background.png} + ');
+<div sec:authorize="isAuthenticated()" th:replace="fragments/navLogged :: navClient"/>
+<div sec:authorize="isAnonymous()" th:replace="fragments/navHome :: navHome"/>
+<body style="background-image: url('images/background.png');
                 background-repeat: no-repeat;
                 background-size: cover;
-                height=100%'">
-<br><h3 align="center">Loan request status</h3><br>
-<div align="center" th:style="'margin: auto;
+                height:100%">
+
+
+<br><h3 th:text="|${assessment.type} REQUEST STATUS|" align="center"></h3><br>
+<div align="center" style="margin: auto;
   width: 60%;
   border: 3px solid rgba(224, 228, 228, 0.801);
-  padding: 10px;rgba(224, 228, 228, 0.801);'">
+  padding: 10px;rgba(224, 228, 228, 0.801);">
 
     <table class="table table-secondary table-bordered mt-5 align-middle" >
         <thead>
@@ -30,11 +34,12 @@
         </tr>
         </tbody>
     </table>
-    <br><br>
+    <div class="navbar-form navbar-right">
+            <a sec:authorize="isAnonymous()" class="btn btn-primary"th:href="@{/LKMBank}">Home</a>
+            <a sec:authorize="isAuthenticated()" class="btn btn-primary" th:href="@{/customer/customerDashboard}">Home</a>
+            <a class="btn btn-primary" th:href="@{/checkStatusRequest}">Search again</a>
+    </div>
 
-    <a class="btn btn-primary" th:href="@{customer/customerDashboard}">Home</a>
-
-    <a class="btn btn-primary" th:href="@{/checkStatusRequest}">Search again</a>
 </div>
 </body>
 </html>

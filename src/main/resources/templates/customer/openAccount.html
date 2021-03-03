@@ -2,72 +2,101 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
 <div th:replace="fragments/navLogged :: navClient"/>
-<body th:style="'background-image: url(' + @{/images/background.png} + ');
-                background-repeat: no-repeat;
-                background-size: cover;
-                height=100%'">
+<body>
 
 <div class="row justify-content-center mt-5">
-    <div class="col-md-5" th:style="'border-color: rgba(224, 228, 228, 0.801);
+    <div class="col-md-5" style="
+                border-color: rgba(224, 228, 228, 0.801);
                 border-style: solid;
                 border-radius: 10px;
                 border-width: 1px;
                 padding-top:10px;
-                padding-bottom:10px'">
-        <form th:action="@{/customer/openAccount}" th:object="${assessment}"  method="POST">
+                padding-bottom:10px">
+        <form method="POST"
+              th:action="@{/customer/openAccount}"
+              th:object="${assessment}">
             <h4>OPEN NEW ACCOUNT</h4><hr>
             <div class="form-group">
-                <label for="firstName">First name</label>
-                <input type="text" th:value="*{firstName}" name="firstName" class="form-control" id="firstName" required>
+                <label for="firstName">First name
+                    <span style=color:red;>*</span>
+                </label>
+                <input type="text" th:field="*{firstName}" name="firstName"
+                       id="firstName" class="form-control" required>
             </div>
             <div class="form-group">
-                <label for="lastName">Last name</label>
-                <input type="text" th:value="*{lastName}"name="lastName" class="form-control" id="lastName" required>
-            </div>
-
-            <div class="form-group">
-                <input type="date" name="dateOfBirth" class="form-control" id="dateOfBirth" value="12-12-2001" required>
-            </div>
-            <div class="form-group">
-                <label for="mail">Email</label>
-                <input type="email" th:value="*{email}"name="mail" class="form-control" id="mail" required>
+                <label for="lastName">Last name
+                    <span style=color:red;>*</span>
+                </label>
+                <input type="text" th:field="*{lastName}"name="lastName"
+                       id="lastName" class="form-control" required>
             </div>
 
             <div class="form-group">
-                <label for="annualIncome">Annual income</label>
-                <input type="number" th:value="*{annualIncome}" name="annualIncome" class="form-control" id="annualIncome" min="0" required>
+                <label for="DateOfBirth">Date of Birth
+                    <span style=color:red;>*</span>
+                </label>
+                <input type="date" name="dateOfBirth"
+                       id="dateOfBirth" th:max="${birth}" th:min="${oldest}" class="form-control" required>
             </div>
             <div class="form-group">
-                <label for="firstDeposit">First deposit</label>
-                <input type="number" th:value="*{firstDeposit}" name="firstDeposit" class="form-control" id="firstDeposit" min="50" required>
+                <label for="mail">Email
+                    <span style=color:red;>*</span>
+                </label>
+                <input type="email" name="mail" id="mail"
+                       th:value="*{email}" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="annualIncome">Annual income
+                    <span style=color:red;>*</span></label>
+                <input type="number" name="annualIncome"
+                       id="annualIncome" th:min="${zero}"
+                       th:value="*{annualIncome}" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="firstDeposit">First deposit
+                    <span style=color:red;>*</span>
+                </label>
+                <input type="number" name="firstDeposit"
+                       id="firstDeposit" th:min="${minDeposit}"
+                       th:value="*{firstDeposit}" class="form-control" required>
             </div>
             <hr>
             <h6>Address</h6>
             <div class="form-group">
-                <label for="country">Country</label>
-                <input type="text" th:value="*{country}" name="country" class="form-control" id="country" required>
+                <label for="country">Country
+                    <span style=color:red;>*</span>
+                </label>
+                <input type="text" th:value="*{country}" name="country"
+                       id="country" class="form-control" required>
             </div>
             <div class="form-group">
-                <label for="city">City</label>
-                <input type="text" th:value="*{city}" name="city" class="form-control" id="city" required>
+                <label for="city">City
+                    <span style=color:red;>*</span>
+                </label>
+                <input type="text" th:value="*{city}" name="city"
+                       id="city" class="form-control" required>
             </div>
             <div class="form-group">
-                <label for="postcode">Postal Code</label>
-
-                <input type="text" th:value="*{postcode}" name="postcode" class="form-control" id="postcode" required>
-
+                <label for="postcode">Postal Code
+                    <span style=color:red;>*</span>
+                </label>
+                <input type="text" th:value="*{postcode}" name="postcode"
+                       id="postcode" class="form-control" required>
             </div>
             <div class="form-group">
-                <label for="street">Street</label>
-                <input type="text" th:value="*{street}" name="street" class="form-control" id="street" required>
+                <label for="street">Street
+                    <span style=color:red;>*</span>
+                </label>
+                <input type="text" name="street" id="street"
+                       th:value="*{street}" class="form-control" required>
             </div>
-<br><br>
-            <button type="submit" class="btn btn-primary">Submit your request</button>
+            <br><br>
+            <button type="submit" class="btn btn-primary">
+                Submit your request
+            </button>
         </form>
         <hr>
-        <div class="text-center">
-            Do you already have an account? <a th:href="@{/LKMBank/login}">Login here</a>
-        </div>
     </div>
 </div>
 </body>
+</html>

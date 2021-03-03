@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments/header :: header"/>
+<div sec:authorize="isAuthenticated()" th:replace="fragments/navLogged :: navClient"/>
+<div sec:authorize="isAnonymous()" th:replace="fragments/navHome :: navHome"/>
 <body th:style="'background-image: url(' + @{/images/background.png} + ');
                 background-repeat: no-repeat;
                 background-size: cover;
@@ -16,12 +18,16 @@
         <div class="row justify-content-center mt-5">
             <div class="col-md-7 text-center">
                 <form th:action="@{/checkStatusRequest}" th:object="${reference}"  method="POST">
+                    <p hidden th:text=${back}/>
                     <h4>REQUEST STATUS</h4><hr>
                     <div class="form-group">
                         <label for="reference">Insert tracking number</label>
                         <input type="search" name="reference" class="form-control" id="reference">
                     </div>
+                    <br>
                     <button type="submit" class="btn btn-primary">Check the status</button>
+                    &emsp;
+                    <a  th:href= "${back}" class="btn btn-primary">Back</a>
                 </form>
             </div>
         </div>

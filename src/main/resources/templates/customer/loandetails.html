@@ -2,10 +2,7 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
 <div th:replace="fragments/navLogged :: navClient"/>
-<body th:style="'background-image: url(' + @{/images/background.png} + ');
-                background-repeat: no-repeat;
-                background-size: cover;
-                height=100%'">
+<body>
 <br>
 <br><h3 align="center">Loan status</h3><br>
 <div align="center" th:style="'margin: auto;
@@ -40,28 +37,22 @@
             <td>32 4787 4781 4737 3728 7392 5353</td>
             <td> John Geller </td>
         </tr>
+
         <tr>
-            <td> 99000 </td>
+            <td> <p th:text="${loan.amount}" /> </td>
             <td> -500 </td>
-            <td> 01-22-2021 09:00:00</td>
+            <td> <p th:text="${loan.dueDate}" /></td>
             <td> Loan monthly payment </td>
             <td>32 7049 6037 5949 4912 0459 8181</td>
             <td> LKM Bank </td>
-            <td>32 4787 4781 4737 3728 7392 5353</td>
-            <td> John Geller </td>
+            <td><p th:text="${accountNumber}" /></td>
+            <td><p th:text="${customerName}" /></td>
         </tr>
-        <tr>
-            <td> 98500 </td>
-            <td> -500 </td>
-            <td> 02-22-2021 09:00:00</td>
-            <td> Loan monthly payment </td>
-            <td>32 7049 6037 5949 4912 0459 8181</td>
-            <td> LKM Bank </td>
-            <td>32 4787 4781 4737 3728 7392 5353</td>
-            <td> John Geller </td>
-        </tr>
+
     </table>
 </div>
-
+<br>
+<br>
+<a align="center" th:href="@{/customer/customerDashboard}" class="btn btn-primary">return your account dashboard</a>
 </body>
 </html>

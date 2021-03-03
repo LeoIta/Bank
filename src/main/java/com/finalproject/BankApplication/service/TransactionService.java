@@ -4,11 +4,9 @@ import com.finalproject.BankApplication.model.Transaction;
 import com.finalproject.BankApplication.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.ls.LSInput;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 
 @Service
 public class TransactionService {
@@ -60,18 +58,10 @@ public class TransactionService {
     }
 
     public void updateCustomerTransaction( Integer id, long amount){
-        //transactionRepository.updateTransaction(id, amount);
         Transaction transaction = transactionRepository.findById(id).get();
         transactionRepository.deleteById(id);
         transaction.setAmount(amount);
         transaction.setId(id);
         saveTransaction(transaction);
     }
-
-
-
-
-
-
-
 }

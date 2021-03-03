@@ -9,7 +9,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -45,8 +44,3 @@ public class CustomerServiceImpl implements CustomerService {
 
     }
 }
-
-
-
-
-

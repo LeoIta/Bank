@@ -1,7 +1,6 @@
 package com.finalproject.BankApplication.service;
 
 import com.finalproject.BankApplication.model.Account;
-import com.finalproject.BankApplication.model.Transaction;
 import com.finalproject.BankApplication.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,12 +35,9 @@ public class AccountService {
     }
 
     public void updateCustomerAccount( Account newAccount){
-        //transactionRepository.updateTransaction(id, amount);
         int id = newAccount.getId();
         Account account = accountRepository.findById(id).get();
         accountRepository.deleteById(id);
-        //account.setBalance(balance);
-        //account.setId(id);
         saveAccount(account);
     }
 }

@@ -2,84 +2,122 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
 <div th:replace="fragments/navLogged :: navClient"/>
-<body th:style="'background-image: url(' + @{/images/background.png} + ');
-                background-repeat: no-repeat;
-                background-size: cover;
-                height=100%'">
+<body>
 
 <div class="row justify-content-center mt-5">
-    <div class="col-md-5" th:style="'border-color: rgba(224, 228, 228, 0.801);
+    <div class="col-md-5" style="
+                border-color: rgba(224, 228, 228, 0.801);
                 border-style: solid;
                 border-radius: 10px;
                 border-width: 1px;
                 padding-top:10px;
-                padding-bottom:10px'">
+                padding-bottom:10px">
 
-        <form method="POST" th:action="@{/customer/openLoan}" th:object="${assessment}">
+        <form method="POST"
+              th:action="@{/customer/openLoan}"
+              th:object="${assessment}">
+
             <h4>REQUEST A LOAN</h4><hr>
             <div class="form-group">
-                <label for="firstName">First Name</label>
-                <input type="text" name="firstName" class="form-control" id="firstName"
-                       th:value=${assessment.firstName} required>
+                <label for="firstName">First Name
+                    <span style=color:red;>*</span>
+                </label>
+                <input type="text" name="firstName" id="firstName"
+                       th:value="*{firstName}" class="form-control" required>
             </div>
             <div class="form-group">
-                <label for="lastName">Last Name</label>
-                <input type="text" name="lastName" class="form-control" id="lastName"
-                       th:value=${assessment.lastName} required>
-            </div>
-
-            <div class="form-group">
-                <label for="mail">Email</label>
-                <input type="email" th:field="*{email}"name="mail" class="form-control" id="mail" required>
-            </div>
-
-            <div class="form-group">
-                <label for="annualIncome">Annual Income</label>
-                <input type="number" name="annualIncome" class="form-control" id="annualIncome"
-                       th:value=${assessment.annualIncome} min="0" required>
+                <label for="lastName">Last Name
+                    <span style=color:red;>*</span>
+                </label>
+                <input type="text" name="lastName" id="lastName"
+                       th:field="*{lastName}" class="form-control" required>
             </div>
 
             <div class="form-group">
-                <label for="country">Country</label>
-                <input type="text" name="country" class="form-control" id="country"
-                       th:value=${assessment.country} required>
-            </div>
-            <div class="form-group">
-                <label for="city">City</label>
-                <input type="text" name="city" class="form-control" id="city"
-                       th:value=${assessment.city}  required>
-            </div>
-            <div class="form-group">
-                <label for="postcode">Postal Code</label>
-                <input type="tel" name="postcode" class="form-control" id="postcode"
-                       th:value=${assessment.postcode} required>
-            </div>
-            <div class="form-group">
-                <label for="street">Street</label>
-                <input type="text" name="street" class="form-control" id="street"
-                       th:value=${assessment.street} required>
+                <label for="mail">Email
+                    <span style=color:red;>*</span>
+                </label>
+                <input type="email" name="mail" id="mail"
+                       th:field="*{email}" class="form-control" required>
             </div>
 
             <div class="form-group">
-                <label for="startDate">Start Date</label>
-                <input type="date" name="startDate" class="form-control" id="startDate" min="2021-03-01" required>
+                <label for="annualIncome">Annual Income
+                    <span style=color:red;>*</span>
+                </label>
+                <input type="number" name="annualIncome" id="annualIncome"
+                       th:field="*{annualIncome}" th:min="${zero}"class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="country">Country
+                    <span style=color:red;>*</span>
+                </label>
+                <input type="text" name="country" id="country"
+                       th:field="*{country}" class="form-control" required>
             </div>
             <div class="form-group">
-                <label for="dueDate">Due Date</label>
-                <input type="date" name="dueDate" class="form-control" id="dueDate" min="2021-04-01" required>
+                <label for="city">City
+                    <span style=color:red;>*</span>
+                </label>
+                <input type="text" name="city" id="city"
+                       th:field="*{city}" class="form-control" required>
             </div>
             <div class="form-group">
-                <label for="payDay">Pay day</label>
-                <input type="number" name="payDay" class="form-control" id="payDay" min="1" max="28" required>
+                <label for="postcode">Postal Code
+                    <span style=color:red;>*</span>
+                </label>
+                <input type="tel" name="postcode" id="postcode"
+                       th:field="*{postcode}" class="form-control" required>
             </div>
             <div class="form-group">
-                <label for="reason">Reason</label>
-                <input type="text" name="reason" class="form-control" id="reason" required>
+                <label for="street">Street
+                    <span style=color:red;>*</span>
+                </label>
+                <input type="text" name="street" id="street"
+                       th:value="*{street}" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="startDate">Start Date
+                    <span style=color:red;>*</span>
+                </label>
+                <input type="date" name="startDate" id="startDate"
+                       th:min="${start}" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="dueDate">Due Date
+                    <span style=color:red;>*</span>
+                </label>
+                <input type="date" name="dueDate" id="dueDate"
+                       th:min="${due}" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="amount">Amount
+                    <span style=color:red;>*</span>
+                </label>
+                <input type="number" name="amount" id="amount" th:min="${minLoan}"
+                       class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="payDay">Pay day
+                    <span style=color:red;>*</span>
+                </label>
+                <input type="number" name="payDay" class="form-control"
+                       id="payDay" th:min="${minDay}" th:max="${maxDay}"
+                       required>
+            </div>
+            <div class="form-group">
+                <label for="reason">Reason
+                    <span style=color:red;>*</span>
+                </label>
+                <input type="text" name="reason" class="form-control"
+                       id="reason"  required>
             </div>
             <br>
-            <button type="submit" class="btn btn-primary">Submit your request</button>
-
+            <button type="submit" class="btn btn-primary">
+                Submit your request</button>
         </form>
     </div>
 </div>
 </body>
+</html>
