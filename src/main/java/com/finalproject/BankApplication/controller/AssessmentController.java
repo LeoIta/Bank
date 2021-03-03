@@ -112,12 +112,11 @@ public class AssessmentController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = customerService.findUserByEmail(auth.getName());
         Map<String, Integer> statistics = assessmentService.statistics();
-        model.addAttribute("userName", "Welcome " + customer.getFirstName());
-        model.addAttribute("userMessage","Have a productive day!");
         statistics.forEach((key,value) -> {
             model.addAttribute(key,value);
         });
-        
+        model.addAttribute("userName", "Welcome " + customer.getFirstName());
+        model.addAttribute("userMessage","Have a productive day!");
         return "admin/tellerDashboard";}
 
     // ticket console
@@ -268,21 +267,22 @@ public class AssessmentController {
     }
 
     @GetMapping("/admin/account/{decision}/{id}")
-    public String accountApproved(@PathVariable String decision, @PathVariable int id, Model model, HttpServletRequest request){
+    public String accountApproved(@PathVariable String decision, @PathVariable int id, Model model){
         Assessment assessment = assessmentService.findById(id);
+        model.addAttribute("id",id);
         if (decision.equals("approved")){
-            assessment.setDecision(Decision.APPROVED);
-            assessment.setStatus(AssessmentStatus.DONE);
+            assessmentService.approved(id);
+            assessmentService.done(id);
             Account account = new Account();
             String ref = "LKM" + (12346789 + "A" + assessment.getCustomerId());
             account.setAccountNumber(ref);
             model.addAttribute("confirmation","Request successfully approved");
         }else{
-            assessment.setDecision(Decision.REJECTED);
-            assessment.setStatus(AssessmentStatus.DONE);
+            assessmentService.rejected(id);
+            assessmentService.done(id);
             model.addAttribute("confirmation","Request successfully rejected");
         }
-        return "done";}
+        return "admin/done";}
 
 }
 

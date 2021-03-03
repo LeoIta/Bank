@@ -164,7 +164,6 @@ public class AssessmentService {
     public void done(int id ){
         assessmentRepository.changeStatus(AssessmentStatus.DONE,id);
     }
-
     public void changeType(AssessmentType type, int id ){
         assessmentRepository.changeType(type,id);
     }
