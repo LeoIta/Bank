@@ -2,15 +2,18 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
 <div th:replace="fragments/navHome :: navHome"/>
-<body>
+<body style="background-image: url('/images/background.png');
+                background-repeat: no-repeat;
+                background-size: cover;
+                height:100%">
 
     <div class="row justify-content-center mt-5">
-        <div class="col-md-5" th:style="'border-color: rgba(224, 228, 228, 0.801);
+        <div class="col-md-5" style="border-color: rgba(224, 228, 228, 0.801);
                 border-style: solid;
                 border-radius: 10px;
                 border-width: 1px;
                 padding-top:10px;
-                padding-bottom:10px'">
+                padding-bottom:10px">
 
 
         <form th:action="@{/signup}" th:object="${customer}"  method="POST">

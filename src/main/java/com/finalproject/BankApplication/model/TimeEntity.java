@@ -1,15 +1,16 @@
 package com.finalproject.BankApplication.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -18,7 +19,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @MappedSuperclass
-public abstract class TimeEntity extends BaseEntity{
+public abstract class TimeEntity extends BaseEntity {
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)

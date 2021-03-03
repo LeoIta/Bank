@@ -84,25 +84,27 @@ public class AssessmentController {
     }
 
     @GetMapping("/checkStatusRequest")
-    public String checkStatus() {
+    public String checkStatus(HttpServletRequest request, Model model) {
+        model.addAttribute("back",request.getHeader("Referer"));
         return "findApplicationStatus";
     }
 
     @PostMapping("/checkStatusRequest")
-    public String getStatus(@RequestParam("reference") String reference){
+    public String getStatus(@RequestParam("reference") String reference,HttpServletRequest request,
+                            Model model){
         int refId = Integer.parseInt(reference.substring(1)) - 12346789;
         char type = reference.charAt(0);
+        model.addAttribute("back",request.getHeader("Referer"));
         return "redirect:/" + type + "/" + refId;
     }
 
     @GetMapping(value= "/{type}/{refId}")
-    public String statusFound(@PathVariable("refId") int refId, @PathVariable("type") String type, Model model){
+    public String statusFound(@PathVariable("refId") int refId, @PathVariable("type") String type,
+                              HttpServletRequest request, Model model){
         Assessment assessment = assessmentService.findById(refId);
+        model.addAttribute("back",request.getHeader("Referer"));
         model.addAttribute("assessment",assessment);
-        if (type.equals("A")){
-            return "foundAccountStatus";}
-        else{
-            return "foundLoanStatus";}
+        return "foundReqStatus";
     }
 
     @GetMapping("/admin/tellerDashboard")
@@ -111,7 +113,7 @@ public class AssessmentController {
         Customer customer = customerService.findUserByEmail(auth.getName());
         Map<String, Integer> statistics = assessmentService.statistics();
         model.addAttribute("userName", "Welcome " + customer.getFirstName());
-        model.addAttribute("adminMessage","Have a productive day!");
+        model.addAttribute("userMessage","Have a productive day!");
         statistics.forEach((key,value) -> {
             model.addAttribute(key,value);
         });
