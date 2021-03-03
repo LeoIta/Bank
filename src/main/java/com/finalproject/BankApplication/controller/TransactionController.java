@@ -61,15 +61,13 @@ public class TransactionController {
     public String initiateTransfer(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = customerService.findUserByEmail(auth.getName());
-        if (customer.getAccount()==null){
-            return "redirect:/customerDashboard";
-        }
         int cstId = customer.getId();
-        Account senderAccount = accountService.findAccountById(cstId);
-        Transaction transaction = new Transaction();
-        model.addAttribute("transaction", transaction);
-        model.addAttribute("cst",customer);
-        model.addAttribute("acc",senderAccount);
+        if (customer.getAccount()!=null && accountService.findAccountById(cstId)!=null) {
+            Account senderAccount = accountService.findAccountById(cstId);
+            Transaction transaction = new Transaction();
+            model.addAttribute("transaction", transaction);
+            model.addAttribute("cst",customer);
+            model.addAttribute("acc",senderAccount); }
         return "customer/transfers";
     }
 
@@ -77,7 +75,7 @@ public class TransactionController {
     public String validateTransfer(@ModelAttribute Transaction transaction, Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = customerService.findUserByEmail(auth.getName());
-        int cstId = customer.getId();
+        int cstId = customer.getAccount().getId();
         //int id =2;
         Account account = accountService.findAccountByCstId(cstId);
         transaction.setSenderName(customer.getFirstName() +" "+ customer.getLastName());
@@ -166,23 +164,21 @@ public class TransactionController {
     public String getAllTransactions(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = customerService.findUserByEmail(auth.getName());
-
         int cstId = customer.getId();
-        String accountNumber = accountService.findAccountByCstId(cstId).getAccountNumber();
-
-        List<Transaction> allTransactions = transactionService.getAllTransactions();
-        List<Transaction> allTransactionsForCst = new ArrayList<>();
-        for(Transaction transaction :allTransactions){
-            if ( (transaction.getSenderAccount()==accountNumber) || transaction.getRecipientAccount()==accountNumber){
-                allTransactionsForCst.add(transaction);
+        if (accountService.findAccountByCstId(cstId)!=null) {
+            String accountNumber = accountService.findAccountByCstId(cstId).getAccountNumber();
+            List<Transaction> allTransactions = transactionService.getAllTransactions();
+            List<Transaction> allTransactionsForCst = new ArrayList<>();
+            for (Transaction transaction : allTransactions) {
+                if ((transaction.getSenderAccount() == accountNumber) || transaction.getRecipientAccount() == accountNumber) {
+                    allTransactionsForCst.add(transaction);
+                }
             }
-        }
-
         String transferMessage = allTransactions.size()==0? "You have no transactions": " here is your list of all transactions";
 
         model.addAttribute("accountNumber",accountNumber);
         model.addAttribute("transactions",allTransactionsForCst);
-        model.addAttribute("transferMessage", transferMessage);
+        model.addAttribute("transferMessage", transferMessage);}
         return "customer/transactions";
     }
 
